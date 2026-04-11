@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selvia — Sua Preceptora Financeira</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde-escuro: #0D423F;
+    --verde-claro: #69E470;
+    --off-white: #F9F9F9;
+    --amarelo-claro: #F1FDC1;
+    --bege: #E2E7C7;
+    --amarelo-laranja: #FFD15C;
+    --laranja: #F4933B;
+    --azul: #84A0FF;
+    --rosinha: #F2B8F4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Lexend', sans-serif;
+    background: var(--off-white);
+    color: var(--verde-escuro);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 6%;
+    background: rgba(13, 66, 63, 0.92);
+    backdrop-filter: blur(14px);
+    transition: padding 0.4s, background 0.4s;
+  }
+  nav.scrolled { padding: 14px 6%; background: rgba(13, 66, 63, 0.97); }
+  .nav-logo {
+    font-weight: 700; font-size: 1.6rem; color: #fff;
+    letter-spacing: -0.03em;
+  }
+  .nav-logo span { color: var(--verde-claro); }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    color: rgba(255,255,255,0.75); text-decoration: none;
+    font-size: 0.88rem; font-weight: 400; letter-spacing: 0.01em;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--verde-claro); }
+  .nav-cta {
+    background: var(--verde-claro); color: var(--verde-escuro);
+    padding: 10px 24px; border-radius: 50px; font-weight: 600;
+    font-size: 0.88rem; text-decoration: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .nav-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(105, 228, 112, 0.35);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh; display: flex; align-items: center;
+    background: var(--verde-escuro);
+    position: relative; overflow: hidden;
+    padding: 120px 6% 80px;
+  }
+  .hero-bg-orb {
+    position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.18;
+    animation: float 12s ease-in-out infinite;
+  }
+  .hero-bg-orb.one {
+    width: 600px; height: 600px; background: var(--verde-claro);
+    top: -10%; right: -5%;
+  }
+  .hero-bg-orb.two {
+    width: 400px; height: 400px; background: var(--amarelo-claro);
+    bottom: -15%; left: 10%; animation-delay: -4s;
+  }
+  .hero-bg-orb.three {
+    width: 300px; height: 300px; background: var(--rosinha);
+    top: 30%; left: 50%; animation-delay: -8s; opacity: 0.08;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -20px) scale(1.05); }
+    66% { transform: translate(-20px, 15px) scale(0.96); }
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 680px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(105, 228, 112, 0.12); border: 1px solid rgba(105, 228, 112, 0.25);
+    padding: 8px 18px; border-radius: 50px; font-size: 0.8rem;
+    color: var(--verde-claro); font-weight: 500; margin-bottom: 28px;
+    opacity: 0; animation: fadeUp 0.8s 0.3s forwards;
+  }
+  .hero-badge .dot {
+    width: 8px; height: 8px; background: var(--verde-claro);
+    border-radius: 50%; animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero h1 {
+    font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+    font-weight: 700; color: #fff;
+    line-height: 1.1; letter-spacing: -0.03em;
+    margin-bottom: 24px;
+    opacity: 0; animation: fadeUp 0.8s 0.5s forwards;
+  }
+  .hero h1 .accent { color: var(--verde-claro); }
+  .hero p {
+    font-size: 1.15rem; color: rgba(255,255,255,0.7);
+    line-height: 1.65; font-weight: 300; max-width: 520px;
+    margin-bottom: 40px;
+    opacity: 0; animation: fadeUp 0.8s 0.7s forwards;
+  }
+  .hero-actions {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.8s 0.9s forwards;
+  }
+  .btn-primary {
+    background: var(--verde-claro); color: var(--verde-escuro);
+    padding: 16px 36px; border-radius: 60px; font-weight: 600;
+    font-size: 1rem; text-decoration: none; display: inline-flex;
+    align-items: center; gap: 10px; border: none; cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(105, 228, 112, 0.3);
+  }
+  .btn-secondary {
+    background: transparent; color: #fff;
+    padding: 16px 36px; border-radius: 60px; font-weight: 500;
+    font-size: 1rem; text-decoration: none; display: inline-flex;
+    align-items: center; gap: 10px;
+    border: 1px solid rgba(255,255,255,0.2); cursor: pointer;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .btn-secondary:hover {
+    border-color: rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.05);
+  }
+
+  /* ── PHONE MOCKUP ── */
+  .hero-visual {
+    position: absolute; right: 6%; top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    opacity: 0; animation: fadeUp 1s 1.1s forwards;
+  }
+  .phone-frame {
+    width: 280px; height: 560px;
+    background: #111; border-radius: 40px;
+    border: 3px solid rgba(255,255,255,0.1);
+    padding: 12px; position: relative;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05);
+  }
+  .phone-screen {
+    width: 100%; height: 100%;
+    background: linear-gradient(170deg, #0D423F 0%, #0a3330 100%);
+    border-radius: 30px; overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .phone-header {
+    padding: 24px 20px 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .phone-avatar {
+    width: 40px; height: 40px; background: var(--verde-claro);
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; font-weight: 700; font-size: 0.9rem;
+    color: var(--verde-escuro);
+  }
+  .phone-name { color: #fff; font-weight: 600; font-size: 0.9rem; }
+  .phone-status { color: var(--verde-claro); font-size: 0.7rem; font-weight: 400; }
+  .phone-chat { flex: 1; padding: 0 16px; display: flex; flex-direction: column; gap: 10px; }
+  .chat-bubble {
+    padding: 12px 16px; border-radius: 18px;
+    font-size: 0.75rem; line-height: 1.5; max-width: 85%;
+    opacity: 0; animation: bubbleIn 0.5s forwards;
+  }
+  .chat-bubble.bot {
+    background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.9);
+    border-bottom-left-radius: 6px; align-self: flex-start;
+  }
+  .chat-bubble.user {
+    background: var(--verde-claro); color: var(--verde-escuro);
+    border-bottom-right-radius: 6px; align-self: flex-end;
+    font-weight: 500;
+  }
+  .chat-bubble:nth-child(1) { animation-delay: 1.6s; }
+  .chat-bubble:nth-child(2) { animation-delay: 2.2s; }
+  .chat-bubble:nth-child(3) { animation-delay: 2.9s; }
+  .chat-bubble:nth-child(4) { animation-delay: 3.5s; }
+
+  @keyframes bubbleIn {
+    from { opacity: 0; transform: translateY(12px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--verde-escuro);
+    border-top: 1px solid rgba(105, 228, 112, 0.1);
+    padding: 48px 6%;
+    display: flex; justify-content: center; gap: 80px; flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-number {
+    font-size: 2.4rem; font-weight: 700; color: var(--verde-claro);
+    letter-spacing: -0.03em;
+  }
+  .stat-label {
+    font-size: 0.85rem; color: rgba(255,255,255,0.5);
+    margin-top: 4px; font-weight: 300;
+  }
+
+  /* ── SERVICES ── */
+  .services {
+    padding: 100px 6%;
+    background: var(--off-white);
+  }
+  .section-label {
+    font-size: 0.78rem; font-weight: 600; color: var(--verde-claro);
+    text-transform: uppercase; letter-spacing: 0.12em;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700; letter-spacing: -0.03em;
+    line-height: 1.15; margin-bottom: 16px;
+  }
+  .section-subtitle {
+    font-size: 1.05rem; color: rgba(13,66,63,0.6);
+    font-weight: 300; line-height: 1.6; max-width: 520px;
+    margin-bottom: 56px;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .service-card {
+    background: #fff;
+    border-radius: 20px; padding: 36px 28px;
+    border: 1px solid rgba(13, 66, 63, 0.06);
+    transition: transform 0.4s, box-shadow 0.4s;
+    cursor: default; position: relative; overflow: hidden;
+  }
+  .service-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 4px;
+    background: var(--verde-claro); transform: scaleX(0);
+    transform-origin: left; transition: transform 0.4s;
+  }
+  .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(13,66,63,0.08); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 20px;
+  }
+  .service-card:nth-child(1) .service-icon { background: rgba(105,228,112,0.12); }
+  .service-card:nth-child(2) .service-icon { background: rgba(241,253,193,0.5); }
+  .service-card:nth-child(3) .service-icon { background: rgba(132,160,255,0.12); }
+  .service-card:nth-child(4) .service-icon { background: rgba(242,184,244,0.12); }
+  .service-card:nth-child(5) .service-icon { background: rgba(255,209,92,0.15); }
+  .service-card h3 {
+    font-size: 1.15rem; font-weight: 600;
+    margin-bottom: 10px; letter-spacing: -0.01em;
+  }
+  .service-card p {
+    font-size: 0.88rem; color: rgba(13,66,63,0.55);
+    line-height: 1.65; font-weight: 300;
+  }
+
+  /* ── HIGHLIGHT ── */
+  .highlight {
+    padding: 100px 6%;
+    background: var(--amarelo-claro);
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .highlight-deco {
+    position: absolute; width: 300px; height: 300px;
+    background: var(--bege); border-radius: 50%;
+    filter: blur(80px); opacity: 0.5;
+  }
+  .highlight-deco.one { top: -100px; left: -80px; }
+  .highlight-deco.two { bottom: -100px; right: -80px; }
+  .highlight blockquote {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 600; line-height: 1.3;
+    max-width: 700px; margin: 0 auto 24px;
+    position: relative; z-index: 2;
+    letter-spacing: -0.02em;
+  }
+  .highlight .author {
+    font-size: 0.9rem; font-weight: 400;
+    color: rgba(13,66,63,0.5);
+    position: relative; z-index: 2;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .how {
+    padding: 100px 6%;
+    background: var(--off-white);
+  }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 32px; margin-top: 56px;
+  }
+  .step { text-align: center; position: relative; }
+  .step-num {
+    width: 60px; height: 60px; border-radius: 50%;
+    background: var(--verde-escuro); color: var(--verde-claro);
+    font-size: 1.3rem; font-weight: 700;
+    display: inline-flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+  }
+  .step h3 {
+    font-size: 1.05rem; font-weight: 600; margin-bottom: 8px;
+  }
+  .step p {
+    font-size: 0.85rem; color: rgba(13,66,63,0.55);
+    line-height: 1.6; font-weight: 300;
+  }
+
+  /* ── CTA ── */
+  .cta {
+    padding: 100px 6%;
+    background: var(--verde-escuro);
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .cta-orb {
+    position: absolute; width: 500px; height: 500px;
+    border-radius: 50%; filter: blur(140px); opacity: 0.12;
+    background: var(--verde-claro);
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+  }
+  .cta h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700; color: #fff;
+    letter-spacing: -0.03em; line-height: 1.15;
+    margin-bottom: 16px; position: relative; z-index: 2;
+  }
+  .cta h2 .accent { color: var(--verde-claro); }
+  .cta p {
+    font-size: 1.05rem; color: rgba(255,255,255,0.55);
+    font-weight: 300; margin-bottom: 40px;
+    position: relative; z-index: 2;
+  }
+  .cta .btn-primary { position: relative; z-index: 2; font-size: 1.1rem; padding: 18px 44px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--verde-escuro);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 32px 6%;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+  }
+  footer .foot-logo {
+    font-weight: 700; font-size: 1.2rem; color: #fff;
+  }
+  footer .foot-logo span { color: var(--verde-claro); }
+  footer p {
+    font-size: 0.78rem; color: rgba(255,255,255,0.3);
+    font-weight: 300;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s, transform 0.7s;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    .hero-visual { display: none; }
+    .nav-links { display: none; }
+    .stats-bar { gap: 40px; }
+  }
+  @media (max-width: 600px) {
+    .stats-bar { flex-direction: column; gap: 24px; }
+    .hero-actions { flex-direction: column; }
+    .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">Selvi<span>a</span></div>
+  <div class="nav-links">
+    <a href="#servicos">Serviços</a>
+    <a href="#como">Como funciona</a>
+    <a href="#cta">Começar</a>
+  </div>
+  <a href="#cta" class="nav-cta">Falar no WhatsApp</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-orb one"></div>
+  <div class="hero-bg-orb two"></div>
+  <div class="hero-bg-orb three"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Tudo pelo WhatsApp
+    </div>
+    <h1>5 serviços.<br><span class="accent">1 WhatsApp.</span><br>Zero burocracia.</h1>
+    <p>Contabilidade, banco PJ, assessoria financeira, investimentos e secretária pessoal — tudo integrado no chat que você já usa todos os dias.</p>
+    <div class="hero-actions">
+      <a href="#cta" class="btn-primary">
+        Começar agora
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="#servicos" class="btn-secondary">Conhecer serviços</a>
+    </div>
+  </div>
+
+  <!-- Phone mockup -->
+  <div class="hero-visual">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="phone-header">
+          <div class="phone-avatar">S</div>
+          <div>
+            <div class="phone-name">Selvia</div>
+            <div class="phone-status">online</div>
+          </div>
+        </div>
+        <div class="phone-chat">
+          <div class="chat-bubble bot">Oi! Sou a Selvia, sua preceptora financeira. Como posso te ajudar hoje?</div>
+          <div class="chat-bubble user">Preciso abrir meu CNPJ</div>
+          <div class="chat-bubble bot">Perfeito! Vou cuidar de tudo. Preciso só de 3 documentos para começar.</div>
+          <div class="chat-bubble user">Que maravilha! Vou mandar</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-number" data-target="2500">0</div>
+    <div class="stat-label">Médicos atendidos</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number" data-target="5">0</div>
+    <div class="stat-label">Serviços integrados</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">100<span style="font-size:0.6em">%</span></div>
+    <div class="stat-label">Pelo WhatsApp</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">Zero</div>
+    <div class="stat-label">Burocracia</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="servicos">
+  <div class="reveal">
+    <div class="section-label">Serviços</div>
+    <div class="section-title">Sua equipe financeira<br>completa no bolso</div>
+    <div class="section-subtitle">Tudo o que um médico no início de carreira precisa — sem planilha, sem escritório, sem dor de cabeça.</div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">📊</div>
+      <h3>Contabilidade</h3>
+      <p>Abertura de CNPJ, impostos, declarações e obrigações fiscais. Você não precisa entender nada disso — a gente cuida.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🏦</div>
+      <h3>Banco PJ</h3>
+      <p>Conta PJ integrada para receber seus plantões e consultas. Separar pessoal de profissional ficou simples.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">💡</div>
+      <h3>Assessoria Financeira</h3>
+      <p>Planejamento financeiro personalizado para seu momento de carreira. Nada de jargões — só clareza.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">📈</div>
+      <h3>Investimentos</h3>
+      <p>Seus primeiros investimentos com orientação de verdade. Reserva de emergência, aposentadoria, tudo com calma.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🗓️</div>
+      <h3>Secretária Pessoal</h3>
+      <p>Agenda, lembretes de prazos, organização da vida profissional. Você foca na medicina, a gente cuida do resto.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HIGHLIGHT -->
+<section class="highlight">
+  <div class="highlight-deco one"></div>
+  <div class="highlight-deco two"></div>
+  <div class="reveal">
+    <blockquote>"Você + Selvia = Equipe Financeira Completa em Um Chat"</blockquote>
+    <div class="author">A parceira financeira que todo médico merece</div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="como">
+  <div class="reveal">
+    <div class="section-label">Como funciona</div>
+    <div class="section-title">Simples como mandar<br>uma mensagem</div>
+    <div class="section-subtitle">Sem app novo, sem login complicado. É só conversar.</div>
+  </div>
+  <div class="steps">
+    <div class="step reveal">
+      <div class="step-num">1</div>
+      <h3>Manda um oi</h3>
+      <p>Começa uma conversa com a Selvia pelo WhatsApp. Simples assim.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">2</div>
+      <h3>Conta sua situação</h3>
+      <p>Recém-formado? Já tem CNPJ? A Selvia entende seu momento e monta um plano.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">3</div>
+      <h3>A gente cuida</h3>
+      <p>Contabilidade, conta PJ, investimentos — tudo resolvido sem você sair do chat.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">4</div>
+      <h3>Você foca na medicina</h3>
+      <p>Enquanto a Selvia organiza sua vida financeira, você se dedica ao que importa.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta">
+  <div class="cta-orb"></div>
+  <div class="reveal">
+    <h2>Pronto pra ter sua<br><span class="accent">equipe financeira</span>?</h2>
+    <p>Começa agora pelo WhatsApp. Sem compromisso, sem burocracia.</p>
+    <a href="#" class="btn-primary">
+      Falar com a Selvia
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo">Selvi<span>a</span></div>
+  <p>A preceptora financeira para médicos recém-formados.</p>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 100);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Counter animation
+  const counters = document.querySelectorAll('.stat-number[data-target]');
+  const counterObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = +el.dataset.target;
+        const duration = 1800;
+        const start = performance.now();
+        const tick = (now) => {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.round(target * eased).toLocaleString('pt-BR');
+          if (progress < 1) requestAnimationFrame(tick);
+          else el.textContent = target >= 1000 ? target.toLocaleString('pt-BR') + '+' : target;
+        };
+        requestAnimationFrame(tick);
+        counterObs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(el => counterObs.observe(el));
+</script>
+
+</body>
+</html>
