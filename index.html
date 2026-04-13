@@ -941,7 +941,7 @@
   });
 
   // Form submission
-  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxPaAJ822f1_N6d-qgyonsZ3xd8211MholnbiiHYLXVytuVYmRHo5ZoGn-1xJyhQAZfBA/exec';
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzhEwl2GYcmGpb36-CteuI4m-rMuVwEmiw_8KZzsMXPDYKWOLmZTVpRJ4kZiLCeUiWd5A/exec';
 
   function submitForm() {
     const name = document.getElementById('name').value.trim();
@@ -978,20 +978,13 @@
     btn.disabled = true;
     btn.style.opacity = '0.6';
 
-    fetch(SHEET_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: 'data=' + encodeURIComponent(JSON.stringify(leadData))
-    })
-    .then(() => {
+    const params = new URLSearchParams(leadData).toString();
+    const img = new Image();
+    img.onload = img.onerror = function() {
       document.getElementById('formContent').style.display = 'none';
       document.getElementById('formSuccess').classList.add('visible');
-    })
-    .catch(() => {
-      document.getElementById('formContent').style.display = 'none';
-      document.getElementById('formSuccess').classList.add('visible');
-    });
+    };
+    img.src = SHEET_URL + '?' + params;
   }
 </script>
 
