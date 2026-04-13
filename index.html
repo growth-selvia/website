@@ -941,6 +941,8 @@
   });
 
   // Form submission
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzhEwl2GYcmGpb36-CteuI4m-rMuVwEmiw_8KZzsMXPDYKWOLmZTVpRJ4kZiLCeUiWd5A/exec';
+
   function submitForm() {
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
@@ -959,12 +961,37 @@
     }
 
     const semester = stage === 'graduacao' ? document.getElementById('semester').value : null;
-    const leadData = { name, email, phone, occupation, stage, semester, timestamp: new Date().toISOString() };
-    console.log('Lead captured:', leadData);
 
-    // Show success
-    document.getElementById('formContent').style.display = 'none';
-    document.getElementById('formSuccess').classList.add('visible');
+    const leadData = {
+      name,
+      email,
+      phone,
+      occupation,
+      stage,
+      semester,
+      url: window.location.href
+    };
+
+    // Disable button while sending
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+    btn.style.opacity = '0.6';
+
+    fetch(SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(leadData)
+    })
+    .then(() => {
+      document.getElementById('formContent').style.display = 'none';
+      document.getElementById('formSuccess').classList.add('visible');
+    })
+    .catch(() => {
+      document.getElementById('formContent').style.display = 'none';
+      document.getElementById('formSuccess').classList.add('visible');
+    });
   }
 </script>
 
