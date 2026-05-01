@@ -1,0 +1,2056 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint Growth — Atividades em Aberto · Selvia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #0D423F;
+    --green-light: #69E470;
+    --off-white: #F9F9F9;
+    --yellow-light: #F1FDC1;
+    --beige: #E2E7C7;
+    --yellow-orange: #FFD15C;
+    --orange: #F4933B;
+    --blue: #84A0FF;
+    --pink: #F2B8F4;
+    --ink: #0D423F;
+    --ink-soft: #2d5a57;
+    --ink-faded: #6b8784;
+    --line: rgba(13, 66, 63, 0.12);
+    --line-soft: rgba(13, 66, 63, 0.06);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--off-white);
+    color: var(--ink);
+    font-family: 'Lexend', system-ui, sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse 800px 500px at 90% -10%, rgba(105, 228, 112, 0.08), transparent 60%),
+      radial-gradient(ellipse 600px 400px at -10% 30%, rgba(241, 253, 193, 0.4), transparent 60%);
+  }
+
+  .wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 48px 32px 96px;
+  }
+
+  /* HEADER */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 24px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 48px;
+  }
+
+  .brand-mark {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+  }
+
+  .brand-mark::before {
+    content: '';
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--green-dark);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--off-white);
+  }
+
+  .brand-mark::after {
+    content: '';
+    flex: none;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green-light);
+    margin-left: -8px;
+  }
+
+  h1.title {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+
+  h1.title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink-soft);
+  }
+
+  .subtitle {
+    font-size: 15px;
+    color: var(--ink-soft);
+    max-width: 540px;
+  }
+
+  .meta-stack {
+    text-align: right;
+    font-size: 12px;
+    color: var(--ink-faded);
+    letter-spacing: 0.05em;
+  }
+
+  .meta-stack strong {
+    display: block;
+    font-size: 32px;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .meta-stack span {
+    text-transform: uppercase;
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 64px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .section-num {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    color: var(--ink-faded);
+    letter-spacing: 0.1em;
+    font-feature-settings: "tnum";
+  }
+
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 28px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .section-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  /* EVENTOS — special styling */
+  .eventos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .evento-card {
+    background: var(--green-dark);
+    color: var(--off-white);
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s ease;
+  }
+
+  .evento-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .evento-card::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: var(--green-light);
+    opacity: 0.15;
+  }
+
+  .evento-card.urgent {
+    background: var(--green-light);
+    color: var(--green-dark);
+  }
+
+  .evento-card.urgent::before {
+    background: var(--green-dark);
+    opacity: 0.1;
+  }
+
+  .evento-day {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: 12px;
+  }
+
+  .evento-date {
+    font-family: 'Fraunces', serif;
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  .evento-name {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.4;
+    position: relative;
+    z-index: 1;
+  }
+
+  .evento-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.15);
+    margin-bottom: 12px;
+  }
+
+  .evento-card.urgent .evento-tag {
+    background: rgba(13, 66, 63, 0.12);
+  }
+
+  /* FILTROS */
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 32px;
+    padding: 12px;
+    background: white;
+    border-radius: 14px;
+    border: 1px solid var(--line-soft);
+  }
+
+  .filter-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink-faded);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 8px 4px 8px 12px;
+    align-self: center;
+  }
+
+  .filter-btn {
+    font-family: 'Lexend', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .filter-btn:hover {
+    background: var(--yellow-light);
+    border-color: transparent;
+  }
+
+  .filter-btn.active {
+    background: var(--green-dark);
+    color: var(--off-white);
+    border-color: var(--green-dark);
+  }
+
+  .filter-btn .count {
+    font-size: 11px;
+    background: rgba(13, 66, 63, 0.08);
+    color: var(--ink-soft);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  .filter-btn.active .count {
+    background: rgba(255,255,255,0.18);
+    color: var(--off-white);
+  }
+
+  /* OWNER GROUPS */
+  .owner-group {
+    margin-bottom: 48px;
+  }
+
+  .owner-group.hidden {
+    display: none;
+  }
+
+  .owner-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--green-dark);
+  }
+
+  .owner-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--green-dark);
+    color: var(--off-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 16px;
+    flex-shrink: 0;
+    letter-spacing: 0;
+  }
+
+  .owner-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 22px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  .owner-stats {
+    margin-left: auto;
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+    color: var(--ink-faded);
+  }
+
+  .owner-stats .stat strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* ATIVIDADE CARDS */
+  .activities {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .activity-card {
+    background: white;
+    border-radius: 14px;
+    padding: 24px;
+    border: 1px solid var(--line-soft);
+    transition: all 0.2s ease;
+    position: relative;
+  }
+
+  .activity-card:hover {
+    border-color: var(--green-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(13, 66, 63, 0.08);
+  }
+
+  .activity-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .activity-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 19px;
+    line-height: 1.3;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    flex: 1;
+  }
+
+  .activity-title a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s ease;
+  }
+
+  .activity-title a:hover {
+    border-bottom-color: var(--green-dark);
+  }
+
+  .status-pill {
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 6px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .status-nao-executada {
+    background: var(--beige);
+    color: var(--ink);
+  }
+
+  .status-em-execucao {
+    background: var(--green-dark);
+    color: var(--off-white);
+  }
+
+  .status-priorizada {
+    background: var(--orange);
+    color: white;
+  }
+
+  .activity-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .meta-tag {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: var(--off-white);
+    color: var(--ink-soft);
+    border: 1px solid var(--line-soft);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .meta-tag.priority-alta {
+    background: #FFE5D9;
+    color: #B84A0E;
+    border-color: transparent;
+  }
+
+  .meta-tag.priority-urgente {
+    background: #FFD8D8;
+    color: #B41818;
+    border-color: transparent;
+  }
+
+  .meta-tag.priority-media {
+    background: var(--yellow-light);
+    color: var(--ink-soft);
+    border-color: transparent;
+  }
+
+  .meta-tag.co-owner {
+    background: var(--yellow-light);
+    color: var(--ink);
+    border-color: transparent;
+  }
+
+  .activity-section {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--line-soft);
+  }
+
+  .activity-section:first-of-type {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+  }
+
+  .activity-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin-bottom: 6px;
+  }
+
+  .activity-text {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  .activity-text ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .activity-text li {
+    padding-left: 16px;
+    position: relative;
+    margin-bottom: 4px;
+  }
+
+  .activity-text li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--green-dark);
+    font-weight: 600;
+  }
+
+  .activity-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: var(--off-white);
+    border: 1px solid var(--line-soft);
+    transition: all 0.15s ease;
+  }
+
+  .activity-link:hover {
+    background: var(--green-dark);
+    color: var(--off-white);
+    border-color: transparent;
+  }
+
+  .activity-link svg {
+    flex-shrink: 0;
+    transition: transform 0.15s ease;
+  }
+
+  .activity-link:hover svg {
+    transform: translate(2px, -2px);
+  }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 96px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+    color: var(--ink-faded);
+    font-size: 12px;
+  }
+
+  .footer strong {
+    color: var(--ink-soft);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .wrap { padding: 32px 20px 64px; }
+    .header { grid-template-columns: 1fr; align-items: start; }
+    .meta-stack { text-align: left; }
+    .eventos-grid { grid-template-columns: 1fr; }
+    .activity-top { flex-direction: column; }
+    .owner-stats { display: none; }
+  }
+
+  /* No results state */
+  .empty-state {
+    text-align: center;
+    padding: 64px 24px;
+    color: var(--ink-faded);
+    font-size: 14px;
+    display: none;
+  }
+
+  .empty-state.show {
+    display: block;
+  }
+
+  /* === FÉRIAS / SHARED ACTIVITY ALERT === */
+  .ferias-banner {
+    background: linear-gradient(135deg, var(--orange) 0%, var(--yellow-orange) 100%);
+    color: var(--green-dark);
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    display: none;
+    align-items: center;
+    gap: 14px;
+    font-size: 13px;
+    line-height: 1.5;
+    box-shadow: 0 4px 16px rgba(244, 147, 59, 0.18);
+  }
+
+  .ferias-banner.show {
+    display: flex;
+  }
+
+  .ferias-banner-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+
+  .ferias-banner strong {
+    font-weight: 600;
+  }
+
+  .activity-card.shared-attention {
+    border-left: 4px solid var(--orange);
+    background: linear-gradient(90deg, rgba(244, 147, 59, 0.04) 0%, white 30%);
+  }
+
+  .attention-strip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(244, 147, 59, 0.12);
+    color: #B84A0E;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-bottom: 14px;
+    line-height: 1.4;
+  }
+
+  .attention-strip-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .attention-strip strong {
+    font-weight: 600;
+  }
+
+  /* === EVENT CARDS — CLICKABLE & EXPANDABLE === */
+  .eventos-grid {
+    align-items: start;
+  }
+
+  .evento-card-wrap {
+    transition: grid-column 0.3s ease;
+  }
+
+  .evento-card-wrap.expanded {
+    grid-column: 1 / -1;
+  }
+
+  .evento-card {
+    cursor: pointer;
+    user-select: none;
+    width: 100%;
+  }
+
+  .evento-card:focus-visible {
+    outline: 3px solid var(--green-light);
+    outline-offset: 3px;
+  }
+
+  .evento-card-wrap.expanded .evento-card {
+    border-radius: 16px 16px 0 0;
+  }
+
+  .evento-cta {
+    margin-top: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    position: relative;
+    z-index: 1;
+  }
+
+  .evento-cta-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.18);
+    font-size: 10px;
+    transition: transform 0.25s ease, background 0.2s ease;
+  }
+
+  .evento-card.urgent .evento-cta-icon {
+    background: rgba(13, 66, 63, 0.18);
+  }
+
+  .evento-card-wrap.expanded .evento-cta-icon {
+    transform: rotate(180deg);
+  }
+
+  /* Dropdown panel */
+  .evento-dropdown {
+    background: var(--off-white);
+    border-radius: 0 0 16px 16px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid var(--line-soft);
+    border-top: none;
+  }
+
+  .evento-card-wrap.expanded .evento-dropdown {
+    max-height: 800px;
+  }
+
+  .evento-dropdown-inner {
+    padding: 24px 28px 28px;
+  }
+
+  .checklist-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .checklist-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  .checklist-progress {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    background: var(--yellow-light);
+    padding: 3px 10px;
+    border-radius: 10px;
+    letter-spacing: 0.05em;
+  }
+
+  .checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .checklist-item {
+    display: flex;
+    gap: 14px;
+    padding: 16px 18px;
+    background: white;
+    border: 1px solid var(--line-soft);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    align-items: flex-start;
+  }
+
+  .checklist-item:hover {
+    border-color: var(--green-dark);
+    background: var(--yellow-light);
+  }
+
+  .checklist-item.checked {
+    background: rgba(105, 228, 112, 0.14);
+    border-color: var(--green-light);
+  }
+
+  .checklist-item.checked .checklist-text {
+    text-decoration: line-through;
+    opacity: 0.55;
+  }
+
+  .checklist-checkbox {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    border: 2px solid var(--line);
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+    transition: all 0.15s ease;
+  }
+
+  .checklist-item.checked .checklist-checkbox {
+    background: var(--green-dark);
+    border-color: var(--green-dark);
+  }
+
+  .checklist-checkbox::after {
+    content: '✓';
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+
+  .checklist-item.checked .checklist-checkbox::after {
+    opacity: 1;
+  }
+
+  .checklist-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .checklist-owner {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--green-dark);
+    color: var(--off-white);
+    padding: 3px 9px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+  }
+
+  .checklist-text {
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  .checklist-text a {
+    color: var(--ink-soft);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    word-break: break-all;
+    transition: color 0.15s ease;
+  }
+
+  .checklist-text a:hover {
+    color: var(--green-dark);
+  }
+
+  @media (max-width: 768px) {
+    .evento-card-wrap.expanded {
+      grid-column: auto;
+    }
+  }
+
+  /* === VENDAS CARD === */
+  .vendas-card {
+    background: white;
+    border-radius: 20px;
+    padding: 32px;
+    border: 1px solid var(--line-soft);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .vendas-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--green-dark) 0%, var(--green-light) 100%);
+  }
+
+  .vendas-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line-soft);
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+
+  .vendas-owner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .vendas-owner-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 22px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+
+  .vendas-owner-role {
+    font-size: 12px;
+    color: var(--ink-faded);
+    margin-top: 2px;
+    letter-spacing: 0.02em;
+  }
+
+  .vendas-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--green-dark);
+    color: var(--off-white);
+    padding: 6px 12px;
+    border-radius: 8px;
+  }
+
+  .vendas-cohorts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .cohort-block {
+    background: linear-gradient(180deg, var(--off-white) 0%, white 100%);
+    border: 1px solid var(--line-soft);
+    border-radius: 14px;
+    padding: 22px;
+    position: relative;
+  }
+
+  .cohort-block::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 22px;
+    right: 22px;
+    height: 3px;
+    background: var(--green-light);
+    border-radius: 0 0 3px 3px;
+  }
+
+  .cohort-block:nth-child(2)::before {
+    background: var(--orange);
+  }
+
+  .cohort-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .cohort-pill {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  .cohort-count {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink-faded);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .cohort-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .cohort-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: white;
+    border: 1px solid var(--line-soft);
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    transition: all 0.15s ease;
+  }
+
+  .cohort-list li:hover {
+    border-color: var(--green-dark);
+    background: var(--yellow-light);
+    color: var(--ink);
+  }
+
+  .cohort-num {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    background: var(--green-dark);
+    color: var(--off-white);
+    font-size: 11px;
+    font-weight: 600;
+    font-family: 'Lexend', sans-serif;
+  }
+
+  .cohort-block:nth-child(2) .cohort-num {
+    background: var(--orange);
+  }
+
+  .vendas-checklist-section {
+    background: var(--green-dark);
+    border-radius: 14px;
+    padding: 24px;
+    color: var(--off-white);
+  }
+
+  .vendas-checklist-section .checklist-label {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .vendas-checklist-section .checklist-label::after {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .vendas-checklist-section .checklist-progress {
+    background: var(--green-light);
+    color: var(--green-dark);
+  }
+
+  .vendas-checklist-section .checklist-item {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .vendas-checklist-section .checklist-item:hover {
+    background: rgba(105, 228, 112, 0.18);
+    border-color: var(--green-light);
+  }
+
+  .vendas-checklist-section .checklist-item.checked {
+    background: rgba(105, 228, 112, 0.2);
+    border-color: var(--green-light);
+  }
+
+  .vendas-checklist-section .checklist-checkbox {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  .vendas-checklist-section .checklist-item.checked .checklist-checkbox {
+    background: var(--green-light);
+    border-color: var(--green-light);
+  }
+
+  .vendas-checklist-section .checklist-item.checked .checklist-checkbox::after {
+    color: var(--green-dark);
+  }
+
+  .vendas-checklist-section .checklist-text {
+    color: var(--off-white);
+  }
+
+  .vendas-checklist-section .checklist-owner {
+    background: var(--green-light);
+    color: var(--green-dark);
+  }
+
+  @media (max-width: 768px) {
+    .vendas-cohorts {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="header">
+    <div>
+      <div class="brand-mark">Selvia · Growth Sprint</div>
+      <h1 class="title">Atividades em <em>aberto</em></h1>
+      <p class="subtitle">Backlog ativo da sprint — apenas tarefas <strong>não executadas</strong>, <strong>em execução</strong> e <strong>priorizadas</strong>. Cada owner tem sua própria seção com links diretos para o Notion.</p>
+    </div>
+    <div class="meta-stack">
+      <strong>14</strong>
+      <span>atividades · 7 owners</span>
+    </div>
+  </header>
+
+  <!-- ============================================================ -->
+  <!-- EVENTOS DE EMBAIXADORES                                     -->
+  <!-- ============================================================ -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Eventos de embaixadores</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="eventos-grid">
+      <div class="evento-card-wrap" data-event="unitau">
+        <article class="evento-card urgent" tabindex="0" role="button" aria-expanded="false" aria-label="Abrir checklist do evento UNITAU UFBA AFYA">
+          <span class="evento-tag">Segunda-feira</span>
+          <div class="evento-day">04 · MAIO</div>
+          <div class="evento-date">04</div>
+          <div class="evento-name"><strong>UNITAU · UFBA · AFYA</strong><br>Turma 2026</div>
+          <div class="evento-cta">Ver checklist <span class="evento-cta-icon">▼</span></div>
+        </article>
+        <div class="evento-dropdown">
+          <div class="evento-dropdown-inner">
+            <div class="checklist-label">Checklist de execução <span class="checklist-progress" data-progress="unitau">0 / 3</span></div>
+            <ul class="checklist" data-event="unitau"></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="evento-card-wrap" data-event="unilago">
+        <article class="evento-card" tabindex="0" role="button" aria-expanded="false" aria-label="Abrir checklist do evento UNILAGO">
+          <span class="evento-tag">Terça-feira</span>
+          <div class="evento-day">05 · MAIO</div>
+          <div class="evento-date">05</div>
+          <div class="evento-name"><strong>UNILAGO</strong><br>São José do Rio Preto · 26.1</div>
+          <div class="evento-cta">Ver checklist <span class="evento-cta-icon">▼</span></div>
+        </article>
+        <div class="evento-dropdown">
+          <div class="evento-dropdown-inner">
+            <div class="checklist-label">Checklist de execução <span class="checklist-progress" data-progress="unilago">0 / 3</span></div>
+            <ul class="checklist" data-event="unilago"></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="evento-card-wrap" data-event="unesc">
+        <article class="evento-card" tabindex="0" role="button" aria-expanded="false" aria-label="Abrir checklist do evento UNESC">
+          <span class="evento-tag">Quinta-feira</span>
+          <div class="evento-day">07 · MAIO</div>
+          <div class="evento-date">07</div>
+          <div class="evento-name"><strong>UNESC</strong><br>Criciúma · 26.1</div>
+          <div class="evento-cta">Ver checklist <span class="evento-cta-icon">▼</span></div>
+        </article>
+        <div class="evento-dropdown">
+          <div class="evento-dropdown-inner">
+            <div class="checklist-label">Checklist de execução <span class="checklist-progress" data-progress="unesc">0 / 3</span></div>
+            <ul class="checklist" data-event="unesc"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ATIVIDADES POR OWNER                                        -->
+  <!-- ============================================================ -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Atividades por owner</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="filter-bar">
+      <span class="filter-label">Filtrar por owner</span>
+      <button class="filter-btn active" data-owner="all">Todos <span class="count">13</span></button>
+      <button class="filter-btn" data-owner="dilly">Dilly <span class="count">7</span></button>
+      <button class="filter-btn" data-owner="aecio">Aecio Cardoso <span class="count">3</span></button>
+      <button class="filter-btn" data-owner="andre">André Servaes <span class="count">3</span></button>
+      <button class="filter-btn" data-owner="willian">Willian Fontes <span class="count">3</span></button>
+      <button class="filter-btn" data-owner="miguel">Miguel Gomes <span class="count">3</span></button>
+      <button class="filter-btn" data-owner="beatriz">Beatriz Coelho <span class="count">1</span></button>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- DILLY                                                       -->
+    <!-- ============================================================ -->
+    <div class="owner-group" data-owner="dilly">
+      <div class="owner-header">
+        <div class="owner-avatar">D</div>
+        <div class="owner-name">Dilly</div>
+        <div class="owner-stats">
+          <span class="stat"><strong>7</strong> atividades</span>
+          <span class="stat"><strong>2</strong> em execução</span>
+          <span class="stat"><strong>5</strong> não executadas</span>
+        </div>
+      </div>
+
+      <div class="ferias-banner show">
+        <span class="ferias-banner-icon">🌴</span>
+        <span><strong>Dilly entra de férias.</strong> As atividades destacadas abaixo são compartilhadas — os co-owners precisam ficar de olho e tocar o trabalho enquanto ele estiver fora.</span>
+      </div>
+
+      <div class="activities">
+
+        <article class="activity-card shared-attention">
+          <div class="activity-top">
+            <h3 class="activity-title">
+              <a href="https://app.notion.com/p/3416e1b0a80a805e831eef18a4f0d2ab" target="_blank" rel="noopener">🎯 Programa de Indicação</a>
+            </h3>
+            <span class="status-pill status-em-execucao">Em Execução</span>
+          </div>
+          <div class="attention-strip">
+            <span class="attention-strip-icon">👁️</span>
+            <span><strong>Miguel Gomes</strong> assume a continuidade durante as férias do Dilly.</span>
+          </div>
+          <div class="activity-meta-row">
+            <span class="meta-tag co-owner">+ Miguel Gomes</span>
+            <span class="meta-tag">OpinaMED</span>
+          </div>
+          <a class="activity-link" href="https://app.notion.com/p/3416e1b0a80a805e831eef18a4f0d2ab" target="_blank" rel="noopener">
+            Abrir no Notion
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+        <article class="activity-card shared-attention">
+          <div class="activity-top">
+            <h3 class="activity-title">
+              <a href="https://app.notion.com/p/3036e1b0a80a80b3a2b7e1215aa805b0" target="_blank" rel="noopener">Revisão do Deck de Vendas — Segundo Bloco</a>
+            </h3>
+            <span class="status-pill status-em-execucao">Em Execução</span>
+          </div>
+          <div class="attention-strip">
+            <span class="attention-strip-icon">👁️</span>
+            <span><strong>Willian Fontes</strong> e <strong>Beatriz Coelho</strong> tocam a revisão durante as férias do Dilly.</span>
+          </div>
+          <div class="activity-meta-row">
+            <span class="meta-tag co-owner">+ Willian Fontes, Beatriz Coelho</span>
+            <span class="meta-tag priority-media">Medium</span>
+            <span class="meta-tag">Deadline: 20/03</span>
+          </div>
+          <div class="activity-section">
+            <div class="activity-label">Escopo</div>
+            <div class="activity-text">Revisão da apresentação ICP Médicos com base em SPIN Selling. Feedbacks consolidados de Will, Dilly e Bysmarck — storytelling, padronização visual, slide de planos/preços, CTA explícito de fechamento e contextualização da Selvia como solução tecnológica.</div>
+          </div>
+          <a class="activity-link" href="https://app.notion.com/p/3036e1b0a80a80b3a2b7e1215aa805b0" target="_blank" rel="noopener">
+            Abrir no Notion
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+        <article class="activity-card shared-attention">
+          <div class="activity-top">
+            <h3 class="activity-title">
+              <a href="https://app.notion.com/p/3266e1b0a80a80f59e74d269a0f876d9" target="_blank" rel="noopener">Validação de CRM</a>
+            </h3>
+            <span class="status-pill status-nao-executada">Não Executada</span>
+          </div>
+          <div class="attention-strip">
+            <span class="attention-strip-icon">👁️</span>
+            <span><strong>Miguel Gomes</strong> precisa puxar essa atividade enquanto o Dilly estiver fora.</span>
+          </div>
+          <div class="activity-meta-row">
+            <span class="meta-tag co-owner">+ Miguel Gomes</span>
+            <span class="meta-tag priority-media">Média</span>
+            <span class="meta-tag">OpinaMED</span>
+            <span class="meta-tag">Início previsto: 10/04</span>
+          </div>
+          <div class="activity-section">
+            <div class="activity-label">Observações</div>
+            <div class="activity-text">
+              <ul>
+                <li>Ter uma validação manual antes (nós vamos fazer)</li>
+                <li>Depois, começar a implementar a automação</li>
+                <li>Ao inputar o CRM no cadastro, fazer scrapping automático do site do CFM pra validação</li>
+              </ul>
+            </div>
+          </div>
+          <a class="activity-link" href="https://app.notion.com/p/3266e1b0a80a80f59e74d269a0f876d9" target="_blank" rel="noopener">
+            Abrir no Notion
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+        <article class="activity-card">
+          <div class="activity-top">
+            <h3 class="activity-title">
+              <a href="https://app.notion.com/p/3536e1b0a80a80608ce5d68ae1d242cd" target="_blank" rel="noopener">Relembrar sobre postagem da parceria</a>
+            </h3>
+            <span class="status-pill status-nao-executada">Não Executada</span>
+          </div>
+          <div class="activity-meta-row">
+            <span class="meta-tag">Parceria</span>
+          </div>
+          <div class="activity-section">
+            <div class="activity-label">Meta</div>
+            <div class="activity-text">Post não foi realizado ainda — prometeram fazer até próxima quarta. Acompanhar e cobrar a publicação dentro do prazo combinado.</div>
+          </div>
+          <a class="activity-link" href="https://app.notion.com/p/3536e1b0a80a80608ce5d68ae1d242cd" target="_blank" rel="noopener">
+            Abrir no Notion
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+        <article class="activity-card">
+          <div class="activity-top">
+            <h3 class="activity-title">
+              <a href="https://app.notion.com/p/3536e1b0a80a801d8c60d04f09a158ae" target="_blank" rel="noopener">Criar link específico para monitorarmos a entrada dos leads</a>
+            </h3>
+            <span class="status-pill status-nao-executada">Não Executada</span>
+          </div>
+          <div class="activity-meta-row">
+            <span class="meta-tag">Parceria · Publicidade</span>
+          </div>
+          <div class="activity-section">
+            <div class="activity-label">Escopo</div>
+            <div class="activity-text">Criar link rastreável para monitorar entrada de leads vindos da publicidade da parceria. Sem isso, não conseguimos atribuir conversão ao canal.</div>
+          </div>
+          <a class="activity-link" href="https://app.notion.com/p/3536e1b0a80a801d8c60d04f09a158ae" target="_blank" rel="noopener">
+            Abrir no Notion
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+        <article class="activity-card">
+          <div class="activity-top">
+            <h3 class="activity-title">
+              <a href="https://app.notion.com/p/3536e1b0a80a8090a7a8e53ecb0091f6" target="_blank" rel="noopener">Enviar modelo da publicidade que os leitores vão ter acesso</a>
+            </h3>
+            <span class="status-pill status-nao-executada">Não Executada</span>
+          </div>
+          <div class="activity-meta-row">
+            <span class="meta-tag">Parceria · Publicidade</span>
+          </div>
+          <div class="activity-section">
+            <div class="activity-label">Escopo</div>
+            <div class="activity-text">Mandar para o parceiro o modelo da peça publicitária que será exibida — para alinhamento prévio antes da veiculação aos leitores.</div>
+          </div>
+          <a class="activity-link" href="https://app.notion.com/p/3536e1b0a80a8090a7a8e53ecb0091f6" target="_blank" rel="noopener">
+            Abrir no Notion
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+        <article class="activity-card shared-attention">
+          <div class="activity-top">
+            <h3 class="activity-title">
+              <a href="https://app.notion.com/p/3536e1b0a80a8073ad17d596c86d605a" target="_blank" rel="noopener">Criar link do WhatsApp para recebermos interessados</a>
+            </h3>
+            <span class="status-pill status-nao-executada">Não Executada</span>
+          </div>
+          <div class="attention-strip">
+            <span class="attention-strip-icon">👁️</span>
+            <span><strong>André Servaes</strong> assume essa entrega enquanto o Dilly estiver fora.</span>
+          </div>
+          <div class="activity-meta-row">
+            <span class="meta-tag co-owner">+ André Servaes</span>
+            <span class="meta-tag">Evento</span>
+          </div>
+          <div class="activity-section">
+            <div class="activity-label">Meta</div>
+            <div class="activity-text">Criar link com mensagem personalizada da EMR para os interessados nos chamarem direto no WhatsApp. Ponto de entrada principal do funil do evento.</div>
+          </div>
+          <a class="activity-link" href="https://app.notion.com/p/3536e1b0a80a8073ad17d596c86d605a" target="_blank" rel="noopener">
+            Abrir no Notion
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- AECIO CARDOSO                                               -->
+    <!-- ============================================================ -->
+    <div class="owner-group" data-owner="aecio">
+      <div class="owner-header">
+        <div class="owner-avatar">A</div>
+        <div class="owner-name">Aecio Cardoso</div>
+        <div class="owner-stats">
+          <span class="stat"><strong>3</strong> atividades</span>
+          <span class="stat"><strong>3</strong> não executadas</span>
+        </div>
+      </div>
+
+      <div class="activities">
+
+        <article class="activity-card">
+          <div class="activity-top">
+            <h3 class="activity-title">
+              <a href="https://app.notion.com/p/3536e1b0a80a80948126ff3de2429242" target="_blank" rel="noopener">Realizar disparos diários pelo Instagram para os leads</a>
+            </h3>
+            <span class="status-pill status-nao-executada">Não Executada</span>
+          </div>
+          <div class="activity-meta-row">
+            <span class="meta-tag">Embaixadores</span>
+            <span class="meta-tag">Data: 08/05</span>
+          </div>
+          <div class="activity-section">
+            <div class="activity-label">Descrição</div>
+            <div class="activity-text">
+              <ul>
+                <li>Prospectar leads de embaixadores por universidades</li>
+                <li>Documentar todos no card da atividade</li>
+                <li>Atualizar a etapa conforme cada lead evoluir</li>
+              </ul>
+            </div>
+          </div>
+          <div class="activity-section">
+            <div class="activity-label">Meta</div>
+            <div class="activity-text">Finalizar todas as universidades até sexta-feira.</div>
+          </div>
+          <a class="activity-link" href="https://app.notion.com/p/3536e1b0a80a80948126ff3de2429242" target="_blank" rel="noopener">
+            Abrir no Notion
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+        <article class="activity-card">
+          <div class="activity-top">
+            <h3 class="activity-title">
+              <a href="https://app.notion.com/p/3536e1b0a80a80de9f56f106d701be23" target="_blank" rel="noopener">Acompanhar entrada de leads interessados no evento</a>
+            </h3>
+            <span class="status-pill status-nao-executada">Não Executada</span>
+          </div>
+          <div class="activity-meta-row">
+            <span class="meta-tag">Evento para creators</span>
+          </div>
+          <div class="activity-section">
+            <div class="activity-label">Meta</div>
+            <div class="activity-text">
+              <ul>
+                <li>Acompanhar qualificação realizada pela Dora para confirmação do evento</li>
+                <li>Monitorar agendamento dos diálogos para que não cause nenhum tipo de problema no envio da mensagem de confirmação</li>
+              </ul>
+            </div>
+          </div>
+          <a class="activity-link" href="https://app.notion.com/p/3536e1b0a80a80de9f56f106d701be23" target="_blank" rel="noopener">
+            Abrir no Notion
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+        <article class="activity-card">
+          <div class="activity-top">
+            <h3 class="activity-title">
+              <a href="https://app.notion.com/p/3536e1b0a80a8016a7f2ddf3d4f8e64d" target="_blank" rel="noopener">Enviar mensagem para aquecimento pós evento</a>
+            </h3>
+            <span class="status-pill status-nao-executada">Não Executada</span>
+          </div>
+          <div class="activity-meta-row">
+            <span class="meta-tag co-owner">+ Willian Fontes</span>
+            <span class="meta-tag">Evento para creators</span>
+          </div>
+          <div class="activity-section">
+            <div class="activity-label">Descrição</div>
+            <div class="activity-text">
+              <ul>
+                <li>Pós-evento, enviar mensagem para os leads participantes sobre abertura de empresa</li>
+                <li>Garantir que esses leads já fechem com a Selvia ao longo da semana</li>
+              </ul>
+            </div>
+          </div>
+          <div class="activity-section">
+            <div class="activity-label">Meta</div>
+            <div class="activity-text">
+              <ul>
+                <li>Fechar 90% dos participantes no evento</li>
+                <li>Aprender como vender pra creator: objeções, tempo de fechamento, alavancas comerciais mais vantajosas</li>
+              </ul>
+            </div>
+          </div>
+          <a class="activity-link" href="https://app.notion.com/p/3536e1b0a80a8016a7f2ddf3d4f8e64d" target="_blank" rel="noopener">
+            Abrir no Notion
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- ANDRÉ SERVAES                                               -->
+    <!-- ============================================================ -->
+    <div class="owner-group" data-owner="andre">
+      <div class="owner-header">
+        <div class="owner-avatar">AS</div>
+        <div class="owner-name">André Servaes</div>
+        <div class="owner-stats">
+          <span class="stat"><strong>3</strong> atividades</span>
+          <span class="stat"><strong>3</strong> não executadas</span>
+        </div>
+      </div>
+
+      <div class="activities">
+
+        <article class="activity-card">
+          <div class="activity-top">
+            <h3 class="activity-title">
+              <a href="https://app.notion.com/p/3536e1b0a80a807dbe7dfe0a8514da0c" target="_blank" rel="noopener">Revisar apresentação para realizarmos no dia</a>
+            </h3>
+            <span class="status-pill status-nao-executada">Não Executada</span>
+          </div>
+          <div class="activity-meta-row">
+            <span class="meta-tag co-owner">+ Willian Fontes</span>
+            <span class="meta-tag">Evento para creators</span>
+          </div>
+          <div class="activity-section">
+            <div class="activity-label">Descrição</div>
+            <div class="activity-text">Garantir que vamos falar de: <strong>IRPF pra esse ano</strong> e <strong>Gestão Financeira</strong>. Os dois temas precisam estar bem amarrados no fluxo da apresentação.</div>
+          </div>
+          <a class="activity-link" href="https://app.notion.com/p/3536e1b0a80a807dbe7dfe0a8514da0c" target="_blank" rel="noopener">
+            Abrir no Notion
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+        <article class="activity-card">
+          <div class="activity-top">
+            <h3 class="activity-title">
+              <a href="https://app.notion.com/p/3536e1b0a80a80ed8d5bef02daf0b850" target="_blank" rel="noopener">Alinhar sorteio para ativação no evento</a>
+            </h3>
+            <span class="status-pill status-nao-executada">Não Executada</span>
+          </div>
+          <div class="activity-meta-row">
+            <span class="meta-tag">Evento — 09/05</span>
+          </div>
+          <div class="activity-section">
+            <div class="activity-label">Meta</div>
+            <div class="activity-text">
+              <ul>
+                <li>Ideia: propor um <strong>ACLS com um forms nosso</strong> para sortearem no evento de 09/05</li>
+                <li>A gente dá acesso a eles à edição, e os que se inscreverem podemos impactar depois</li>
+              </ul>
+            </div>
+          </div>
+          <a class="activity-link" href="https://app.notion.com/p/3536e1b0a80a80ed8d5bef02daf0b850" target="_blank" rel="noopener">
+            Abrir no Notion
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+        <article class="activity-card">
+          <div class="activity-top">
+            <h3 class="activity-title">
+              <a href="https://app.notion.com/p/3536e1b0a80a8073ad17d596c86d605a" target="_blank" rel="noopener">Criar link do WhatsApp para recebermos interessados</a>
+            </h3>
+            <span class="status-pill status-nao-executada">Não Executada</span>
+          </div>
+          <div class="activity-meta-row">
+            <span class="meta-tag co-owner">+ Dilly</span>
+            <span class="meta-tag">Evento</span>
+          </div>
+          <div class="activity-section">
+            <div class="activity-label">Meta</div>
+            <div class="activity-text">Criar link com mensagem personalizada da EMR para os interessados nos chamarem direto no WhatsApp.</div>
+          </div>
+          <a class="activity-link" href="https://app.notion.com/p/3536e1b0a80a8073ad17d596c86d605a" target="_blank" rel="noopener">
+            Abrir no Notion
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- WILLIAN FONTES                                              -->
+    <!-- ============================================================ -->
+    <div class="owner-group" data-owner="willian">
+      <div class="owner-header">
+        <div class="owner-avatar">W</div>
+        <div class="owner-name">Willian Ribeiro Fontes</div>
+        <div class="owner-stats">
+          <span class="stat"><strong>3</strong> atividades</span>
+          <span class="stat"><strong>1</strong> em execução</span>
+          <span class="stat"><strong>2</strong> não executadas</span>
+        </div>
+      </div>
+
+      <div class="activities">
+
+        <article class="activity-card">
+          <div class="activity-top">
+            <h3 class="activity-title">
+              <a href="https://app.notion.com/p/3036e1b0a80a80b3a2b7e1215aa805b0" target="_blank" rel="noopener">Revisão do Deck de Vendas — Segundo Bloco</a>
+            </h3>
+            <span class="status-pill status-em-execucao">Em Execução</span>
+          </div>
+          <div class="activity-meta-row">
+            <span class="meta-tag co-owner">+ Dilly, Beatriz Coelho</span>
+            <span class="meta-tag priority-media">Medium</span>
+            <span class="meta-tag">Deadline: 20/03</span>
+          </div>
+          <div class="activity-section">
+            <div class="activity-label">Escopo</div>
+            <div class="activity-text">Revisão da apresentação ICP Médicos com base em SPIN Selling. Conduzir feedbacks consolidados — storytelling, padronização visual, slide de planos/preços e CTA explícito de fechamento.</div>
+          </div>
+          <a class="activity-link" href="https://app.notion.com/p/3036e1b0a80a80b3a2b7e1215aa805b0" target="_blank" rel="noopener">
+            Abrir no Notion
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+        <article class="activity-card">
+          <div class="activity-top">
+            <h3 class="activity-title">
+              <a href="https://app.notion.com/p/3536e1b0a80a807dbe7dfe0a8514da0c" target="_blank" rel="noopener">Revisar apresentação para realizarmos no dia</a>
+            </h3>
+            <span class="status-pill status-nao-executada">Não Executada</span>
+          </div>
+          <div class="activity-meta-row">
+            <span class="meta-tag co-owner">+ André Servaes</span>
+            <span class="meta-tag">Evento para creators</span>
+          </div>
+          <div class="activity-section">
+            <div class="activity-label">Descrição</div>
+            <div class="activity-text">Garantir que vamos falar de: <strong>IRPF pra esse ano</strong> e <strong>Gestão Financeira</strong>.</div>
+          </div>
+          <a class="activity-link" href="https://app.notion.com/p/3536e1b0a80a807dbe7dfe0a8514da0c" target="_blank" rel="noopener">
+            Abrir no Notion
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+        <article class="activity-card">
+          <div class="activity-top">
+            <h3 class="activity-title">
+              <a href="https://app.notion.com/p/3536e1b0a80a8016a7f2ddf3d4f8e64d" target="_blank" rel="noopener">Enviar mensagem para aquecimento pós evento</a>
+            </h3>
+            <span class="status-pill status-nao-executada">Não Executada</span>
+          </div>
+          <div class="activity-meta-row">
+            <span class="meta-tag co-owner">+ Aecio Cardoso</span>
+            <span class="meta-tag">Evento para creators</span>
+          </div>
+          <div class="activity-section">
+            <div class="activity-label">Descrição & Meta</div>
+            <div class="activity-text">
+              <ul>
+                <li>Pós-evento, enviar mensagem para os leads participantes sobre abertura de empresa</li>
+                <li>Fechar 90% dos participantes no evento</li>
+                <li>Aprender como vender pra creator: objeções, tempo de fechamento, alavancas comerciais</li>
+              </ul>
+            </div>
+          </div>
+          <a class="activity-link" href="https://app.notion.com/p/3536e1b0a80a8016a7f2ddf3d4f8e64d" target="_blank" rel="noopener">
+            Abrir no Notion
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- MIGUEL GOMES                                                -->
+    <!-- ============================================================ -->
+    <div class="owner-group" data-owner="miguel">
+      <div class="owner-header">
+        <div class="owner-avatar">M</div>
+        <div class="owner-name">Miguel Gomes</div>
+        <div class="owner-stats">
+          <span class="stat"><strong>3</strong> atividades</span>
+          <span class="stat"><strong>2</strong> em execução</span>
+          <span class="stat"><strong>1</strong> não executada</span>
+        </div>
+      </div>
+
+      <div class="activities">
+
+        <article class="activity-card">
+          <div class="activity-top">
+            <h3 class="activity-title">
+              <a href="https://app.notion.com/p/33a6e1b0a80a80fab221db802b19203f" target="_blank" rel="noopener">Gameficação do site</a>
+            </h3>
+            <span class="status-pill status-em-execucao">Em Execução</span>
+          </div>
+          <div class="activity-meta-row">
+            <span class="meta-tag priority-alta">Alta</span>
+            <span class="meta-tag">OpinaMED</span>
+            <span class="meta-tag">Início: 13/04</span>
+          </div>
+          <div class="activity-section">
+            <div class="activity-label">Escopo</div>
+            <div class="activity-text">Implementar onboarding gamificado no OpinaMED para mapear passos do usuário dentro da plataforma — tabela <code>user_onboarding</code> no Supabase com checkpoints (perfil completo, primeira busca, visualização de avaliação, criação de avaliação) e tour visual com <code>react-joyride</code>.</div>
+          </div>
+          <a class="activity-link" href="https://app.notion.com/p/33a6e1b0a80a80fab221db802b19203f" target="_blank" rel="noopener">
+            Abrir no Notion
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+        <article class="activity-card">
+          <div class="activity-top">
+            <h3 class="activity-title">
+              <a href="https://app.notion.com/p/3416e1b0a80a805e831eef18a4f0d2ab" target="_blank" rel="noopener">🎯 Programa de Indicação</a>
+            </h3>
+            <span class="status-pill status-em-execucao">Em Execução</span>
+          </div>
+          <div class="activity-meta-row">
+            <span class="meta-tag co-owner">+ Dilly</span>
+            <span class="meta-tag">OpinaMED</span>
+          </div>
+          <div class="activity-section">
+            <div class="activity-label">Escopo</div>
+            <div class="activity-text">Sistema de referral "Indique e Ganhe" — link único por usuário, validação por mesmo dia de onboarding, recompensa via Pix e dashboard de indicações. Documentação técnica completa (banco, backend, frontend, emails) já mapeada.</div>
+          </div>
+          <a class="activity-link" href="https://app.notion.com/p/3416e1b0a80a805e831eef18a4f0d2ab" target="_blank" rel="noopener">
+            Abrir no Notion
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+        <article class="activity-card">
+          <div class="activity-top">
+            <h3 class="activity-title">
+              <a href="https://app.notion.com/p/3266e1b0a80a80f59e74d269a0f876d9" target="_blank" rel="noopener">Validação de CRM</a>
+            </h3>
+            <span class="status-pill status-nao-executada">Não Executada</span>
+          </div>
+          <div class="activity-meta-row">
+            <span class="meta-tag co-owner">+ Dilly</span>
+            <span class="meta-tag priority-media">Média</span>
+            <span class="meta-tag">OpinaMED</span>
+          </div>
+          <div class="activity-section">
+            <div class="activity-label">Observações</div>
+            <div class="activity-text">
+              <ul>
+                <li>Ter uma validação manual antes (nós vamos fazer)</li>
+                <li>Depois, começar a implementar a automação</li>
+                <li>Ao inputar o CRM no cadastro, fazer scrapping automático do site do CFM</li>
+              </ul>
+            </div>
+          </div>
+          <a class="activity-link" href="https://app.notion.com/p/3266e1b0a80a80f59e74d269a0f876d9" target="_blank" rel="noopener">
+            Abrir no Notion
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- BEATRIZ COELHO                                              -->
+    <!-- ============================================================ -->
+    <div class="owner-group" data-owner="beatriz">
+      <div class="owner-header">
+        <div class="owner-avatar">B</div>
+        <div class="owner-name">Beatriz Coelho Sá</div>
+        <div class="owner-stats">
+          <span class="stat"><strong>1</strong> atividade</span>
+          <span class="stat"><strong>1</strong> em execução</span>
+        </div>
+      </div>
+
+      <div class="activities">
+
+        <article class="activity-card">
+          <div class="activity-top">
+            <h3 class="activity-title">
+              <a href="https://app.notion.com/p/3036e1b0a80a80b3a2b7e1215aa805b0" target="_blank" rel="noopener">Revisão do Deck de Vendas — Segundo Bloco</a>
+            </h3>
+            <span class="status-pill status-em-execucao">Em Execução</span>
+          </div>
+          <div class="activity-meta-row">
+            <span class="meta-tag co-owner">+ Dilly, Willian Fontes</span>
+            <span class="meta-tag priority-media">Medium</span>
+            <span class="meta-tag">Deadline: 20/03</span>
+          </div>
+          <div class="activity-section">
+            <div class="activity-label">Escopo</div>
+            <div class="activity-text">Revisão da apresentação ICP Médicos baseada em SPIN Selling. Trabalho colaborativo com Dilly e Willian para storytelling, padronização visual e CTA de fechamento.</div>
+          </div>
+          <a class="activity-link" href="https://app.notion.com/p/3036e1b0a80a80b3a2b7e1215aa805b0" target="_blank" rel="noopener">
+            Abrir no Notion
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 9L9 3M9 3H4M9 3V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+      </div>
+    </div>
+
+    <div class="empty-state" id="emptyState">Nenhuma atividade para esse owner.</div>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- VENDAS — FOLLOW UP DE COHORTS                               -->
+  <!-- ============================================================ -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Vendas</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="vendas-card">
+      <div class="vendas-header">
+        <div class="vendas-owner">
+          <div class="owner-avatar">W</div>
+          <div>
+            <div class="vendas-owner-name">Willian Ribeiro Fontes</div>
+            <div class="vendas-owner-role">Responsável pela execução</div>
+          </div>
+        </div>
+        <span class="vendas-tag">Follow up · ChatGuru</span>
+      </div>
+
+      <div class="vendas-cohorts">
+        <div class="cohort-block">
+          <div class="cohort-header">
+            <span class="cohort-pill">Cohort 1</span>
+            <span class="cohort-count">5 mensagens</span>
+          </div>
+          <ul class="cohort-list">
+            <li><span class="cohort-num">1ª</span> Mensagem de Aquecimento — Cohort 1</li>
+            <li><span class="cohort-num">2ª</span> Mensagem de Aquecimento — Cohort 1</li>
+            <li><span class="cohort-num">3ª</span> Mensagem de Aquecimento — Cohort 1</li>
+            <li><span class="cohort-num">4ª</span> Mensagem de Aquecimento — Cohort 1</li>
+            <li><span class="cohort-num">5ª</span> Mensagem de Aquecimento — Cohort 1</li>
+          </ul>
+        </div>
+
+        <div class="cohort-block">
+          <div class="cohort-header">
+            <span class="cohort-pill">Cohort 2</span>
+            <span class="cohort-count">5 mensagens</span>
+          </div>
+          <ul class="cohort-list">
+            <li><span class="cohort-num">1ª</span> Mensagem de Aquecimento — Cohort 2</li>
+            <li><span class="cohort-num">2ª</span> Mensagem de Aquecimento — Cohort 2</li>
+            <li><span class="cohort-num">3ª</span> Mensagem de Aquecimento — Cohort 2</li>
+            <li><span class="cohort-num">4ª</span> Mensagem de Aquecimento — Cohort 2</li>
+            <li><span class="cohort-num">5ª</span> Mensagem de Aquecimento — Cohort 2</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="vendas-checklist-section">
+        <div class="checklist-label">Checklist de execução <span class="checklist-progress" data-progress="vendas">0 / 4</span></div>
+        <ul class="checklist" data-event="vendas"></ul>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p><strong>Sprint Growth · Selvia</strong> — atualizado em 01/05/2026 · escopo: status <em>Não executada</em>, <em>Em Execução</em> e <em>Priorizada</em>.</p>
+    <p style="margin-top: 8px;">Atividades em <em>Backlog</em>, <em>Done</em>, <em>Em Produção</em> e <em>Rollback</em> não estão incluídas neste recorte.</p>
+  </footer>
+
+</div>
+
+<script>
+  /* ------------- FILTRO POR OWNER ------------- */
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const ownerGroups = document.querySelectorAll('.owner-group');
+  const emptyState = document.getElementById('emptyState');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const target = btn.dataset.owner;
+      let visibleCount = 0;
+
+      ownerGroups.forEach(group => {
+        if (target === 'all' || group.dataset.owner === target) {
+          group.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          group.classList.add('hidden');
+        }
+      });
+
+      if (visibleCount === 0) {
+        emptyState.classList.add('show');
+      } else {
+        emptyState.classList.remove('show');
+      }
+
+      window.scrollTo({ top: document.querySelector('.filter-bar').offsetTop - 24, behavior: 'smooth' });
+    });
+  });
+
+  /* ------------- DROPDOWN DE EVENTOS ------------- */
+  const eventsData = {
+    unitau: [
+      {
+        owner: 'Hosana',
+        text: 'Enviar na thread do evento os contatos dos alunos das faculdades.'
+      },
+      {
+        owner: 'Aecio Cardoso',
+        text: 'Subir os contatos recebidos na <a href="https://docs.google.com/spreadsheets/d/1SrkP6nW7nCA4MMlZ6MVwSWeOvrKkRkxTwiuzhqZk-Tw/edit?gid=1755693412#gid=1755693412" target="_blank" rel="noopener">planilha de Oportunidades</a>.'
+      },
+      {
+        owner: 'Aecio Cardoso',
+        text: 'Realizar e acompanhar os disparos seguindo o formato da <a href="https://docs.google.com/spreadsheets/d/1Y55pXPy0jJN6Mm-etfgFjz5YfKZnxlVjE6jCToXWwYA/edit?gid=1349069058#gid=1349069058" target="_blank" rel="noopener">planilha de disparos</a>.'
+      }
+    ],
+    unilago: [
+      {
+        owner: 'Hosana',
+        text: 'Enviar na thread do evento os contatos dos alunos das faculdades.'
+      },
+      {
+        owner: 'Aecio Cardoso',
+        text: 'Subir os contatos recebidos na <a href="https://docs.google.com/spreadsheets/d/1SrkP6nW7nCA4MMlZ6MVwSWeOvrKkRkxTwiuzhqZk-Tw/edit?gid=1755693412#gid=1755693412" target="_blank" rel="noopener">planilha de Oportunidades</a>.'
+      },
+      {
+        owner: 'Aecio Cardoso',
+        text: 'Realizar e acompanhar os disparos seguindo o formato da <a href="https://docs.google.com/spreadsheets/d/1Y55pXPy0jJN6Mm-etfgFjz5YfKZnxlVjE6jCToXWwYA/edit?gid=1349069058#gid=1349069058" target="_blank" rel="noopener">planilha de disparos</a>.'
+      }
+    ],
+    unesc: [
+      {
+        owner: 'Hosana',
+        text: 'Enviar na thread do evento os contatos dos alunos das faculdades.'
+      },
+      {
+        owner: 'Aecio Cardoso',
+        text: 'Subir os contatos recebidos na <a href="https://docs.google.com/spreadsheets/d/1SrkP6nW7nCA4MMlZ6MVwSWeOvrKkRkxTwiuzhqZk-Tw/edit?gid=1755693412#gid=1755693412" target="_blank" rel="noopener">planilha de Oportunidades</a>.'
+      },
+      {
+        owner: 'Aecio Cardoso',
+        text: 'Realizar e acompanhar os disparos seguindo o formato da <a href="https://docs.google.com/spreadsheets/d/1Y55pXPy0jJN6Mm-etfgFjz5YfKZnxlVjE6jCToXWwYA/edit?gid=1349069058#gid=1349069058" target="_blank" rel="noopener">planilha de disparos</a>.'
+      }
+    ],
+    vendas: [
+      {
+        owner: 'Willian Fontes',
+        text: 'Revisar etiquetas e funis delegados nas execuções.'
+      },
+      {
+        owner: 'Willian Fontes',
+        text: 'Incluir templates na Gupshup.'
+      },
+      {
+        owner: 'Willian Fontes',
+        text: 'Inserir templates no diálogo do ChatGuru.'
+      },
+      {
+        owner: 'Willian Fontes',
+        text: 'Alterar o tempo entre execuções de um diálogo pra outro pra garantir consistência nas comunicações.'
+      }
+    ]
+  };
+
+  // Estado em memória — não persiste entre reloads
+  const checkedState = {
+    unitau: [false, false, false],
+    unilago: [false, false, false],
+    unesc: [false, false, false],
+    vendas: [false, false, false, false]
+  };
+
+  function updateProgress(eventKey) {
+    const checked = checkedState[eventKey].filter(Boolean).length;
+    const total = checkedState[eventKey].length;
+    const el = document.querySelector(`.checklist-progress[data-progress="${eventKey}"]`);
+    if (el) el.textContent = `${checked} / ${total}`;
+  }
+
+  function renderChecklist(eventKey) {
+    const ul = document.querySelector(`.checklist[data-event="${eventKey}"]`);
+    if (!ul) return;
+    ul.innerHTML = '';
+    eventsData[eventKey].forEach((item, idx) => {
+      const li = document.createElement('li');
+      li.className = 'checklist-item' + (checkedState[eventKey][idx] ? ' checked' : '');
+      li.innerHTML = `
+        <div class="checklist-checkbox" aria-hidden="true"></div>
+        <div class="checklist-content">
+          <span class="checklist-owner">${item.owner}</span>
+          <div class="checklist-text">${item.text}</div>
+        </div>
+      `;
+      li.addEventListener('click', (e) => {
+        if (e.target.tagName === 'A') return;
+        checkedState[eventKey][idx] = !checkedState[eventKey][idx];
+        li.classList.toggle('checked');
+        updateProgress(eventKey);
+      });
+      ul.appendChild(li);
+    });
+    updateProgress(eventKey);
+  }
+
+  // Inicializa todos os checklists
+  Object.keys(eventsData).forEach(renderChecklist);
+
+  // Toggle dropdowns
+  document.querySelectorAll('.evento-card').forEach(card => {
+    const wrap = card.closest('.evento-card-wrap');
+    const toggle = () => {
+      const wasExpanded = wrap.classList.contains('expanded');
+      // Fecha todos
+      document.querySelectorAll('.evento-card-wrap').forEach(w => {
+        w.classList.remove('expanded');
+        const c = w.querySelector('.evento-card');
+        if (c) c.setAttribute('aria-expanded', 'false');
+      });
+      // Abre o atual se não estava aberto
+      if (!wasExpanded) {
+        wrap.classList.add('expanded');
+        card.setAttribute('aria-expanded', 'true');
+      }
+    };
+    card.addEventListener('click', toggle);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle();
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
