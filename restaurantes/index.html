@@ -1,1 +1,1061 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Selvia | Contabilidade para restaurantes</title>
+<meta name="description" content="Contabilidade especializada em restaurantes pelo WhatsApp. Descubra o plano ideal pro seu restaurante em 30 segundos." />
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  /* ===== Selvia Brand Tokens ===== */
+  :root {
+    --verde-escuro: #0D423F;
+    --verde-claro: #69E470;
+    --off-white: #F9F9F9;
+    --amarelo-claro: #F1FDC1;
+    --bege: #E2E7C7;
+    --amarelo: #FFD15C;
+    --laranja: #F4933B;
+    --azul: #84A0FF;
+    --rosa: #F2B8F4;
+
+    --text: #0D423F;
+    --text-soft: rgba(13, 66, 63, 0.72);
+    --text-muted: rgba(13, 66, 63, 0.55);
+    --border: rgba(13, 66, 63, 0.12);
+    --border-strong: rgba(13, 66, 63, 0.22);
+
+    --radius-sm: 12px;
+    --radius-md: 18px;
+    --radius-lg: 28px;
+    --radius-xl: 40px;
+
+    --shadow-sm: 0 2px 8px rgba(13, 66, 63, 0.06);
+    --shadow-md: 0 8px 24px rgba(13, 66, 63, 0.08);
+    --shadow-lg: 0 20px 50px rgba(13, 66, 63, 0.14);
+
+    --wa-href: "https://wa.me/5511936220451";
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Lexend', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--off-white);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  img { max-width: 100%; display: block; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+  input { font-family: inherit; }
+
+  .container {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ===== Header ===== */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(249, 249, 249, 0.92);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    max-width: 1180px;
+    margin: 0 auto;
+    gap: 16px;
+  }
+  .brand-pair {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .brand-logo {
+    height: 32px;
+    width: auto;
+  }
+  .brand-selvia {
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--verde-escuro);
+    letter-spacing: -0.02em;
+  }
+  .brand-divider {
+    width: 1px;
+    height: 24px;
+    background: var(--border-strong);
+  }
+  .partner-slot {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .partner-logo {
+    max-height: 32px;
+    max-width: 140px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+  .partner-logo[src=""], .partner-logo:not([src]) { display: none; }
+
+  .header-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: var(--verde-escuro);
+    color: #fff;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: transform 0.15s, background 0.15s;
+  }
+  .header-cta:hover { background: #0a3633; transform: translateY(-1px); }
+  .header-cta svg { width: 16px; height: 16px; }
+
+  @media (max-width: 640px) {
+    .header-cta span.cta-label-full { display: none; }
+  }
+
+  /* ===== Hero ===== */
+  .hero {
+    padding: 64px 0 32px;
+    background:
+      radial-gradient(ellipse at top right, rgba(105, 228, 112, 0.12), transparent 60%),
+      radial-gradient(ellipse at bottom left, rgba(241, 253, 193, 0.4), transparent 60%),
+      var(--off-white);
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  @media (max-width: 920px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: var(--amarelo-claro);
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--verde-escuro);
+    margin-bottom: 24px;
+  }
+  .hero-eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--verde-claro);
+  }
+  h1 {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--verde-escuro);
+    margin-bottom: 20px;
+  }
+  h1 .accent {
+    background: linear-gradient(180deg, transparent 65%, var(--verde-claro) 65%);
+    padding: 0 4px;
+  }
+  .hero-sub {
+    font-size: clamp(16px, 2vw, 19px);
+    color: var(--text-soft);
+    margin-bottom: 32px;
+    max-width: 540px;
+  }
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 28px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+  }
+  .btn-primary {
+    background: var(--verde-claro);
+    color: var(--verde-escuro);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(105, 228, 112, 0.4);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--verde-escuro);
+    border: 1.5px solid var(--border-strong);
+  }
+  .btn-secondary:hover {
+    background: var(--verde-escuro);
+    color: #fff;
+    border-color: var(--verde-escuro);
+  }
+  .btn svg { width: 20px; height: 20px; }
+
+  .hero-trust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+  .hero-trust-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .hero-trust-item svg { width: 16px; height: 16px; color: var(--verde-claro); }
+
+  /* ===== Calculadora ===== */
+  .calc-card {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .calc-card::before {
+    content: "";
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 160px;
+    height: 160px;
+    background: var(--amarelo-claro);
+    border-radius: 50%;
+    opacity: 0.5;
+    z-index: 0;
+  }
+  .calc-card > * { position: relative; z-index: 1; }
+
+  .calc-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--verde-escuro);
+  }
+  .calc-subtitle {
+    font-size: 14px;
+    color: var(--text-soft);
+    margin-bottom: 24px;
+  }
+  .calc-field {
+    margin-bottom: 20px;
+  }
+  .calc-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--verde-escuro);
+  }
+  .calc-input-wrap {
+    position: relative;
+  }
+  .calc-prefix {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-muted);
+    pointer-events: none;
+  }
+  .calc-input {
+    width: 100%;
+    padding: 14px 18px 14px 44px;
+    border: 1.5px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--verde-escuro);
+    background: #fff;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .calc-input.no-prefix { padding-left: 18px; }
+  .calc-input:focus {
+    outline: none;
+    border-color: var(--verde-claro);
+    box-shadow: 0 0 0 4px rgba(105, 228, 112, 0.15);
+  }
+  .calc-helper {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  /* Resultado */
+  .result {
+    margin-top: 8px;
+    padding: 24px;
+    background: var(--amarelo-claro);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(13, 66, 63, 0.08);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .result.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .result-eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .result-plan {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--verde-escuro);
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+  .result-price {
+    font-size: 14px;
+    color: var(--text-soft);
+    margin-bottom: 12px;
+  }
+  .result-price strong {
+    color: var(--verde-escuro);
+    font-weight: 700;
+  }
+  .result-desc {
+    font-size: 14px;
+    color: var(--text-soft);
+    line-height: 1.55;
+    margin-bottom: 16px;
+  }
+  .result-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    background: var(--verde-escuro);
+    color: #fff;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: transform 0.15s, background 0.15s;
+  }
+  .result-cta:hover { background: #0a3633; transform: translateY(-1px); }
+  .result-cta svg { width: 16px; height: 16px; }
+
+  /* ===== Seção ===== */
+  .section {
+    padding: 80px 0;
+  }
+  .section-dark {
+    background: var(--verde-escuro);
+    color: #fff;
+  }
+  .section-dark h2, .section-dark p { color: #fff; }
+  .section-light-green {
+    background: var(--amarelo-claro);
+  }
+  .section-eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--verde-claro);
+    margin-bottom: 12px;
+    text-align: center;
+  }
+  .section-dark .section-eyebrow { color: var(--verde-claro); }
+  h2 {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .section-lead {
+    text-align: center;
+    font-size: 17px;
+    color: var(--text-soft);
+    max-width: 620px;
+    margin: 0 auto 56px;
+  }
+  .section-dark .section-lead { color: rgba(255,255,255,0.78); }
+
+  /* ===== Como funciona ===== */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 820px) {
+    .steps { grid-template-columns: 1fr; }
+  }
+  .step {
+    background: #fff;
+    padding: 32px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .step:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+  .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--verde-claro);
+    color: var(--verde-escuro);
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 18px;
+  }
+  .step h3 {
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--verde-escuro);
+  }
+  .step p {
+    font-size: 15px;
+    color: var(--text-soft);
+    line-height: 1.55;
+  }
+
+  /* ===== Diferenciais ===== */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 720px) {
+    .features { grid-template-columns: 1fr; }
+  }
+  .feature {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-md);
+    padding: 28px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .feature:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(105, 228, 112, 0.5);
+  }
+  .feature-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: var(--verde-claro);
+    color: var(--verde-escuro);
+    border-radius: 12px;
+    margin-bottom: 16px;
+  }
+  .feature-icon svg { width: 22px; height: 22px; }
+  .feature h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #fff;
+  }
+  .feature p {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.55;
+  }
+
+  /* ===== Planos resumo ===== */
+  .plans-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-top: 40px;
+  }
+  @media (max-width: 980px) {
+    .plans-strip { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 480px) {
+    .plans-strip { grid-template-columns: 1fr; }
+  }
+  .plan-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 24px 20px;
+    text-align: left;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .plan-card.active {
+    border-color: var(--verde-claro);
+    box-shadow: 0 16px 36px rgba(105, 228, 112, 0.18);
+    transform: translateY(-4px);
+  }
+  .plan-card-name {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .plan-card.active .plan-card-name { color: var(--verde-escuro); }
+  .plan-card-price {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--verde-escuro);
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .plan-card-fit {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.45;
+  }
+
+  /* ===== CTA final ===== */
+  .cta-final {
+    background: var(--verde-escuro);
+    color: #fff;
+    padding: 80px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-final::before {
+    content: "";
+    position: absolute;
+    top: -100px;
+    left: -100px;
+    width: 300px;
+    height: 300px;
+    background: var(--verde-claro);
+    opacity: 0.1;
+    border-radius: 50%;
+  }
+  .cta-final::after {
+    content: "";
+    position: absolute;
+    bottom: -100px;
+    right: -100px;
+    width: 240px;
+    height: 240px;
+    background: var(--amarelo-claro);
+    opacity: 0.15;
+    border-radius: 50%;
+  }
+  .cta-final-inner { position: relative; z-index: 1; }
+  .cta-final h2 { color: #fff; margin-bottom: 12px; }
+  .cta-final p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 17px;
+    max-width: 540px;
+    margin: 0 auto 32px;
+  }
+  .cta-final .btn-primary {
+    font-size: 17px;
+    padding: 18px 32px;
+  }
+
+  /* ===== Footer ===== */
+  footer {
+    background: var(--verde-escuro);
+    color: rgba(255, 255, 255, 0.72);
+    padding: 32px 24px;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  footer p { font-size: 13px; margin-bottom: 4px; }
+  footer .footer-legal {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  /* ===== WhatsApp Float ===== */
+  .wa-float {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 100;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    background: #25D366;
+    color: #fff;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .wa-float:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(37, 211, 102, 0.5);
+  }
+  .wa-float svg { width: 22px; height: 22px; }
+  @media (max-width: 540px) {
+    .wa-float { padding: 12px 16px; bottom: 16px; right: 16px; }
+    .wa-float span { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="header">
+  <div class="header-inner">
+    <div class="brand-pair">
+      <!-- Logo Selvia (wordmark em SVG inline para garantir render) -->
+      <svg class="brand-logo" viewBox="0 0 140 36" xmlns="http://www.w3.org/2000/svg" aria-label="Selvia">
+        <text x="0" y="26" font-family="Lexend, sans-serif" font-weight="800" font-size="26" fill="#0D423F" letter-spacing="-0.5">Selvia</text>
+      </svg>
+
+      <!-- Slot da empresa parceira: substitua o src abaixo -->
+      <div class="partner-slot" id="partner-slot">
+        <span class="brand-divider"></span>
+        <img class="partner-logo" id="partner-logo" src="" alt="" onerror="this.style.display='none'; this.previousElementSibling.style.display='none';" />
+      </div>
+    </div>
+
+    <a class="header-cta" href="https://wa.me/5511936220451" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M20.52 3.48A11.94 11.94 0 0 0 12.04 0C5.5 0 .2 5.3.2 11.84c0 2.09.55 4.13 1.6 5.93L0 24l6.4-1.68a11.83 11.83 0 0 0 5.64 1.44h.01c6.54 0 11.84-5.3 11.84-11.84 0-3.16-1.23-6.13-3.37-8.44Z"/>
+      </svg>
+      <span class="cta-label-full">Falar no WhatsApp</span>
+    </a>
+  </div>
+</header>
+
+<!-- ============ HERO + CALCULADORA ============ -->
+<section class="hero">
+  <div class="container hero-grid">
+
+    <div>
+      <div class="hero-eyebrow">Contabilidade especializada em restaurantes</div>
+      <h1>Descubra o <span class="accent">plano ideal</span> pro seu restaurante em 30 segundos.</h1>
+      <p class="hero-sub">
+        Contabilidade, fiscal e folha pelo WhatsApp. Sem boletos surpresa, sem jargão. Coloca seu faturamento e quantos funcionários você tem — a gente já te mostra o plano certo.
+      </p>
+
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="https://wa.me/5511936220451" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A11.94 11.94 0 0 0 12.04 0C5.5 0 .2 5.3.2 11.84c0 2.09.55 4.13 1.6 5.93L0 24l6.4-1.68a11.83 11.83 0 0 0 5.64 1.44h.01c6.54 0 11.84-5.3 11.84-11.84 0-3.16-1.23-6.13-3.37-8.44Z"/></svg>
+          Falar com a Selvia
+        </a>
+        <a class="btn btn-secondary" href="#calculadora">Calcular meu plano</a>
+      </div>
+
+      <div class="hero-trust">
+        <span class="hero-trust-item">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          Tudo no WhatsApp
+        </span>
+        <span class="hero-trust-item">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          Especialista em food service
+        </span>
+        <span class="hero-trust-item">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          Sem fidelidade
+        </span>
+      </div>
+    </div>
+
+    <!-- Calculadora -->
+    <div class="calc-card" id="calculadora">
+      <div class="calc-title">Calcule seu plano ideal</div>
+      <div class="calc-subtitle">2 inputs. Resposta na hora.</div>
+
+      <div class="calc-field">
+        <label class="calc-label" for="faturamento">Faturamento mensal do restaurante</label>
+        <div class="calc-input-wrap">
+          <span class="calc-prefix">R$</span>
+          <input
+            class="calc-input"
+            id="faturamento"
+            type="text"
+            inputmode="numeric"
+            placeholder="ex: 150.000"
+            autocomplete="off"
+          />
+        </div>
+        <div class="calc-helper">Considere a média dos últimos 3 meses.</div>
+      </div>
+
+      <div class="calc-field">
+        <label class="calc-label" for="funcionarios">Número de funcionários</label>
+        <div class="calc-input-wrap">
+          <input
+            class="calc-input no-prefix"
+            id="funcionarios"
+            type="text"
+            inputmode="numeric"
+            placeholder="ex: 8"
+            autocomplete="off"
+          />
+        </div>
+        <div class="calc-helper">CLT, somando salão, cozinha e administrativo.</div>
+      </div>
+
+      <div class="result" id="result" aria-live="polite">
+        <div class="result-eyebrow">Plano recomendado</div>
+        <div class="result-plan" id="result-plan">—</div>
+        <div class="result-price" id="result-price">—</div>
+        <div class="result-desc" id="result-desc">—</div>
+        <a class="result-cta" id="result-cta" href="https://wa.me/5511936220451" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A11.94 11.94 0 0 0 12.04 0C5.5 0 .2 5.3.2 11.84c0 2.09.55 4.13 1.6 5.93L0 24l6.4-1.68a11.83 11.83 0 0 0 5.64 1.44h.01c6.54 0 11.84-5.3 11.84-11.84 0-3.16-1.23-6.13-3.37-8.44Z"/></svg>
+          Quero esse plano
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ COMO FUNCIONA ============ -->
+<section class="section">
+  <div class="container">
+    <div class="section-eyebrow">Como funciona</div>
+    <h2>Da primeira mensagem ao fechamento do mês.</h2>
+    <p class="section-lead">Sem reunião marcada, sem PDF de proposta. Tudo num único chat.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Você chama no WhatsApp</h3>
+        <p>Manda faturamento, número de funcionários e regime tributário. A gente roda o diagnóstico gratuito na hora.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Mostramos o plano e o que dá pra recuperar</h3>
+        <p>Você vê exatamente o que entra, quanto custa por mês e quanto de imposto pago a mais dá pra reaver.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>A gente assume sua contabilidade</h3>
+        <p>Migração sem dor de cabeça. Folha, fiscal, obrigações e fechamento — tudo no mesmo chat, todo mês.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PLANOS RESUMO ============ -->
+<section class="section section-light-green">
+  <div class="container">
+    <div class="section-eyebrow">Planos pensados pra restaurante</div>
+    <h2>Do bistrô de bairro à rede com filiais.</h2>
+    <p class="section-lead">Use a calculadora acima pra ver qual encaixa no seu CNPJ. Estes são os tickets típicos.</p>
+
+    <div class="plans-strip" id="plans-strip">
+      <div class="plan-card" data-plan="starter">
+        <div class="plan-card-name">Starter Local</div>
+        <div class="plan-card-price">R$ 1.567/mês</div>
+        <div class="plan-card-fit">Faturamento até R$ 360k/ano · 1–6 funcionários</div>
+      </div>
+      <div class="plan-card" data-plan="starterplus">
+        <div class="plan-card-name">Starter Comercial</div>
+        <div class="plan-card-price">R$ 2.561/mês</div>
+        <div class="plan-card-fit">R$ 360k – R$ 720k/ano · 7–15 funcionários</div>
+      </div>
+      <div class="plan-card" data-plan="growth">
+        <div class="plan-card-name">Growth</div>
+        <div class="plan-card-price">R$ 3.785/mês</div>
+        <div class="plan-card-fit">R$ 720k – R$ 1,8M/ano · 16–30 funcionários</div>
+      </div>
+      <div class="plan-card" data-plan="growthplus">
+        <div class="plan-card-name">Growth+ Multi-loja</div>
+        <div class="plan-card-price">R$ 6.521/mês</div>
+        <div class="plan-card-fit">R$ 1,8M – R$ 3,6M/ano · 31–50 funcionários</div>
+      </div>
+      <div class="plan-card" data-plan="scale">
+        <div class="plan-card-name">Scale Rede</div>
+        <div class="plan-card-price">R$ 10.014/mês</div>
+        <div class="plan-card-fit">R$ 3,6M+/ano · 50+ funcionários</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DIFERENCIAIS ============ -->
+<section class="section section-dark">
+  <div class="container">
+    <div class="section-eyebrow">Por que a Selvia</div>
+    <h2>Contabilidade que entende de restaurante.</h2>
+    <p class="section-lead">Não somos contador generalista. A gente sabe onde restaurante perde dinheiro.</p>
+
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M5 9l7-7 7 7M5 15l7 7 7-7"/></svg>
+        </div>
+        <h3>Imposto pago a mais volta pra você</h3>
+        <p>Cerveja, refri e água já vêm com o imposto pago da fábrica. A maioria dos restaurantes paga de novo sem saber. A gente identifica e ajuda a recuperar dos últimos 5 anos.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h3>Folha de restaurante é diferente</h3>
+        <p>12x36, hora extra, banco de horas, gorjeta, rotatividade alta. A gente faz folha de restaurante todo dia — sem cair em multa.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3>WhatsApp, não chamado em sistema</h3>
+        <p>Você manda mensagem como manda pro fornecedor. A gente responde rápido, sem login, sem ticket, sem fila.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+        </div>
+        <h3>iFood, Rappi, Stripe — tudo conciliado</h3>
+        <p>Cada marketplace tem comissão, taxa, repasse diferente. A gente concilia tudo e te mostra a margem real, prato a prato.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA FINAL ============ -->
+<section class="cta-final">
+  <div class="container cta-final-inner">
+    <h2>Bora descobrir quanto de imposto você paga a mais?</h2>
+    <p>Diagnóstico gratuito, no WhatsApp, sem compromisso. A gente te mostra em minutos.</p>
+    <a class="btn btn-primary" href="https://wa.me/5511936220451" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A11.94 11.94 0 0 0 12.04 0C5.5 0 .2 5.3.2 11.84c0 2.09.55 4.13 1.6 5.93L0 24l6.4-1.68a11.83 11.83 0 0 0 5.64 1.44h.01c6.54 0 11.84-5.3 11.84-11.84 0-3.16-1.23-6.13-3.37-8.44Z"/></svg>
+      Quero meu diagnóstico grátis
+    </a>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <p>Selvia · Contabilidade que descomplica.</p>
+  <p class="footer-legal">© Selvia. Todos os direitos reservados.</p>
+</footer>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/5511936220451" class="wa-float" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.52 3.48A11.94 11.94 0 0 0 12.04 0C5.5 0 .2 5.3.2 11.84c0 2.09.55 4.13 1.6 5.93L0 24l6.4-1.68a11.83 11.83 0 0 0 5.64 1.44h.01c6.54 0 11.84-5.3 11.84-11.84 0-3.16-1.23-6.13-3.37-8.44Z"/>
+  </svg>
+  <span>Diagnóstico grátis</span>
+</a>
+
+<script>
+/* ============================================
+   LÓGICA DA CALCULADORA
+   Baseado nos cenários reais da planilha de
+   precificação Selvia (aba Restaurantes).
+   Tickets: Starter R$1.567 → Scale R$10.014
+   ============================================ */
+
+const WA_LINK = "https://wa.me/5511936220451";
+
+// 5 cenários da planilha de restaurantes
+const PLANS = {
+  starter: {
+    key: "starter",
+    name: "Starter Local",
+    price: "R$ 1.567/mês",
+    fit: "Pra restaurante começando: faturamento até R$ 30k/mês, equipe enxuta (até 6 pessoas).",
+    waMsg: "Olá! Vi a calculadora e o plano recomendado pra mim foi o Starter Local. Queria falar sobre."
+  },
+  starterplus: {
+    key: "starterplus",
+    name: "Starter Comercial",
+    price: "R$ 2.561/mês",
+    fit: "Pra restaurante consolidado: faturamento entre R$ 30k e R$ 60k/mês, equipe de 7 a 15 pessoas.",
+    waMsg: "Olá! Vi a calculadora e o plano recomendado pra mim foi o Starter Comercial. Queria falar sobre."
+  },
+  growth: {
+    key: "growth",
+    name: "Growth",
+    price: "R$ 3.785/mês",
+    fit: "Pra operação em crescimento: faturamento entre R$ 60k e R$ 150k/mês, equipe de 16 a 30 pessoas.",
+    waMsg: "Olá! Vi a calculadora e o plano recomendado pra mim foi o Growth. Queria falar sobre."
+  },
+  growthplus: {
+    key: "growthplus",
+    name: "Growth+ Multi-loja",
+    price: "R$ 6.521/mês",
+    fit: "Pra quem já tem mais de um CNPJ ou volume alto: faturamento entre R$ 150k e R$ 300k/mês, equipe de 31 a 50 pessoas.",
+    waMsg: "Olá! Vi a calculadora e o plano recomendado pra mim foi o Growth+ Multi-loja. Queria falar sobre."
+  },
+  scale: {
+    key: "scale",
+    name: "Scale Rede",
+    price: "R$ 10.014/mês (a partir de)",
+    fit: "Pra rede com várias unidades: faturamento acima de R$ 300k/mês, equipe acima de 50 pessoas. Ticket personalizado.",
+    waMsg: "Olá! Vi a calculadora e o plano recomendado pra mim foi o Scale Rede. Queria falar sobre."
+  }
+};
+
+/**
+ * Decide o plano baseado em faturamento MENSAL (R$) e nº de funcionários.
+ * Lógica derivada da planilha (cenários típicos por faixa de faturamento anual).
+ * Faturamento anual = mensal × 12.
+ */
+function pickPlan(faturamentoMensal, funcionarios) {
+  const anual = faturamentoMensal * 12;
+
+  // Define camada por faturamento (primário)
+  let porFaturamento;
+  if (anual <= 360_000) porFaturamento = "starter";
+  else if (anual <= 720_000) porFaturamento = "starterplus";
+  else if (anual <= 1_800_000) porFaturamento = "growth";
+  else if (anual <= 3_600_000) porFaturamento = "growthplus";
+  else porFaturamento = "scale";
+
+  // Define camada por funcionários (secundário)
+  let porFuncionarios;
+  if (funcionarios <= 6) porFuncionarios = "starter";
+  else if (funcionarios <= 15) porFuncionarios = "starterplus";
+  else if (funcionarios <= 30) porFuncionarios = "growth";
+  else if (funcionarios <= 50) porFuncionarios = "growthplus";
+  else porFuncionarios = "scale";
+
+  // Sobe pro maior entre os dois — drivers de DP (funcionários) puxam o plano pra cima
+  const ordem = ["starter", "starterplus", "growth", "growthplus", "scale"];
+  const idxFat = ordem.indexOf(porFaturamento);
+  const idxFun = ordem.indexOf(porFuncionarios);
+  const escolhido = ordem[Math.max(idxFat, idxFun)];
+
+  return PLANS[escolhido];
+}
+
+/* Formatação BR de número com pontos como separador de milhar */
+function formatBR(n) {
+  if (!n) return "";
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+function unformatBR(s) {
+  return parseInt((s || "").replace(/\D/g, ""), 10) || 0;
+}
+
+/* Bind input com máscara de R$ */
+const faturamentoInput = document.getElementById("faturamento");
+const funcionariosInput = document.getElementById("funcionarios");
+
+faturamentoInput.addEventListener("input", (e) => {
+  const raw = unformatBR(e.target.value);
+  e.target.value = raw ? formatBR(raw) : "";
+  recalc();
+});
+
+funcionariosInput.addEventListener("input", (e) => {
+  // Só dígitos
+  e.target.value = e.target.value.replace(/\D/g, "");
+  recalc();
+});
+
+/* Render do resultado */
+const resultEl = document.getElementById("result");
+const resultPlan = document.getElementById("result-plan");
+const resultPrice = document.getElementById("result-price");
+const resultDesc = document.getElementById("result-desc");
+const resultCta = document.getElementById("result-cta");
+
+function recalc() {
+  const fat = unformatBR(faturamentoInput.value);
+  const fun = parseInt(funcionariosInput.value, 10) || 0;
+
+  if (!fat || fat < 1000) {
+    resultEl.classList.remove("visible");
+    highlightPlanCard(null);
+    return;
+  }
+
+  const plano = pickPlan(fat, fun);
+  resultPlan.textContent = plano.name;
+  resultPrice.innerHTML = `<strong>${plano.price}</strong>`;
+  resultDesc.textContent = plano.fit;
+  resultCta.href = `${WA_LINK}?text=${encodeURIComponent(plano.waMsg)}`;
+  resultEl.classList.add("visible");
+
+  highlightPlanCard(plano.key);
+}
+
+/* Destaque visual no card do plano na seção de planos */
+function highlightPlanCard(key) {
+  document.querySelectorAll(".plan-card").forEach((card) => {
+    if (key && card.dataset.plan === key) card.classList.add("active");
+    else card.classList.remove("active");
+  });
+}
+
+/* ============================================
+   LOGO PARCEIRA — configurável
+   Para usar: chame setPartnerLogo("url-da-logo", "Nome Parceiro")
+   no console, ou substitua o src direto no HTML.
+   ============================================ */
+window.setPartnerLogo = function(url, alt) {
+  const logo = document.getElementById("partner-logo");
+  const slot = document.getElementById("partner-slot");
+  logo.src = url || "";
+  logo.alt = alt || "";
+  // Re-mostra o divisor caso tenha sido escondido
+  slot.querySelector(".brand-divider").style.display = "";
+  logo.style.display = "";
+};
+
+/* Se a página carregar com src vazio na logo parceira, esconde o slot */
+window.addEventListener("DOMContentLoaded", () => {
+  const logo = document.getElementById("partner-logo");
+  if (!logo.getAttribute("src")) {
+    document.getElementById("partner-slot").style.display = "none";
+  }
+});
+</script>
+
+</body>
+</html>
