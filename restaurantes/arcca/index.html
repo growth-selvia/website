@@ -333,10 +333,19 @@
     opacity: 0;
     transform: translateY(8px);
     transition: opacity 0.3s, transform 0.3s;
+    max-height: 0;
+    overflow: hidden;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
   }
   .result.visible {
     opacity: 1;
     transform: translateY(0);
+    max-height: 2000px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    margin-top: 8px;
   }
   .result-eyebrow {
     font-size: 12px;
@@ -344,35 +353,98 @@
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--text-muted);
-    margin-bottom: 6px;
+    margin-bottom: 14px;
   }
-  .result-plan {
-    font-size: 24px;
+
+  /* Savings cards (mensal + retroativo) */
+  .result-savings {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 12px;
+    align-items: stretch;
+    background: #fff;
+    border-radius: var(--radius-sm);
+    padding: 18px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(13, 66, 63, 0.06);
+  }
+  .savings-item { display: flex; flex-direction: column; justify-content: center; }
+  .savings-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .savings-value {
+    font-size: clamp(20px, 3vw, 26px);
     font-weight: 800;
     color: var(--verde-escuro);
-    margin-bottom: 4px;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
   }
-  .result-price {
-    font-size: 14px;
-    color: var(--text-soft);
-    margin-bottom: 12px;
+  .savings-retro .savings-value { color: var(--laranja); }
+  .savings-divider {
+    width: 1px;
+    background: var(--border);
   }
-  .result-price strong {
-    color: var(--verde-escuro);
-    font-weight: 700;
-  }
-  .result-desc {
-    font-size: 14px;
+
+  /* Breakdown — texto corrido explicando os componentes */
+  .result-breakdown {
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+    margin-bottom: 16px;
+    font-size: 13.5px;
     color: var(--text-soft);
     line-height: 1.55;
-    margin-bottom: 16px;
   }
+  .result-breakdown .bd-title {
+    font-weight: 600;
+    color: var(--verde-escuro);
+    margin-bottom: 8px;
+  }
+  .result-breakdown p {
+    margin: 0 0 8px 0;
+  }
+  .result-breakdown p:last-child { margin-bottom: 0; }
+  .result-breakdown strong { color: var(--verde-escuro); font-weight: 700; }
+
+  /* Plano recomendado (compacto, secundário) */
+  .result-plan-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: #fff;
+    border: 1px dashed rgba(13, 66, 63, 0.2);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    margin-bottom: 14px;
+  }
+  .result-plan-info { display: flex; flex-direction: column; gap: 2px; }
+  .result-plan-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+  .result-plan-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--verde-escuro);
+  }
+  .result-plan-price {
+    font-size: 13px;
+    color: var(--text-soft);
+  }
+
   .result-cta {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 12px 22px;
+    padding: 14px 24px;
     background: var(--verde-escuro);
     color: #fff;
     border-radius: 999px;
@@ -380,9 +452,52 @@
     font-size: 14px;
     text-decoration: none;
     transition: transform 0.15s, background 0.15s;
+    width: 100%;
+    justify-content: center;
   }
   .result-cta:hover { background: #0a3633; transform: translateY(-1px); }
-  .result-cta svg { width: 16px; height: 16px; }
+  .result-cta svg { width: 18px; height: 18px; }
+
+  .result-disclaimer {
+    margin-top: 12px;
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  .calc-eyebrow {
+    display: inline-block;
+    padding: 4px 10px;
+    background: var(--verde-claro);
+    color: var(--verde-escuro);
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 12px;
+  }
+  .calc-select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%230D423F' stroke-width='2'%3e%3cpath d='m6 9 6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 44px;
+    cursor: pointer;
+  }
+
+  @media (max-width: 480px) {
+    .result-savings {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .savings-divider {
+      width: 100%;
+      height: 1px;
+    }
+  }
 
   /* ===== Seção ===== */
   .section {
@@ -681,42 +796,43 @@
 
     <div>
       <div class="hero-eyebrow">Contabilidade especializada em restaurantes</div>
-      <h1>Descubra o <span class="accent">plano ideal</span> pro seu restaurante em 30 segundos.</h1>
+      <h1>Restaurante paga <span class="accent">imposto a mais</span> todo mês. A gente mostra quanto.</h1>
       <p class="hero-sub">
-        Contabilidade, fiscal e folha pelo WhatsApp. Sem boletos surpresa, sem jargão. Coloca seu faturamento e quantos funcionários você tem — a gente já te mostra o plano certo.
+        Tem produto no seu cardápio cujo imposto já foi pago lá na fábrica e seu restaurante pode estar pagando de novo todo mês. Vários estados oferecem regimes especiais pra bares e restaurantes que quase ninguém usa. A calculadora aqui do lado faz a conta e mostra o que dá pra economizar. A Selvia é a contabilidade que garante essa eficiência tributária pra você.
       </p>
 
       <div class="hero-ctas">
-        <a class="btn btn-primary" href="https://wa.me/5511936220451" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A11.94 11.94 0 0 0 12.04 0C5.5 0 .2 5.3.2 11.84c0 2.09.55 4.13 1.6 5.93L0 24l6.4-1.68a11.83 11.83 0 0 0 5.64 1.44h.01c6.54 0 11.84-5.3 11.84-11.84 0-3.16-1.23-6.13-3.37-8.44Z"/></svg>
-          Falar com a Selvia
+        <a class="btn btn-primary" href="#calculadora">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+          Ver quanto eu economizo
         </a>
-        <a class="btn btn-secondary" href="#calculadora">Calcular meu plano</a>
+        <a class="btn btn-secondary" href="https://wa.me/5511936220451" target="_blank" rel="noopener">Falar no WhatsApp</a>
       </div>
 
       <div class="hero-trust">
         <span class="hero-trust-item">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          Tudo no WhatsApp
+          Diagnóstico de graça
         </span>
         <span class="hero-trust-item">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          Especialista em food service
+          Só pra restaurante
         </span>
         <span class="hero-trust-item">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          Sem fidelidade
+          Atendimento no WhatsApp
         </span>
       </div>
     </div>
 
-    <!-- Calculadora -->
+    <!-- Calculadora de Economia -->
     <div class="calc-card" id="calculadora">
-      <div class="calc-title">Calcule seu plano ideal</div>
-      <div class="calc-subtitle">2 inputs. Resposta na hora.</div>
+      <div class="calc-eyebrow">Diagnóstico gratuito</div>
+      <div class="calc-title">Quanto você está pagando de imposto a mais?</div>
+      <div class="calc-subtitle">Coloca seu faturamento aqui embaixo. A gente mostra quanto dá pra economizar todo mês e quanto dá pra pedir de volta dos últimos 5 anos.</div>
 
       <div class="calc-field">
-        <label class="calc-label" for="faturamento">Faturamento mensal do restaurante</label>
+        <label class="calc-label" for="faturamento">Quanto seu restaurante fatura por mês?</label>
         <div class="calc-input-wrap">
           <span class="calc-prefix">R$</span>
           <input
@@ -728,11 +844,26 @@
             autocomplete="off"
           />
         </div>
-        <div class="calc-helper">Considere a média dos últimos 3 meses.</div>
+        <div class="calc-helper">Média dos últimos 3 meses serve.</div>
       </div>
 
       <div class="calc-field">
-        <label class="calc-label" for="funcionarios">Número de funcionários</label>
+        <label class="calc-label" for="estado">Em qual estado?</label>
+        <div class="calc-input-wrap">
+          <select class="calc-input no-prefix calc-select" id="estado">
+            <option value="">Selecione o estado</option>
+            <option value="SP">São Paulo</option>
+            <option value="RJ">Rio de Janeiro</option>
+            <option value="MG">Minas Gerais</option>
+            <option value="SC">Santa Catarina</option>
+            <option value="OUTRO">Outro estado</option>
+          </select>
+        </div>
+        <div class="calc-helper">Se você é de SP, RJ, MG ou SC, dá pra economizar ainda mais com o regime especial de ICMS.</div>
+      </div>
+
+      <div class="calc-field">
+        <label class="calc-label" for="funcionarios">Quantos funcionários?</label>
         <div class="calc-input-wrap">
           <input
             class="calc-input no-prefix"
@@ -743,18 +874,42 @@
             autocomplete="off"
           />
         </div>
-        <div class="calc-helper">CLT, somando salão, cozinha e administrativo.</div>
+        <div class="calc-helper">Pra sugerir o plano que faz sentido pra você.</div>
       </div>
 
       <div class="result" id="result" aria-live="polite">
-        <div class="result-eyebrow">Plano recomendado</div>
-        <div class="result-plan" id="result-plan">—</div>
-        <div class="result-price" id="result-price">—</div>
-        <div class="result-desc" id="result-desc">—</div>
+        <div class="result-eyebrow">Sua estimativa de economia</div>
+
+        <div class="result-savings">
+          <div class="savings-item savings-monthly">
+            <div class="savings-label">Por mês daqui pra frente</div>
+            <div class="savings-value" id="result-monthly">—</div>
+          </div>
+          <div class="savings-divider"></div>
+          <div class="savings-item savings-retro">
+            <div class="savings-label">Recuperável dos últimos 5 anos</div>
+            <div class="savings-value" id="result-retro">—</div>
+          </div>
+        </div>
+
+        <div class="result-breakdown" id="result-breakdown"></div>
+
+        <div class="result-plan-row">
+          <div class="result-plan-info">
+            <div class="result-plan-eyebrow">Plano sugerido pra você</div>
+            <div class="result-plan-name" id="result-plan">—</div>
+            <div class="result-plan-price" id="result-plan-price">—</div>
+          </div>
+        </div>
+
         <a class="result-cta" id="result-cta" href="https://wa.me/5511936220451" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A11.94 11.94 0 0 0 12.04 0C5.5 0 .2 5.3.2 11.84c0 2.09.55 4.13 1.6 5.93L0 24l6.4-1.68a11.83 11.83 0 0 0 5.64 1.44h.01c6.54 0 11.84-5.3 11.84-11.84 0-3.16-1.23-6.13-3.37-8.44Z"/></svg>
-          Quero esse plano
+          Quero falar com a Selvia
         </a>
+
+        <div class="result-disclaimer">
+          Esses são valores estimados a partir de premissas comuns no setor. O número exato depende da sua operação e a gente confirma no diagnóstico.
+        </div>
       </div>
     </div>
 
@@ -765,24 +920,24 @@
 <section class="section">
   <div class="container">
     <div class="section-eyebrow">Como funciona</div>
-    <h2>Da primeira mensagem ao fechamento do mês.</h2>
-    <p class="section-lead">Sem reunião marcada, sem PDF de proposta. Tudo num único chat.</p>
+    <h2>Três passos no WhatsApp.</h2>
+    <p class="section-lead">Sem reunião marcada, sem PDF de proposta, sem ligação. A conversa toda acontece no chat.</p>
 
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
-        <h3>Você chama no WhatsApp</h3>
-        <p>Manda faturamento, número de funcionários e regime tributário. A gente roda o diagnóstico gratuito na hora.</p>
+        <h3>Você manda mensagem</h3>
+        <p>Diz o faturamento médio, quantos funcionários você tem e o estado. A gente roda o diagnóstico ali mesmo, na hora.</p>
       </div>
       <div class="step">
         <div class="step-num">2</div>
-        <h3>Mostramos o plano e o que dá pra recuperar</h3>
-        <p>Você vê exatamente o que entra, quanto custa por mês e quanto de imposto pago a mais dá pra reaver.</p>
+        <h3>A gente mostra a conta</h3>
+        <p>Você vê quanto está pagando de imposto a mais por mês e quanto dá pra pedir de volta dos últimos 5 anos. Tudo em reais, sem jargão de contador.</p>
       </div>
       <div class="step">
         <div class="step-num">3</div>
-        <h3>A gente assume sua contabilidade</h3>
-        <p>Migração sem dor de cabeça. Folha, fiscal, obrigações e fechamento — tudo no mesmo chat, todo mês.</p>
+        <h3>A gente cuida do resto</h3>
+        <p>Se quiser seguir, a Selvia assume sua contabilidade. Folha, fiscal, obrigações, fechamento do mês. Continua tudo pelo mesmo chat.</p>
       </div>
     </div>
   </div>
@@ -791,35 +946,35 @@
 <!-- ============ PLANOS RESUMO ============ -->
 <section class="section section-light-green">
   <div class="container">
-    <div class="section-eyebrow">Planos pensados pra restaurante</div>
-    <h2>Do bistrô de bairro à rede com filiais.</h2>
-    <p class="section-lead">Use a calculadora acima pra ver qual encaixa no seu CNPJ. Estes são os tickets típicos.</p>
+    <div class="section-eyebrow">Quanto custa</div>
+    <h2>Cinco planos. Você só paga pelo que precisa.</h2>
+    <p class="section-lead">A gente tem planos que vão do restaurante de bairro até a rede com várias unidades. Se você usou a calculadora aí em cima, já viu qual é o seu.</p>
 
     <div class="plans-strip" id="plans-strip">
       <div class="plan-card" data-plan="starter">
         <div class="plan-card-name">Starter Local</div>
-        <div class="plan-card-price">R$ 813/mês</div>
-        <div class="plan-card-fit">Faturamento até R$ 360k/ano · 1–6 funcionários</div>
+        <div class="plan-card-price">R$ 687/mês</div>
+        <div class="plan-card-fit">Pra quem fatura até R$ 30 mil por mês e tem até 6 funcionários</div>
       </div>
       <div class="plan-card" data-plan="starterplus">
         <div class="plan-card-name">Starter Comercial</div>
-        <div class="plan-card-price">R$ 1.311/mês</div>
-        <div class="plan-card-fit">R$ 360k – R$ 720k/ano · 7–15 funcionários</div>
+        <div class="plan-card-price">R$ 1.071/mês</div>
+        <div class="plan-card-fit">Pra quem fatura de R$ 30 mil a R$ 60 mil por mês e tem até 15 funcionários</div>
       </div>
       <div class="plan-card" data-plan="growth">
         <div class="plan-card-name">Growth</div>
-        <div class="plan-card-price">R$ 1.923/mês</div>
-        <div class="plan-card-fit">R$ 720k – R$ 1,8M/ano · 16–30 funcionários</div>
+        <div class="plan-card-price">R$ 1.473/mês</div>
+        <div class="plan-card-fit">Pra quem fatura de R$ 60 mil a R$ 150 mil por mês e tem até 30 funcionários</div>
       </div>
       <div class="plan-card" data-plan="growthplus">
         <div class="plan-card-name">Growth+ Multi-loja</div>
-        <div class="plan-card-price">R$ 3.320/mês</div>
-        <div class="plan-card-fit">R$ 1,8M – R$ 3,6M/ano · 31–50 funcionários</div>
+        <div class="plan-card-price">R$ 2.700/mês</div>
+        <div class="plan-card-fit">Pra quem fatura de R$ 150 mil a R$ 300 mil por mês e tem até 50 funcionários</div>
       </div>
       <div class="plan-card" data-plan="scale">
         <div class="plan-card-name">Scale Rede</div>
-        <div class="plan-card-price">R$ 5.067/mês</div>
-        <div class="plan-card-fit">R$ 3,6M+/ano · 50+ funcionários</div>
+        <div class="plan-card-price">R$ 4.239/mês</div>
+        <div class="plan-card-fit">Pra redes que faturam mais de R$ 300 mil por mês com 50 funcionários ou mais</div>
       </div>
     </div>
   </div>
@@ -829,8 +984,8 @@
 <section class="section section-dark">
   <div class="container">
     <div class="section-eyebrow">Por que a Selvia</div>
-    <h2>Contabilidade que entende de restaurante.</h2>
-    <p class="section-lead">Não somos contador generalista. A gente sabe onde restaurante perde dinheiro.</p>
+    <h2>A gente só atende restaurante.</h2>
+    <p class="section-lead">Não somos contador generalista. A gente sabe onde restaurante perde dinheiro porque é só nisso que a gente trabalha.</p>
 
     <div class="features">
       <div class="feature">
@@ -838,28 +993,28 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M5 9l7-7 7 7M5 15l7 7 7-7"/></svg>
         </div>
         <h3>Imposto pago a mais volta pra você</h3>
-        <p>Cerveja, refri e água já vêm com o imposto pago da fábrica. A maioria dos restaurantes paga de novo sem saber. A gente identifica e ajuda a recuperar dos últimos 5 anos.</p>
+        <p>Cerveja, refri e água já vêm com o imposto pago lá na fábrica. A maioria dos restaurantes paga de novo sem saber. A gente acha esses casos e ajuda você a recuperar o que pagou nos últimos 5 anos.</p>
       </div>
       <div class="feature">
         <div class="feature-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
         </div>
-        <h3>Folha de restaurante é diferente</h3>
-        <p>12x36, hora extra, banco de horas, gorjeta, rotatividade alta. A gente faz folha de restaurante todo dia — sem cair em multa.</p>
+        <h3>Folha de restaurante é outro bicho</h3>
+        <p>12x36, hora extra, banco de horas, gorjeta, gente entrando e saindo todo mês. A gente faz folha de restaurante todo dia, sem cair em multa.</p>
       </div>
       <div class="feature">
         <div class="feature-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         </div>
         <h3>WhatsApp, não chamado em sistema</h3>
-        <p>Você manda mensagem como manda pro fornecedor. A gente responde rápido, sem login, sem ticket, sem fila.</p>
+        <p>Você manda mensagem do mesmo jeito que manda pro fornecedor. A gente responde rápido. Sem login, sem ticket, sem fila.</p>
       </div>
       <div class="feature">
         <div class="feature-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
         </div>
-        <h3>iFood, Rappi, Stripe — tudo conciliado</h3>
-        <p>Cada marketplace tem comissão, taxa, repasse diferente. A gente concilia tudo e te mostra a margem real, prato a prato.</p>
+        <h3>iFood, Rappi, Stripe, tudo conciliado</h3>
+        <p>Cada marketplace tem uma comissão diferente, uma taxa, um jeito de repassar. A gente concilia tudo e te mostra qual é a margem real, prato a prato.</p>
       </div>
     </div>
   </div>
@@ -868,18 +1023,18 @@
 <!-- ============ CTA FINAL ============ -->
 <section class="cta-final">
   <div class="container cta-final-inner">
-    <h2>Bora descobrir quanto de imposto você paga a mais?</h2>
-    <p>Diagnóstico gratuito, no WhatsApp, sem compromisso. A gente te mostra em minutos.</p>
+    <h2>Quanto está perdendo em imposto sem perceber?</h2>
+    <p>Manda uma mensagem no WhatsApp. A gente faz a conta de graça e te mostra em poucos minutos.</p>
     <a class="btn btn-primary" href="https://wa.me/5511936220451" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A11.94 11.94 0 0 0 12.04 0C5.5 0 .2 5.3.2 11.84c0 2.09.55 4.13 1.6 5.93L0 24l6.4-1.68a11.83 11.83 0 0 0 5.64 1.44h.01c6.54 0 11.84-5.3 11.84-11.84 0-3.16-1.23-6.13-3.37-8.44Z"/></svg>
-      Quero meu diagnóstico grátis
+      Quero saber quanto eu economizo
     </a>
   </div>
 </section>
 
 <!-- ============ FOOTER ============ -->
 <footer>
-  <p>Selvia · Contabilidade que descomplica.</p>
+  <p>Selvia. Contabilidade pra quem tem restaurante.</p>
   <p class="footer-legal">© Selvia. Todos os direitos reservados.</p>
 </footer>
 
@@ -888,67 +1043,117 @@
   <svg viewBox="0 0 24 24" fill="currentColor">
     <path d="M20.52 3.48A11.94 11.94 0 0 0 12.04 0C5.5 0 .2 5.3.2 11.84c0 2.09.55 4.13 1.6 5.93L0 24l6.4-1.68a11.83 11.83 0 0 0 5.64 1.44h.01c6.54 0 11.84-5.3 11.84-11.84 0-3.16-1.23-6.13-3.37-8.44Z"/>
   </svg>
-  <span>Diagnóstico grátis</span>
+  <span>Falar agora</span>
 </a>
 
 <script>
 /* ============================================
-   LÓGICA DA CALCULADORA
-   Baseado nos cenários reais da planilha de
-   precificação Selvia (aba Restaurantes).
-   Tickets: Starter R$1.567 → Scale R$10.014
+   CALCULADORA DE ECONOMIA TRIBUTÁRIA + PLANO
+   Premissas:
+   - PIS/COFINS monofásico em bebidas industrializadas:
+     SN: 3,65% / LP: 9,25% (sobre receita de bebidas)
+   - Bebidas: 25% do faturamento (fixo, premissa média)
+   - ICMS regime especial estadual: só economiza se
+     alíquota efetiva atual > alíquota do regime especial
+   - Fator de êxito retroativo: 0,8 (otimista)
+   - Janela retroativa: 60 meses
    ============================================ */
 
 const WA_LINK = "https://wa.me/5511936220451";
 
-// 5 cenários da planilha de restaurantes (fator de ajuste 0,5 aplicado nos drivers)
+const PIS_COFINS_SN = 0.0365;
+const PIS_COFINS_LP = 0.0925;
+const PCT_BEBIDAS = 0.25;
+
+const REGIME_ESPECIAL_ICMS = {
+  SP: { aliquota: 0.032, nome: "São Paulo" },
+  SC: { aliquota: 0.032, nome: "Santa Catarina" },
+  RJ: { aliquota: 0.035, nome: "Rio de Janeiro" },
+  MG: { aliquota: 0.040, nome: "Minas Gerais" },
+};
+
+const FATOR_EXITO_RETROATIVO = 0.8;
+const MESES_RETROATIVO = 60;
+
+/* Alíquota efetiva ICMS por regime + faixa */
+function aliquotaIcmsEfetiva(regime, faturamentoAnual) {
+  if (regime === "LP") return 0.10; // LP médio
+  if (faturamentoAnual <= 180_000) return 0.0186;
+  if (faturamentoAnual <= 360_000) return 0.0233;
+  if (faturamentoAnual <= 720_000) return 0.0275;
+  if (faturamentoAnual <= 1_800_000) return 0.0302;
+  if (faturamentoAnual <= 3_600_000) return 0.0338;
+  return 0.0395;
+}
+
+/* Cálculo central de economia */
+function calcularEconomia(faturamentoMensal, estado) {
+  const anual = faturamentoMensal * 12;
+  const regime = anual <= 4_800_000 ? "SN" : "LP";
+
+  // Componente 1: PIS/COFINS sobre bebidas
+  const pcAliq = regime === "SN" ? PIS_COFINS_SN : PIS_COFINS_LP;
+  const economiaPisCofins = faturamentoMensal * PCT_BEBIDAS * pcAliq;
+
+  // Componente 2: ICMS regime especial
+  let economiaIcms = 0;
+  const estadoElegivel = REGIME_ESPECIAL_ICMS[estado];
+  if (estadoElegivel) {
+    const aliqAtual = aliquotaIcmsEfetiva(regime, anual);
+    const aliqEspecial = estadoElegivel.aliquota;
+    if (aliqAtual > aliqEspecial) {
+      economiaIcms = faturamentoMensal * (aliqAtual - aliqEspecial);
+    }
+  }
+
+  const economiaMensal = economiaPisCofins + economiaIcms;
+  const retroativo = economiaMensal * MESES_RETROATIVO * FATOR_EXITO_RETROATIVO;
+
+  return {
+    regime,
+    economiaPisCofins,
+    economiaIcms,
+    economiaMensal,
+    retroativo,
+    estadoNome: estadoElegivel ? estadoElegivel.nome : null,
+    temIcms: economiaIcms > 0,
+  };
+}
+
+/* ============================================
+   PLANOS (preços atuais da planilha)
+   ============================================ */
 const PLANS = {
   starter: {
     key: "starter",
     name: "Starter Local",
-    price: "R$ 813/mês",
-    fit: "Pra restaurante começando: faturamento até R$ 30k/mês, equipe enxuta (até 6 pessoas).",
-    waMsg: "Olá! Vi a calculadora e o plano recomendado pra mim foi o Starter Local. Queria falar sobre."
+    price: "R$ 687/mês",
   },
   starterplus: {
     key: "starterplus",
     name: "Starter Comercial",
-    price: "R$ 1.311/mês",
-    fit: "Pra restaurante consolidado: faturamento entre R$ 30k e R$ 60k/mês, equipe de 7 a 15 pessoas.",
-    waMsg: "Olá! Vi a calculadora e o plano recomendado pra mim foi o Starter Comercial. Queria falar sobre."
+    price: "R$ 1.071/mês",
   },
   growth: {
     key: "growth",
     name: "Growth",
-    price: "R$ 1.923/mês",
-    fit: "Pra operação em crescimento: faturamento entre R$ 60k e R$ 150k/mês, equipe de 16 a 30 pessoas.",
-    waMsg: "Olá! Vi a calculadora e o plano recomendado pra mim foi o Growth. Queria falar sobre."
+    price: "R$ 1.473/mês",
   },
   growthplus: {
     key: "growthplus",
     name: "Growth+ Multi-loja",
-    price: "R$ 3.320/mês",
-    fit: "Pra quem já tem mais de um CNPJ ou volume alto: faturamento entre R$ 150k e R$ 300k/mês, equipe de 31 a 50 pessoas.",
-    waMsg: "Olá! Vi a calculadora e o plano recomendado pra mim foi o Growth+ Multi-loja. Queria falar sobre."
+    price: "R$ 2.700/mês",
   },
   scale: {
     key: "scale",
     name: "Scale Rede",
-    price: "R$ 5.067/mês (a partir de)",
-    fit: "Pra rede com várias unidades: faturamento acima de R$ 300k/mês, equipe acima de 50 pessoas. Ticket personalizado.",
-    waMsg: "Olá! Vi a calculadora e o plano recomendado pra mim foi o Scale Rede. Queria falar sobre."
+    price: "R$ 4.239/mês (a partir de)",
   }
 };
 
-/**
- * Decide o plano baseado em faturamento MENSAL (R$) e nº de funcionários.
- * Lógica derivada da planilha (cenários típicos por faixa de faturamento anual).
- * Faturamento anual = mensal × 12.
- */
 function pickPlan(faturamentoMensal, funcionarios) {
   const anual = faturamentoMensal * 12;
 
-  // Define camada por faturamento (primário)
   let porFaturamento;
   if (anual <= 360_000) porFaturamento = "starter";
   else if (anual <= 720_000) porFaturamento = "starterplus";
@@ -956,7 +1161,6 @@ function pickPlan(faturamentoMensal, funcionarios) {
   else if (anual <= 3_600_000) porFaturamento = "growthplus";
   else porFaturamento = "scale";
 
-  // Define camada por funcionários (secundário)
   let porFuncionarios;
   if (funcionarios <= 6) porFuncionarios = "starter";
   else if (funcionarios <= 15) porFuncionarios = "starterplus";
@@ -964,7 +1168,6 @@ function pickPlan(faturamentoMensal, funcionarios) {
   else if (funcionarios <= 50) porFuncionarios = "growthplus";
   else porFuncionarios = "scale";
 
-  // Sobe pro maior entre os dois — drivers de DP (funcionários) puxam o plano pra cima
   const ordem = ["starter", "starterplus", "growth", "growthplus", "scale"];
   const idxFat = ordem.indexOf(porFaturamento);
   const idxFun = ordem.indexOf(porFuncionarios);
@@ -973,7 +1176,9 @@ function pickPlan(faturamentoMensal, funcionarios) {
   return PLANS[escolhido];
 }
 
-/* Formatação BR de número com pontos como separador de milhar */
+/* ============================================
+   FORMATAÇÃO + INPUTS
+   ============================================ */
 function formatBR(n) {
   if (!n) return "";
   return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -981,9 +1186,12 @@ function formatBR(n) {
 function unformatBR(s) {
   return parseInt((s || "").replace(/\D/g, ""), 10) || 0;
 }
+function formatMoney(n) {
+  return "R$ " + Math.round(n).toLocaleString("pt-BR");
+}
 
-/* Bind input com máscara de R$ */
 const faturamentoInput = document.getElementById("faturamento");
+const estadoSelect = document.getElementById("estado");
 const funcionariosInput = document.getElementById("funcionarios");
 
 faturamentoInput.addEventListener("input", (e) => {
@@ -992,40 +1200,75 @@ faturamentoInput.addEventListener("input", (e) => {
   recalc();
 });
 
+estadoSelect.addEventListener("change", recalc);
+
 funcionariosInput.addEventListener("input", (e) => {
-  // Só dígitos
   e.target.value = e.target.value.replace(/\D/g, "");
   recalc();
 });
 
-/* Render do resultado */
+/* ============================================
+   RENDER DO RESULTADO
+   ============================================ */
 const resultEl = document.getElementById("result");
+const resultMonthly = document.getElementById("result-monthly");
+const resultRetro = document.getElementById("result-retro");
+const resultBreakdown = document.getElementById("result-breakdown");
 const resultPlan = document.getElementById("result-plan");
-const resultPrice = document.getElementById("result-price");
-const resultDesc = document.getElementById("result-desc");
+const resultPlanPrice = document.getElementById("result-plan-price");
 const resultCta = document.getElementById("result-cta");
 
 function recalc() {
   const fat = unformatBR(faturamentoInput.value);
+  const estado = estadoSelect.value;
   const fun = parseInt(funcionariosInput.value, 10) || 0;
 
-  if (!fat || fat < 1000) {
+  // Exige minimo de inputs pra mostrar resultado
+  if (!fat || fat < 5000 || !estado) {
     resultEl.classList.remove("visible");
     highlightPlanCard(null);
     return;
   }
 
-  const plano = pickPlan(fat, fun);
-  resultPlan.textContent = plano.name;
-  resultPrice.innerHTML = `<strong>${plano.price}</strong>`;
-  resultDesc.textContent = plano.fit;
-  resultCta.href = `${WA_LINK}?text=${encodeURIComponent(plano.waMsg)}`;
-  resultEl.classList.add("visible");
+  const economia = calcularEconomia(fat, estado);
+  const plano = pickPlan(fat, fun || 1); // assume 1 funcionário se não preencheu
 
+  // Valores principais
+  resultMonthly.textContent = formatMoney(economia.economiaMensal);
+  resultRetro.textContent = formatMoney(economia.retroativo);
+
+  // Breakdown em texto corrido, do jeito que um vendedor explicaria
+  const partes = [];
+  partes.push(`<strong>${formatMoney(economia.economiaPisCofins)} por mês</strong> vêm do imposto pago a mais em cerveja, refri e água. A fábrica já recolheu, mas seu restaurante está pagando de novo no Simples sem saber.`);
+
+  if (economia.temIcms) {
+    partes.push(`Outros <strong>${formatMoney(economia.economiaIcms)} por mês</strong> vêm do regime especial de ICMS que ${economia.estadoNome} oferece pra bares e restaurantes. A maioria não sabe que existe.`);
+  } else if (REGIME_ESPECIAL_ICMS[estado]) {
+    partes.push(`O regime especial de ICMS de ${economia.estadoNome} não compensa pra um restaurante do seu porte (sua alíquota efetiva atual já é baixa), então nessa conta entra só o PIS/COFINS. No diagnóstico a gente costuma achar outras frentes.`);
+  } else {
+    partes.push(`Seu estado não tem regime especial de ICMS pra restaurantes, então nessa conta entra só o PIS/COFINS em bebidas. No diagnóstico a gente costuma achar outras frentes.`);
+  }
+
+  const regimeLabel = economia.regime === "SN" ? "Simples Nacional" : "Lucro Presumido";
+  partes.push(`A conta considera que seu regime hoje é <strong>${regimeLabel}</strong>, baseado no faturamento que você passou.`);
+
+  resultBreakdown.innerHTML = `
+    <div class="bd-title">De onde vem essa conta:</div>
+    ${partes.map(p => `<p>${p}</p>`).join("")}
+  `;
+
+  // Plano
+  resultPlan.textContent = plano.name;
+  resultPlanPrice.textContent = plano.price;
+
+  // Mensagem pro WhatsApp no tom de quem está mandando mensagem mesmo
+  const waMsg = `Oi! Acabei de usar a calculadora no site de vocês. Deu uns ${formatMoney(economia.economiaMensal)} por mês de economia e uns ${formatMoney(economia.retroativo)} pra recuperar dos últimos 5 anos. Queria entender como funciona.`;
+  resultCta.href = `${WA_LINK}?text=${encodeURIComponent(waMsg)}`;
+
+  resultEl.classList.add("visible");
   highlightPlanCard(plano.key);
 }
 
-/* Destaque visual no card do plano na seção de planos */
 function highlightPlanCard(key) {
   document.querySelectorAll(".plan-card").forEach((card) => {
     if (key && card.dataset.plan === key) card.classList.add("active");
@@ -1035,20 +1278,16 @@ function highlightPlanCard(key) {
 
 /* ============================================
    LOGO PARCEIRA — configurável
-   Para usar: chame setPartnerLogo("url-da-logo", "Nome Parceiro")
-   no console, ou substitua o src direto no HTML.
    ============================================ */
 window.setPartnerLogo = function(url, alt) {
   const logo = document.getElementById("partner-logo");
   const slot = document.getElementById("partner-slot");
   logo.src = url || "";
   logo.alt = alt || "";
-  // Re-mostra o divisor caso tenha sido escondido
   slot.querySelector(".brand-divider").style.display = "";
   logo.style.display = "";
 };
 
-/* Se a página carregar com src vazio na logo parceira, esconde o slot */
 window.addEventListener("DOMContentLoaded", () => {
   const logo = document.getElementById("partner-logo");
   if (!logo.getAttribute("src")) {
