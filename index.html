@@ -25,7 +25,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-  <!-- Favicon (placeholder verde escuro, troque por arquivo real depois) -->
+  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230D423F'/%3E%3Ctext x='50' y='66' font-family='Lexend,Arial' font-size='60' font-weight='500' fill='%2369E470' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E" />
 
   <!-- Schema.org JSON-LD -->
@@ -81,7 +81,7 @@
         "name": "Quanto custa a Selvia?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Depende da sua profissão e do seu faturamento. Médicos começam em R$ 347/mês. Devs, advogados e profissões com conselho de classe começam em R$ 189,90/mês. Criadores de conteúdo, dentistas, psicólogos e fisios começam em R$ 99,90/mês. Quem fatura até R$ 81k/ano e pode ser MEI paga R$ 9,90/mês."
+          "text": "Depende da sua profissão e do seu faturamento. Médicos começam em R$ 347/mês. Devs, advogados e outras profissões PJ começam em R$ 189,90/mês. Criadores de conteúdo, dentistas, psicólogos e fisios começam em R$ 99,90/mês. Quem fatura até R$ 81k/ano e pode ser MEI paga R$ 9,90/mês."
         }
       },
       {
@@ -113,6 +113,19 @@
   </script>
 
   <style>
+    /* ===== TOKENS DE COR =====
+       Principais
+       --verde-escuro: #0D423F
+       --verde-claro:  #69E470
+       --off-white:    #F9F9F9
+       Auxiliares (em uso aqui)
+       --azul:         #84A0FF (substitui o amarelo claro #F1FDC1 em "Como funciona" e detalhes)
+       --laranja:      #F4933B (substitui amarelo no anúncio + acentos)
+       --amarelo-acen: #FFD15C (acento pontual em badges)
+       Bordas
+       --border:       rgba(13,66,63,0.15) (substitui o bege #E2E7C7)
+    */
+
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
@@ -129,30 +142,33 @@
     a { color: inherit; text-decoration: none; }
     h1, h2, h3, h4 { margin: 0; font-weight: 500; letter-spacing: -0.5px; }
 
-    /* Container */
     .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
 
-    /* Announcement bar */
+    /* === ANNOUNCEMENT - LARANJA === */
     .announcement {
-      background: #F1FDC1;
-      color: #0D423F;
-      padding: 10px 16px;
+      background: #F4933B;
+      color: #FFFFFF;
+      padding: 12px 16px;
       text-align: center;
       font-size: 13px;
       font-weight: 400;
     }
-    .announcement a { text-decoration: underline; }
-    .announcement svg { vertical-align: -3px; margin-right: 4px; }
+    .announcement a {
+      color: #FFFFFF;
+      text-decoration: underline;
+      font-weight: 500;
+    }
+    .announcement svg { vertical-align: -3px; margin-right: 6px; color: #FFFFFF; }
 
-    /* Header */
+    /* === HEADER === */
     header {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(255,255,255,0.96);
+      background: rgba(255,255,255,0.97);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
-      border-bottom: 0.5px solid rgba(13,66,63,0.08);
+      border-bottom: 1px solid rgba(13,66,63,0.12);
     }
     .nav {
       display: flex;
@@ -179,7 +195,7 @@
     .nav-links a:hover { color: #0D423F; }
     .nav-mobile { display: none; }
 
-    /* Buttons */
+    /* === BUTTONS === */
     .btn-primary {
       background: #69E470;
       color: #0D423F;
@@ -195,7 +211,7 @@
       transition: transform 0.15s, box-shadow 0.15s;
       text-decoration: none;
     }
-    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(105,228,112,0.3); }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(105,228,112,0.4); }
     .btn-primary:active { transform: translateY(0); }
     .btn-secondary {
       background: transparent;
@@ -212,10 +228,10 @@
       align-items: center;
       gap: 8px;
     }
-    .btn-secondary:hover { background: rgba(105,228,112,0.1); }
+    .btn-secondary:hover { background: rgba(105,228,112,0.12); }
     .btn-small { padding: 8px 14px; font-size: 13px; }
 
-    /* Pills */
+    /* === PILLS === */
     .pill {
       display: inline-block;
       padding: 4px 12px;
@@ -226,15 +242,17 @@
       margin-bottom: 16px;
     }
     .pill-green { background: rgba(105,228,112,0.18); color: #69E470; }
-    .pill-dark { background: rgba(13,66,63,0.08); color: #0D423F; }
+    .pill-dark { background: rgba(13,66,63,0.08); color: #0D423F; border: 1px solid rgba(13,66,63,0.12); }
+    .pill-light { background: rgba(255,255,255,0.12); color: #F9F9F9; border: 1px solid rgba(105,228,112,0.4); }
 
-    /* Sections */
+    /* === SECTIONS === */
     section { padding: 80px 0; }
-    .section-tight { padding: 40px 0; }
     .h2 { font-size: 36px; line-height: 1.15; margin-bottom: 12px; }
     .section-sub { font-size: 15px; color: #5F5E5A; margin-bottom: 40px; max-width: 560px; line-height: 1.6; }
+    .h2-light { color: #F9F9F9; }
+    .section-sub-light { color: rgba(249,249,249,0.75); }
 
-    /* HERO */
+    /* === HERO === */
     .hero {
       background: #0D423F;
       color: #F9F9F9;
@@ -262,18 +280,85 @@
       margin-bottom: 30px;
       max-width: 480px;
     }
-    .hero-ctas {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-    }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
     .hero-social-proof {
       font-size: 13px;
-      color: rgba(249,249,249,0.65);
+      color: rgba(249,249,249,0.7);
       display: flex;
       align-items: center;
       gap: 6px;
+    }
+
+    /* === ANIMAÇÃO DO MOCK CHAT === */
+    .mock-chat .mock-msg-them,
+    .mock-chat .mock-msg-us,
+    .mock-chat .mock-msg-action,
+    .mock-chat .mock-buttons,
+    .mock-chat .mock-file,
+    .mock-chat .mock-typing {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+    }
+    .mock-chat.is-static .mock-msg-them,
+    .mock-chat.is-static .mock-msg-us,
+    .mock-chat.is-static .mock-msg-action,
+    .mock-chat.is-static .mock-buttons,
+    .mock-chat.is-static .mock-file {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .mock-chat .visible {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    /* Indicador "digitando..." */
+    .mock-typing {
+      background: #FFFFFF;
+      border-radius: 12px 12px 12px 4px;
+      border: 1px solid rgba(13,66,63,0.1);
+      padding: 14px 16px;
+      margin-bottom: 8px;
+      display: none;
+      align-items: center;
+      gap: 4px;
+      width: fit-content;
+    }
+    .mock-typing.show { display: inline-flex; }
+    .mock-typing-us {
+      background: #DCF8C6;
+      border-radius: 12px 12px 4px 12px;
+      margin-left: auto;
+      border: none;
+    }
+    .mock-typing span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #1D9E75;
+      opacity: 0.5;
+      animation: typing-bounce 1.4s infinite;
+    }
+    .mock-typing span:nth-child(2) { animation-delay: 0.2s; }
+    .mock-typing span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typing-bounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+      30% { transform: translateY(-4px); opacity: 1; }
+    }
+
+    /* Respeitar quem prefere menos animação */
+    @media (prefers-reduced-motion: reduce) {
+      .mock-chat .mock-msg-them,
+      .mock-chat .mock-msg-us,
+      .mock-chat .mock-msg-action,
+      .mock-chat .mock-buttons,
+      .mock-chat .mock-file {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+      .mock-typing { display: none !important; }
     }
 
     /* Mock WhatsApp */
@@ -283,15 +368,37 @@
       padding: 16px;
       max-width: 420px;
       margin-left: auto;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.35);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }
     .mock-header {
       display: flex;
       align-items: center;
       gap: 12px;
       padding-bottom: 14px;
-      border-bottom: 0.5px solid rgba(13,66,63,0.1);
-      margin-bottom: 16px;
+      border-bottom: 1px solid rgba(13,66,63,0.12);
+      margin-bottom: 0;
+      flex-shrink: 0;
+    }
+    /* Container scrollável das mensagens */
+    .mock-scroll {
+      height: 480px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-top: 16px;
+      padding-bottom: 4px;
+      position: relative;
+      scroll-behavior: smooth;
+      /* Esconder scrollbar visualmente em todos os browsers */
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE/Edge legado */
+    }
+    .mock-scroll::-webkit-scrollbar {
+      display: none; /* Chrome/Safari/Opera */
+      width: 0;
+      height: 0;
     }
     .mock-avatar {
       width: 38px;
@@ -311,69 +418,259 @@
     .mock-msg-them, .mock-msg-us {
       padding: 10px 13px;
       font-size: 13px;
-      line-height: 1.45;
+      line-height: 1.5;
       color: #0D423F;
       margin-bottom: 8px;
-      max-width: 82%;
+      max-width: 88%;
+      width: fit-content;
     }
-    .mock-msg-them { background: #FFFFFF; border-radius: 12px 12px 12px 4px; }
+    .mock-msg-them { background: #FFFFFF; border-radius: 12px 12px 12px 4px; border: 1px solid rgba(13,66,63,0.1); }
     .mock-msg-us { background: #DCF8C6; border-radius: 12px 12px 4px 12px; margin-left: auto; }
-    .mock-time { font-size: 10px; color: #888; margin-top: 4px; }
-
-    /* Logo wall */
-    .logo-wall {
-      padding: 30px 0;
-      border-top: 0.5px solid rgba(13,66,63,0.08);
-      border-bottom: 0.5px solid rgba(13,66,63,0.08);
+    .mock-time { font-size: 10px; color: #888; margin-top: 4px; text-align: right; }
+    .mock-sender { font-size: 11px; font-weight: 500; color: #1D9E75; margin: 0 0 2px; }
+    /* Botões interativos do WhatsApp (texto verde claro) */
+    .mock-buttons {
+      background: #FFFFFF;
+      border-radius: 0 0 12px 12px;
+      border: 1px solid rgba(13,66,63,0.1);
+      border-top: none;
+      margin-top: -8px;
+      margin-bottom: 8px;
+      max-width: 88%;
+      width: fit-content;
+      min-width: 60%;
+      overflow: hidden;
     }
-    .logo-wall-label {
-      font-size: 12px;
-      color: #5F5E5A;
-      text-align: center;
-      letter-spacing: 1.5px;
-      margin-bottom: 24px;
-      text-transform: uppercase;
-    }
-    .logo-strip {
-      display: flex;
-      gap: 40px;
-      align-items: center;
-      flex-wrap: wrap;
-      justify-content: center;
-      opacity: 0.55;
-    }
-    .logo-strip span {
+    .mock-button {
+      padding: 10px 13px;
       font-size: 13px;
-      color: #5F5E5A;
+      color: #1D9E75;
       font-weight: 500;
-      letter-spacing: 1px;
+      text-align: center;
+      border-top: 1px solid rgba(13,66,63,0.08);
+      cursor: default;
     }
+    .mock-msg-them.has-buttons { border-radius: 12px 12px 0 0; margin-bottom: 0; }
 
-    /* Verticais */
-    .verticais-bg { background: #F9F9F9; }
+    /* Mensagem do cliente com botão único (etapa 2 do print) */
+    .mock-msg-action {
+      background: rgba(105,228,112,0.18);
+      border-radius: 12px 12px 4px 12px;
+      margin-left: auto;
+      margin-bottom: 8px;
+      padding: 10px 13px;
+      max-width: 88%;
+      width: fit-content;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .mock-msg-action-icon {
+      width: 28px;
+      height: 28px;
+      background: rgba(105,228,112,0.4);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1D9E75;
+      flex-shrink: 0;
+    }
+    .mock-msg-action-text { font-size: 13px; color: #0D423F; line-height: 1.4; }
+    .mock-msg-action-text strong { font-weight: 500; display: block; }
+    .mock-msg-action-text span { font-size: 11px; color: #5F5E5A; }
+
+    /* Quote (resposta a mensagem) - etapa 4 */
+    .mock-quote {
+      border-left: 3px solid #1D9E75;
+      padding: 6px 10px;
+      background: rgba(29,158,117,0.08);
+      border-radius: 6px;
+      margin-bottom: 6px;
+    }
+    .mock-quote-sender { font-size: 11px; font-weight: 500; color: #1D9E75; margin: 0 0 2px; }
+    .mock-quote-text { font-size: 12px; color: #444441; margin: 0; line-height: 1.4; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; }
+
+    /* Card de arquivo (PDF) - versão expandida */
+    .mock-file {
+      background: #FFFFFF;
+      border-radius: 12px 12px 12px 4px;
+      border: 1px solid rgba(13,66,63,0.1);
+      padding: 12px;
+      margin-bottom: 4px;
+      max-width: 88%;
+      width: fit-content;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .mock-file-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(105,228,112,0.18);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1D9E75;
+      flex-shrink: 0;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .mock-file-info p { margin: 0; }
+    .mock-file-name { font-size: 13px; color: #0D423F; font-weight: 500; }
+    .mock-file-meta { font-size: 11px; color: #5F5E5A; margin-top: 2px; }
+
+    /* === VERTICAIS === */
+    .verticais-bg { background: #FFFFFF; }
     .verticais-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 16px;
     }
     .vertical-card {
-      background: #FFFFFF;
-      border: 0.5px solid rgba(13,66,63,0.12);
+      background: #F9F9F9;
+      border: 1px solid rgba(13,66,63,0.12);
       border-radius: 14px;
       padding: 24px;
       transition: all 0.2s;
       cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
     }
     .vertical-card:hover {
-      border-color: #69E470;
+      border-color: #0D423F;
+      background: #FFFFFF;
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(13,66,63,0.06);
+      box-shadow: 0 12px 32px rgba(13,66,63,0.1);
     }
     .vertical-card svg { color: #0D423F; margin-bottom: 14px; }
-    .vertical-card h3 { font-size: 16px; margin-bottom: 6px; }
+    .vertical-card h3 { font-size: 16px; margin-bottom: 6px; color: #0D423F; }
     .vertical-card p { font-size: 13px; color: #5F5E5A; margin: 0; line-height: 1.5; }
+    .vertical-arrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: #0F6E56;
+      font-weight: 500;
+      margin-top: 14px;
+      transition: gap 0.15s;
+    }
+    .vertical-card:hover .vertical-arrow { gap: 8px; }
 
-    /* Preços */
+    /* === COMO FUNCIONA - VERDE CLARO === */
+    .como-funciona-bg {
+      background: #69E470;
+    }
+    .steps { display: grid; gap: 24px; }
+    .step { display: flex; gap: 20px; align-items: flex-start; }
+    .step-number {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      background: #0D423F;
+      color: #69E470;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 500;
+      font-size: 17px;
+    }
+    .step h3 { font-size: 18px; margin-bottom: 6px; color: #0D423F; }
+    .step p { font-size: 14px; color: #0D423F; margin: 0; line-height: 1.6; opacity: 0.85; }
+
+    /* === STATS - VERDE ESCURO (vira seção de impacto) === */
+    .stats-bg { background: #0D423F; }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .stat {
+      background: rgba(105,228,112,0.08);
+      padding: 28px 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(105,228,112,0.2);
+    }
+    .stat-num { font-size: 40px; font-weight: 500; color: #69E470; line-height: 1; margin: 0; letter-spacing: -1.5px; }
+    .stat-label { font-size: 13px; color: rgba(249,249,249,0.75); margin: 10px 0 0; }
+
+    /* === DEPOIMENTOS === */
+    .depoimentos-bg { background: #F9F9F9; }
+    .depoimentos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .depoimento {
+      background: #0D423F;
+      color: #F9F9F9;
+      border-radius: 16px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+    }
+    .depoimento-stars {
+      color: #69E470;
+      font-size: 18px;
+      letter-spacing: 4px;
+      margin-bottom: 20px;
+    }
+    .depoimento-quote {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #F9F9F9;
+      flex-grow: 1;
+      margin-bottom: 24px;
+    }
+    .depoimento-author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(105,228,112,0.25);
+    }
+    .depoimento-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #69E470;
+      color: #0D423F;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 500;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+    .depoimento-name { font-size: 14px; font-weight: 500; color: #F9F9F9; margin: 0; }
+    .depoimento-role { font-size: 12px; color: rgba(105,228,112,0.9); margin: 2px 0 0; }
+
+    /* === PREÇOS - VERDE ESCURO (vira seção marcante) === */
+    .precos-bg { background: #0D423F; color: #F9F9F9; position: relative; }
+    .precos-bg::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(105,228,112,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .precos-bg::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(132,160,255,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .precos-bg .container { position: relative; z-index: 1; }
     .price-tabs {
       display: flex;
       gap: 8px;
@@ -382,22 +679,25 @@
     }
     .price-tab {
       padding: 10px 16px;
-      background: #FFFFFF;
-      border: 0.5px solid rgba(13,66,63,0.15);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
       border-radius: 100px;
       font-size: 13px;
       cursor: pointer;
-      color: #0D423F;
+      color: #F9F9F9;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       transition: all 0.15s;
     }
-    .price-tab:hover { border-color: #0D423F; }
+    .price-tab:hover {
+      border-color: #69E470;
+      background: rgba(105,228,112,0.1);
+    }
     .price-tab.active {
-      background: #0D423F;
-      color: #69E470;
-      border-color: #0D423F;
+      background: #69E470;
+      color: #0D423F;
+      border-color: #69E470;
       font-weight: 500;
     }
     .price-grid {
@@ -407,14 +707,19 @@
     }
     .price-card {
       background: #FFFFFF;
-      border: 0.5px solid rgba(13,66,63,0.15);
+      border: 1px solid rgba(255,255,255,0.15);
       border-radius: 14px;
       padding: 28px 24px;
       position: relative;
       display: flex;
       flex-direction: column;
+      color: #0D423F;
     }
-    .price-card.featured { border: 2px solid #69E470; }
+    .price-card.featured {
+      border: 2px solid #69E470;
+      box-shadow: 0 20px 50px rgba(105,228,112,0.25);
+      transform: translateY(-4px);
+    }
     .price-card.featured::before {
       content: 'Mais escolhido';
       position: absolute;
@@ -428,8 +733,15 @@
       font-weight: 500;
       letter-spacing: 0.3px;
     }
-    .price-card-mei { background: #F1FDC1; border-color: rgba(13,66,63,0.15); }
-    .price-card-disabled { opacity: 0.55; background: #F9F9F9; }
+    /* MEI card - verde claro suave (substitui amarelo) */
+    .price-card-mei {
+      background: linear-gradient(180deg, rgba(105,228,112,0.18) 0%, rgba(105,228,112,0.10) 100%);
+      border-color: #69E470;
+    }
+    .price-card-disabled {
+      background: rgba(255,255,255,0.85);
+      opacity: 0.7;
+    }
     .price-modalidade { font-size: 10px; color: #0F6E56; font-weight: 500; letter-spacing: 0.8px; margin: 0; }
     .price-card-disabled .price-modalidade { color: #888; }
     .price-plano { font-size: 18px; font-weight: 500; color: #0D423F; margin: 6px 0 14px; }
@@ -463,17 +775,23 @@
       gap: 8px;
     }
     .price-btn:hover { background: #082c2a; }
+    .price-card-mei .price-btn {
+      background: #69E470;
+      color: #0D423F;
+    }
+    .price-card-mei .price-btn:hover { background: #4dd055; }
     .price-disclaimer { font-size: 13px; color: #5F5E5A; line-height: 1.6; margin: 12px 0; }
     .price-note {
-      font-size: 12px;
-      color: #5F5E5A;
-      margin-top: 20px;
+      font-size: 13px;
+      color: rgba(249,249,249,0.75);
+      margin-top: 32px;
       text-align: center;
       line-height: 1.5;
     }
-    .price-note a { color: #0F6E56; text-decoration: underline; }
+    .price-note a { color: #69E470; text-decoration: underline; }
 
-    /* Calculadora */
+    /* === CALCULADORA === */
+    .calc-bg { background: #F9F9F9; border-top: 1px solid rgba(13,66,63,0.1); }
     .calc-wrap {
       background: #69E470;
       border-radius: 16px;
@@ -521,7 +839,7 @@
       margin-bottom: 16px;
     }
     .calc-summary-card {
-      background: rgba(249,249,249,0.7);
+      background: rgba(249,249,249,0.85);
       padding: 14px;
       border-radius: 8px;
     }
@@ -565,107 +883,29 @@
     }
     .calc-disclaimer a { text-decoration: underline; }
 
-    /* Como funciona */
-    .como-funciona-bg { background: #F1FDC1; }
-    .steps { display: grid; gap: 24px; }
-    .step { display: flex; gap: 20px; align-items: flex-start; }
-    .step-number {
-      flex-shrink: 0;
-      width: 42px;
-      height: 42px;
-      background: #0D423F;
-      color: #69E470;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 500;
-      font-size: 17px;
-    }
-    .step h3 { font-size: 18px; margin-bottom: 6px; }
-    .step p { font-size: 14px; color: #444441; margin: 0; line-height: 1.6; }
-
-    /* Stats */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-    .stat {
-      background: #F9F9F9;
-      padding: 28px 20px;
-      border-radius: 12px;
-    }
-    .stat-num { font-size: 36px; font-weight: 500; color: #0D423F; line-height: 1; margin: 0; }
-    .stat-label { font-size: 13px; color: #5F5E5A; margin: 8px 0 0; }
-
-    /* Depoimentos */
-    .depoimentos-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-    .depoimento {
-      background: #0D423F;
-      color: #F9F9F9;
-      border-radius: 16px;
-      padding: 32px;
-      display: flex;
-      flex-direction: column;
-    }
-    .depoimento-stars {
-      color: #69E470;
-      font-size: 18px;
-      letter-spacing: 4px;
-      margin-bottom: 20px;
-    }
-    .depoimento-quote {
-      font-size: 14px;
-      line-height: 1.7;
-      color: #F9F9F9;
-      flex-grow: 1;
-      margin-bottom: 24px;
-    }
-    .depoimento-author {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding-top: 20px;
-      border-top: 0.5px solid rgba(105,228,112,0.2);
-    }
-    .depoimento-avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: #69E470;
-      color: #0D423F;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 500;
-      font-size: 15px;
-      flex-shrink: 0;
-    }
-    .depoimento-name { font-size: 14px; font-weight: 500; color: #F9F9F9; margin: 0; }
-    .depoimento-role { font-size: 12px; color: rgba(105,228,112,0.85); margin: 2px 0 0; }
-
-    /* Mídia */
-    .midia-bg { background: #F9F9F9; }
+    /* === MÍDIA - LARANJA === */
+    .midia-bg { background: #F4933B; }
     .midia-card {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 20px 24px;
-      background: #FFFFFF;
-      border-radius: 10px;
-      border: 0.5px solid rgba(13,66,63,0.1);
-      transition: border-color 0.15s;
+      background: #69E470;
+      border-radius: 12px;
+      border: 1px solid rgba(13,66,63,0.15);
+      transition: all 0.15s;
+      text-decoration: none;
     }
-    .midia-card:hover { border-color: #0D423F; }
-    .midia-label { font-size: 11px; color: #5F5E5A; letter-spacing: 0.8px; font-weight: 500; margin: 0; }
+    .midia-card:hover {
+      border-color: #0D423F;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(13,66,63,0.18);
+    }
+    .midia-label { font-size: 11px; color: #0D423F; letter-spacing: 0.8px; font-weight: 500; margin: 0; opacity: 0.7; }
     .midia-title { font-size: 14px; color: #0D423F; font-weight: 500; line-height: 1.4; margin: 6px 0 0; }
 
-    /* Blog */
+    /* === BLOG === */
+    .blog-bg { background: #F9F9F9; border-top: 1px solid rgba(13,66,63,0.1); }
     .blog-header {
       display: flex;
       justify-content: space-between;
@@ -680,13 +920,17 @@
     }
     .blog-card {
       background: #FFFFFF;
-      border: 0.5px solid rgba(13,66,63,0.12);
+      border: 1px solid rgba(13,66,63,0.12);
       border-radius: 14px;
       overflow: hidden;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: all 0.2s;
       cursor: pointer;
     }
-    .blog-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(13,66,63,0.06); }
+    .blog-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(13,66,63,0.1);
+      border-color: #0D423F;
+    }
     .blog-card-img {
       height: 140px;
       display: flex;
@@ -699,15 +943,17 @@
     .blog-card-title { font-size: 14px; font-weight: 500; color: #0D423F; line-height: 1.35; margin: 8px 0; }
     .blog-card-meta { font-size: 11px; color: #5F5E5A; margin: 0; }
 
-    /* FAQ */
-    .faq-bg { background: #F9F9F9; }
+    /* === FAQ === */
+    .faq-bg { background: #FFFFFF; }
     .faq-grid { display: grid; gap: 10px; }
     .faq-item {
-      background: #FFFFFF;
-      border: 0.5px solid rgba(13,66,63,0.12);
+      background: #F9F9F9;
+      border: 1px solid rgba(13,66,63,0.12);
       border-radius: 12px;
       padding: 20px 24px;
+      transition: all 0.15s;
     }
+    .faq-item[open] { background: #FFFFFF; border-color: #0D423F; box-shadow: 0 8px 24px rgba(13,66,63,0.06); }
     .faq-item summary {
       font-size: 15px;
       font-weight: 500;
@@ -734,14 +980,25 @@
       line-height: 1.7;
     }
 
-    /* CTA Final */
+    /* === CTA FINAL === */
     .cta-final {
       background: #0D423F;
       color: #F9F9F9;
       padding: 80px 0;
       text-align: center;
       border-radius: 24px;
-      margin: 80px 0 0;
+      margin: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-final::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(105,228,112,0.2) 0%, transparent 70%);
+      pointer-events: none;
     }
     .cta-final h2 {
       font-size: 40px;
@@ -749,16 +1006,22 @@
       color: #F9F9F9;
       margin-bottom: 16px;
       letter-spacing: -1px;
+      position: relative;
     }
     .cta-final p {
       font-size: 16px;
       color: rgba(249,249,249,0.8);
       margin-bottom: 32px;
+      position: relative;
     }
-    .cta-final .btn-primary { font-size: 16px; padding: 16px 32px; }
+    .cta-final .btn-primary { font-size: 16px; padding: 16px 32px; position: relative; }
 
-    /* Footer */
-    footer { background: #FFFFFF; padding: 60px 0 40px; }
+    /* === FOOTER === */
+    footer {
+      background: #FFFFFF;
+      padding: 60px 0 40px;
+      border-top: 1px solid rgba(13,66,63,0.12);
+    }
     .footer-grid {
       display: grid;
       grid-template-columns: 2fr 1fr 1fr 1fr;
@@ -774,7 +1037,7 @@
     .footer-col a:hover { color: #0D423F; }
     .footer-legal {
       padding-top: 28px;
-      border-top: 0.5px solid rgba(13,66,63,0.1);
+      border-top: 1px solid rgba(13,66,63,0.1);
       font-size: 12px;
       color: #5F5E5A;
       line-height: 1.8;
@@ -782,7 +1045,7 @@
     .footer-legal strong { color: #0D423F; font-weight: 500; }
     .footer-copy { margin-top: 16px; opacity: 0.7; }
 
-    /* RESPONSIVE */
+    /* === RESPONSIVE === */
     @media (max-width: 900px) {
       .hero h1 { font-size: 40px; }
       .h2 { font-size: 28px; }
@@ -790,6 +1053,7 @@
       .mock-chat { margin: 0 auto; }
       .verticais-grid { grid-template-columns: repeat(2, 1fr); }
       .price-grid { grid-template-columns: 1fr; }
+      .price-card.featured { transform: none; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
       .depoimentos-grid { grid-template-columns: 1fr; }
       .blog-grid { grid-template-columns: 1fr; }
@@ -815,10 +1079,10 @@
 </head>
 <body>
 
-<!-- ============ ANNOUNCEMENT ============ -->
+<!-- ============ ANNOUNCEMENT (laranja) ============ -->
 <div class="announcement">
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.912 5.813a2 2 0 0 0 1.275 1.275L21 12l-5.813 1.912a2 2 0 0 0 -1.275 1.275L12 21l-1.912 -5.813a2 2 0 0 0 -1.275 -1.275L3 12l5.813 -1.912a2 2 0 0 0 1.275 -1.275L12 3z"></path></svg>
-  Selvia capta R$ 25M e lança conta PJ para médicos — <a href="https://startups.com.br/negocios/fintech/depois-de-captar-r-25m-selvia-lanca-conta-pj-para-medicos/" target="_blank" rel="noopener">leia no Startups.com.br →</a>
+  Selvia captou R$ 2,5M e lançou conta PJ para médicos — <a href="https://startups.com.br/negocios/fintech/depois-de-captar-r-25m-selvia-lanca-conta-pj-para-medicos/" target="_blank" rel="noopener">leia no Startups.com.br →</a>
 </div>
 
 <!-- ============ HEADER ============ -->
@@ -862,7 +1126,7 @@
       </p>
     </div>
 
-    <div class="mock-chat">
+    <div class="mock-chat" id="mock-chat">
       <div class="mock-header">
         <div class="mock-avatar">S</div>
         <div class="mock-status">
@@ -870,79 +1134,266 @@
           <p class="mock-online">● online</p>
         </div>
       </div>
-      <div class="mock-msg-them">Oi! Quanto eu paguei de imposto este mês?<div class="mock-time">10:32</div></div>
-      <div class="mock-msg-us">R$ 847,20 — já pago, no prazo 🧾<br>Quer ver o detalhamento?<div class="mock-time">10:32 ✓✓</div></div>
-      <div class="mock-msg-them">Sim! E emite uma nota da consulta da Marina pra clínica<div class="mock-time">10:33</div></div>
-      <div class="mock-msg-us">Nota nº 00234 emitida ✅<br>Mandei pra ela também<div class="mock-time">10:33 ✓✓</div></div>
+
+      <div class="mock-scroll" id="mock-scroll">
+
+        <!-- ETAPA 1: Selvia oferece o botão de emissão -->
+        <div class="mock-typing" id="typing-1">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="mock-msg-them has-buttons" id="msg-1">
+          <p class="mock-sender">Selvia</p>
+          Clique aqui para emitir sua nota fiscal!
+          <div class="mock-time">17:40</div>
+        </div>
+        <div class="mock-buttons" id="msg-1-buttons">
+          <div class="mock-button">Emitir Nota Fiscal</div>
+        </div>
+
+        <!-- ETAPA 2: Cliente clica no botão -->
+        <div class="mock-msg-action" id="msg-2">
+          <div class="mock-msg-action-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"></path><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path></svg>
+          </div>
+          <div class="mock-msg-action-text">
+            <strong>Emitir Nota Fiscal</strong>
+            <span>Resposta enviada.</span>
+            <div class="mock-time" style="text-align: left; margin-top: 4px;">17:42 ✓✓</div>
+          </div>
+        </div>
+
+        <!-- ETAPA 3: Selvia confirma e oferece 2 opções -->
+        <div class="mock-typing" id="typing-2">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="mock-msg-them has-buttons" id="msg-3">
+          <p class="mock-sender">Selvia</p>
+          <strong style="font-weight: 500;">Sua nota fiscal está pronta para prosseguir com a emissão!</strong><br><br>
+          Escolha como deseja emitir:<br><br>
+          • Emitir agora (automático)<br>
+          • Solicitar revisão humana (1 dia útil)
+          <div class="mock-time">17:42</div>
+        </div>
+        <div class="mock-buttons" id="msg-3-buttons">
+          <div class="mock-button">Emitir agora</div>
+          <div class="mock-button">Solicitar revisão (1 dia)</div>
+        </div>
+
+        <!-- ETAPA 4: Cliente escolhe "Emitir agora" com quote -->
+        <div class="mock-typing mock-typing-us" id="typing-3">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="mock-msg-us" id="msg-4">
+          <div class="mock-quote">
+            <p class="mock-quote-sender">Selvia</p>
+            <p class="mock-quote-text">Sua nota fiscal está pronta para prosseguir com a emissão!...</p>
+          </div>
+          Emitir agora
+          <div class="mock-time">17:42 ✓✓</div>
+        </div>
+
+        <!-- ETAPA 5: Selvia processa -->
+        <div class="mock-typing" id="typing-4">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="mock-msg-them" id="msg-5">
+          <p class="mock-sender">Selvia</p>
+          <strong style="font-weight: 500;">Sua nota fiscal está sendo processada. ⏳</strong><br><br>
+          Assim que a emissão for concluída, você receberá a nota fiscal pelo seu WhatsApp e poderá solicitar o XML.
+          <div class="mock-time">17:42</div>
+        </div>
+
+        <!-- ETAPA 6: Selvia entrega PDF + mensagem final -->
+        <div class="mock-typing" id="typing-5">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="mock-file" id="msg-6-file">
+          <div class="mock-file-icon">PDF</div>
+          <div class="mock-file-info">
+            <p class="mock-file-name">NFSe Gilson - Nº 40.pdf</p>
+            <p class="mock-file-meta">182 KB · PDF</p>
+          </div>
+        </div>
+        <div class="mock-msg-them has-buttons" id="msg-6">
+          <p class="mock-sender">Selvia</p>
+          Olá <strong style="font-weight: 500;">Gilson</strong>,<br><br>
+          Sua Nota Fiscal foi emitida!<br>
+          • R$ 1.580,00 para <strong style="font-weight: 500;">Feern</strong><br>
+          • Nº 40<br><br>
+          Aqui está o documento!
+          <div class="mock-time">17:43</div>
+        </div>
+        <div class="mock-buttons" id="msg-6-buttons">
+          <div class="mock-button">Avaliar experiência</div>
+        </div>
+
+      </div>
     </div>
   </div>
 </section>
-
-<!-- ============ LOGO WALL ============ -->
-<div class="logo-wall">
-  <div class="container">
-    <p class="logo-wall-label">Profissionais de instituições como</p>
-    <div class="logo-strip">
-      <span>HOSPITAL ALBERT EINSTEIN</span>
-      <span>SÍRIO-LIBANÊS</span>
-      <span>NUBANK</span>
-      <span>STONE</span>
-      <span>HOSPITAL DAS CLÍNICAS</span>
-      <span>iFOOD</span>
-      <span>MERCADO LIVRE</span>
-      <span>REDE D'OR</span>
-    </div>
-  </div>
-</div>
 
 <!-- ============ VERTICAIS ============ -->
 <section id="verticais" class="verticais-bg">
   <div class="container">
     <span class="pill pill-dark">Pra quem é</span>
     <h2 class="h2">A Selvia é para você se é:</h2>
-    <p class="section-sub">Atendimento especializado por profissão, com contadores que entendem do seu mundo.</p>
+    <p class="section-sub">Atendimento especializado por profissão, com contadores que entendem do seu mundo. Clica e vê o plano da sua área.</p>
 
     <div class="verticais-grid">
-      <div class="vertical-card">
+      <a href="#precos" data-vertical="medicos" class="vertical-card vertical-link">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h-1a2 2 0 0 0 -2 2v3.5h0a5.5 5.5 0 0 0 11 0v-3.5a2 2 0 0 0 -2 -2h-1"></path><rect x="4" y="3" width="3" height="3" rx=".5"></rect><rect x="11" y="3" width="3" height="3" rx=".5"></rect><path d="M8 15a6 6 0 1 0 12 0v-3"></path><path d="M20 11m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path></svg>
         <h3>Médicos</h3>
         <p>Plantão, residência, consultório, Receita Saúde</p>
-      </div>
-      <div class="vertical-card">
+        <span class="vertical-arrow">Ver plano →</span>
+      </a>
+      <a href="#precos" data-vertical="devs" class="vertical-card vertical-link">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 8l-4 4l4 4"></path><path d="M17 8l4 4l-4 4"></path><path d="M14 4l-4 16"></path></svg>
         <h3>Devs e TI</h3>
         <p>Inclui recebimento do exterior em dólar</p>
-      </div>
-      <div class="vertical-card">
+        <span class="vertical-arrow">Ver plano →</span>
+      </a>
+      <a href="#precos" data-vertical="advogados" class="vertical-card vertical-link">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20l10 0"></path><path d="M6 6l6 -1l6 1"></path><path d="M12 3l0 17"></path><path d="M9 12l-3 -6l-3 6a3 3 0 0 0 6 0"></path><path d="M21 12l-3 -6l-3 6a3 3 0 0 0 6 0"></path></svg>
         <h3>Advogados</h3>
         <p>Sociedade Unipessoal e escritórios</p>
-      </div>
-      <div class="vertical-card">
+        <span class="vertical-arrow">Ver plano →</span>
+      </a>
+      <a href="#precos" data-vertical="criadores" class="vertical-card vertical-link">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2m0 3a3 3 0 0 1 3 -3h0a3 3 0 0 1 3 3v5a3 3 0 0 1 -3 3h0a3 3 0 0 1 -3 -3z"></path><path d="M5 10a7 7 0 0 0 14 0"></path><path d="M8 21l8 0"></path><path d="M12 17l0 4"></path></svg>
         <h3>Criadores de conteúdo</h3>
         <p>YouTube, Twitch, Hotmart, infoprodutos</p>
-      </div>
-      <div class="vertical-card">
+        <span class="vertical-arrow">Ver plano →</span>
+      </a>
+      <a href="#precos" data-vertical="saude" class="vertical-card vertical-link">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg>
         <h3>Saúde geral</h3>
         <p>Psicólogos, fisios, dentistas, nutris</p>
-      </div>
-      <div class="vertical-card">
+        <span class="vertical-arrow">Ver plano →</span>
+      </a>
+      <a href="#precos" data-vertical="outras" class="vertical-card vertical-link">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path><path d="M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2"></path><path d="M12 12l0 .01"></path><path d="M3 13a20 20 0 0 0 18 0"></path></svg>
         <h3>Outras PJ</h3>
         <p>Consultores, designers, e mais</p>
+        <span class="vertical-arrow">Ver plano →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMO FUNCIONA (verde claro) ============ -->
+<section class="como-funciona-bg">
+  <div class="container">
+    <span class="pill pill-dark">Como funciona</span>
+    <h2 class="h2">Três passos. Zero burocracia.</h2>
+    <p class="section-sub">Sem app pra baixar, sem cadastro. Tudo acontece no seu WhatsApp.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div>
+          <h3>Você manda mensagem</h3>
+          <p>Texto, áudio, foto, PDF — manda do jeito que for mais fácil. A gente responde em minutos com gente de verdade, não bot.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div>
+          <h3>A Selvia cuida de tudo</h3>
+          <p>Abertura de CNPJ, emissão de NF-e, pagamento de DAS, contabilidade mensal, IRPF. Você só vê o resultado.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div>
+          <h3>Você decide o que fazer com o dinheiro que sobra</h3>
+          <p>Relatório mensal claro: quanto entrou, quanto saiu, quanto sobrou. Quer investir? Temos assessor pra te ajudar.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ PREÇOS ============ -->
-<section id="precos">
+<!-- ============ STATS (verde escuro - alto impacto) ============ -->
+<section class="stats-bg">
   <div class="container">
-    <span class="pill pill-dark">Preços</span>
-    <h2 class="h2">Planos transparentes por profissão.</h2>
-    <p class="section-sub">Sem fidelidade. Abertura de CNPJ grátis. Cancele quando quiser.</p>
+    <span class="pill pill-light">Selvia em números</span>
+    <h2 class="h2 h2-light">Confiança construída todos os dias.</h2>
+    <p class="section-sub section-sub-light">Dados atualizados em maio de 2026.</p>
+
+    <div class="stats-grid">
+      <div class="stat">
+        <p class="stat-num">+1.000</p>
+        <p class="stat-label">clientes ativos</p>
+      </div>
+      <div class="stat">
+        <p class="stat-num">22</p>
+        <p class="stat-label">estados atendidos</p>
+      </div>
+      <div class="stat">
+        <p class="stat-num">9,7</p>
+        <p class="stat-label">nota média dos clientes</p>
+      </div>
+      <div class="stat">
+        <p class="stat-num">&lt; 1 min</p>
+        <p class="stat-label">resposta no WhatsApp</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DEPOIMENTOS ============ -->
+<section class="depoimentos-bg">
+  <div class="container">
+    <span class="pill pill-dark">Depoimentos</span>
+    <h2 class="h2">O que os clientes falam.</h2>
+    <p class="section-sub">Médicos, devs e profissionais que já pararam de se estressar com contabilidade.</p>
+
+    <div class="depoimentos-grid">
+      <div class="depoimento">
+        <div class="depoimento-stars">★ ★ ★ ★ ★</div>
+        <p class="depoimento-quote">"Sempre me auxiliaram em todo o processo, desde a abertura da empresa até regularização fiscal. Qualquer dúvida que surgia estavam sempre dispostos a me ajudar."</p>
+        <div class="depoimento-author">
+          <div class="depoimento-avatar">JR</div>
+          <div>
+            <p class="depoimento-name">Dr. João Rogério</p>
+            <p class="depoimento-role">Cardiologista — CRM-SP 250328</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="depoimento">
+        <div class="depoimento-stars">★ ★ ★ ★ ★</div>
+        <p class="depoimento-quote">"Desde que comecei a usar a Selvia, a troca de MEI para ME foi resolvida sem dor de cabeça e passei a emitir notas pelo WhatsApp no mesmo dia, e foi muito mais prático e ágil. Ganhei confiança nas decisões tomadas e reduzi tarefas operacionais."</p>
+        <div class="depoimento-author">
+          <div class="depoimento-avatar">AD</div>
+          <div>
+            <p class="depoimento-name">André Diogo</p>
+            <p class="depoimento-role">Engenheiro de Produto</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="depoimento">
+        <div class="depoimento-stars">★ ★ ★ ★ ★</div>
+        <p class="depoimento-quote">"Desde que comecei a usar a Selvia, tenho 0 preocupações quanto aos impostos que preciso pagar e quando preciso pagar! Além disso, tenho toda uma assessoria automática dos meus gastos o que diminuiu meus gastos com plataformas de gestão financeira."</p>
+        <div class="depoimento-author">
+          <div class="depoimento-avatar">JF</div>
+          <div>
+            <p class="depoimento-name">João Fraga</p>
+            <p class="depoimento-role">AI Deployment</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PREÇOS (verde escuro - seção marcante) ============ -->
+<section id="precos" class="precos-bg">
+  <div class="container">
+    <span class="pill pill-light">Preços</span>
+    <h2 class="h2 h2-light">Planos transparentes por profissão.</h2>
+    <p class="section-sub section-sub-light">Sem fidelidade. Abertura de CNPJ grátis. Cancele quando quiser.</p>
 
     <div class="price-tabs">
       <button class="price-tab active" data-vertical="medicos">
@@ -1256,7 +1707,7 @@
 </section>
 
 <!-- ============ CALCULADORA ============ -->
-<section id="calculadora">
+<section id="calculadora" class="calc-bg">
   <div class="container">
     <span class="pill pill-dark">Calculadora</span>
     <h2 class="h2">Quanto você economiza com a Selvia?</h2>
@@ -1292,140 +1743,15 @@
         </div>
 
         <p class="calc-disclaimer">
-          Simulação ilustrativa baseada em Anexo III via Fator R (folha de 28%) e ISS de 2%. Valores reais variam por CNAE, município e composição da folha. Para cálculo personalizado, <a href="#" onclick="openWhatsApp('calculadora completa'); return false;">use a calculadora completa</a>.
+          Simulação ilustrativa baseada em Anexo III via Fator R (folha de 28%) e ISS de 2%. Valores reais variam por CNAE, município e composição da folha. Para cálculo personalizado, <a href="#" onclick="openWhatsApp('calculadora completa'); return false;">fale com a Selvia</a>.
         </p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ COMO FUNCIONA ============ -->
-<section class="como-funciona-bg">
-  <div class="container">
-    <span class="pill pill-dark">Como funciona</span>
-    <h2 class="h2">Três passos. Zero burocracia.</h2>
-    <p class="section-sub">Sem app pra baixar, sem cadastro. Tudo acontece no seu WhatsApp.</p>
-
-    <div class="steps">
-      <div class="step">
-        <div class="step-number">1</div>
-        <div>
-          <h3>Você manda mensagem</h3>
-          <p>Texto, áudio, foto, PDF — manda do jeito que for mais fácil. A gente responde em minutos com gente de verdade, não bot.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-number">2</div>
-        <div>
-          <h3>A Selvia cuida de tudo</h3>
-          <p>Abertura de CNPJ, emissão de NF-e, pagamento de DAS, contabilidade mensal, IRPF. Você só vê o resultado.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-number">3</div>
-        <div>
-          <h3>Você decide o que fazer com o dinheiro que sobra</h3>
-          <p>Relatório mensal claro: quanto entrou, quanto saiu, quanto sobrou. Quer investir? Temos assessor pra te ajudar.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ NÚMEROS ============ -->
-<section>
-  <div class="container">
-    <span class="pill pill-dark">Selvia em números</span>
-    <h2 class="h2">Confiança construída todos os dias.</h2>
-    <p class="section-sub">Dados atualizados em maio de 2026.</p>
-
-    <div class="stats-grid">
-      <div class="stat">
-        <p class="stat-num">+1.000</p>
-        <p class="stat-label">clientes ativos</p>
-      </div>
-      <div class="stat">
-        <p class="stat-num">22</p>
-        <p class="stat-label">estados atendidos</p>
-      </div>
-      <div class="stat">
-        <p class="stat-num">9,7</p>
-        <p class="stat-label">nota média dos clientes</p>
-      </div>
-      <div class="stat">
-        <p class="stat-num">&lt; 1 min</p>
-        <p class="stat-label">resposta no WhatsApp</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ DEPOIMENTOS ============ -->
-<section>
-  <div class="container">
-    <span class="pill pill-dark">Depoimentos</span>
-    <h2 class="h2">O que os clientes falam.</h2>
-    <p class="section-sub">Médicos, devs e profissionais que já pararam de se estressar com contabilidade.</p>
-
-    <div class="depoimentos-grid">
-      <div class="depoimento">
-        <div class="depoimento-stars">★ ★ ★ ★ ★</div>
-        <p class="depoimento-quote">"Sempre me auxiliaram em todo o processo, desde a abertura da empresa até regularização fiscal. Qualquer dúvida que surgia estavam sempre dispostos a me ajudar."</p>
-        <div class="depoimento-author">
-          <div class="depoimento-avatar">JR</div>
-          <div>
-            <p class="depoimento-name">Dr. João Rogério</p>
-            <p class="depoimento-role">Cardiologista — CRM-SP 250328</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="depoimento">
-        <div class="depoimento-stars">★ ★ ★ ★ ★</div>
-        <p class="depoimento-quote">"Desde que comecei a usar a Selvia, a troca de MEI para ME foi resolvida sem dor de cabeça e passei a emitir notas pelo WhatsApp no mesmo dia, e foi muito mais prático e ágil. Ganhei confiança nas decisões tomadas e reduzi tarefas operacionais."</p>
-        <div class="depoimento-author">
-          <div class="depoimento-avatar">AD</div>
-          <div>
-            <p class="depoimento-name">André Diogo</p>
-            <p class="depoimento-role">Engenheiro de Produto</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="depoimento">
-        <div class="depoimento-stars">★ ★ ★ ★ ★</div>
-        <p class="depoimento-quote">"Desde que comecei a usar a Selvia, tenho 0 preocupações quanto aos impostos que preciso pagar e quando preciso pagar! Além disso, tenho toda uma assessoria automática dos meus gastos o que diminuiu meus gastos com plataformas de gestão financeira."</p>
-        <div class="depoimento-author">
-          <div class="depoimento-avatar">JF</div>
-          <div>
-            <p class="depoimento-name">João Fraga</p>
-            <p class="depoimento-role">AI Deployment</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ NA MÍDIA ============ -->
-<section class="midia-bg">
-  <div class="container">
-    <span class="pill pill-dark">Imprensa</span>
-    <h2 class="h2">Selvia na mídia.</h2>
-    <p class="section-sub">O que estão dizendo sobre a gente.</p>
-
-    <a href="https://startups.com.br/negocios/fintech/depois-de-captar-r-25m-selvia-lanca-conta-pj-para-medicos/" target="_blank" rel="noopener" class="midia-card">
-      <div>
-        <p class="midia-label">STARTUPS.COM.BR · 25 JUN 2025</p>
-        <p class="midia-title">Depois de captar R$ 25M, Selvia lança conta PJ para médicos</p>
-      </div>
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5F5E5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"></path><path d="M11 13l9 -9"></path><path d="M15 4h5v5"></path></svg>
-    </a>
-  </div>
-</section>
-
 <!-- ============ BLOG ============ -->
-<section id="blog">
+<section id="blog" class="blog-bg">
   <div class="container">
     <div class="blog-header">
       <div>
@@ -1438,7 +1764,7 @@
 
     <div class="blog-grid">
       <article class="blog-card">
-        <div class="blog-card-img" style="background: #E2E7C7;">
+        <div class="blog-card-img" style="background: rgba(132,160,255,0.18);">
           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"></rect><path d="M8 7h8"></path><path d="M8 11h8"></path><path d="M8 15h5"></path></svg>
         </div>
         <div class="blog-card-body">
@@ -1449,7 +1775,7 @@
       </article>
 
       <article class="blog-card">
-        <div class="blog-card-img" style="background: #F1FDC1;">
+        <div class="blog-card-img" style="background: rgba(105,228,112,0.22);">
           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h-1a2 2 0 0 0 -2 2v3.5h0a5.5 5.5 0 0 0 11 0v-3.5a2 2 0 0 0 -2 -2h-1"></path><path d="M8 15a6 6 0 1 0 12 0v-3"></path><path d="M20 11m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path></svg>
         </div>
         <div class="blog-card-body">
@@ -1483,7 +1809,7 @@
     <div class="faq-grid">
       <details class="faq-item">
         <summary>Quanto custa a Selvia pra mim?</summary>
-        <p>Depende da sua profissão e do seu faturamento. Médicos começam em R$ 347/mês. Devs, advogados e profissões com conselho de classe começam em R$ 189,90/mês. Criadores de conteúdo, dentistas, psicólogos e fisios começam em R$ 99,90/mês. Quem fatura até R$ 81k/ano e pode ser MEI paga R$ 9,90/mês.</p>
+        <p>Depende da sua profissão e do seu faturamento. Médicos começam em R$ 347/mês. Devs, advogados e outras profissões PJ começam em R$ 189,90/mês. Criadores de conteúdo, dentistas, psicólogos e fisios começam em R$ 99,90/mês. Quem fatura até R$ 81k/ano e pode ser MEI paga R$ 9,90/mês.</p>
       </details>
       <details class="faq-item">
         <summary>Por que médico paga mais que dev?</summary>
@@ -1503,7 +1829,7 @@
       </details>
       <details class="faq-item">
         <summary>Como funciona o atendimento no WhatsApp?</summary>
-        <p>Você manda mensagem de texto ou áudio para o nosso número oficial. Em minutos uma pessoa real do nosso time responde — não é bot. Atendemos durante horário comercial estendido, com plantão pra demandas urgentes.</p>
+        <p>Você manda mensagem de texto ou áudio para o nosso número oficial. Em minutos uma pessoa real do nosso time responde — não é bot.</p>
       </details>
     </div>
   </div>
@@ -1520,6 +1846,23 @@
     </a>
   </div>
 </div>
+
+<!-- ============ MÍDIA ============ -->
+<section class="midia-bg">
+  <div class="container">
+    <span class="pill pill-light">Imprensa</span>
+    <h2 class="h2 h2-light">Selvia na mídia.</h2>
+    <p class="section-sub section-sub-light">O que estão dizendo sobre a gente.</p>
+
+    <a href="https://startups.com.br/negocios/fintech/depois-de-captar-r-25m-selvia-lanca-conta-pj-para-medicos/" target="_blank" rel="noopener" class="midia-card">
+      <div>
+        <p class="midia-label">STARTUPS.COM.BR · 25 JUN 2025</p>
+        <p class="midia-title">Depois de captar R$ 2,5M, Selvia lança conta PJ para médicos</p>
+      </div>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0D423F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"></path><path d="M11 13l9 -9"></path><path d="M15 4h5v5"></path></svg>
+    </a>
+  </div>
+</section>
 
 <!-- ============ FOOTER ============ -->
 <footer>
@@ -1569,23 +1912,145 @@
 </footer>
 
 <script>
-  // ===== TABS DE PREÇOS =====
+  // ===== ANIMAÇÃO DO MOCK CHAT (hero) =====
   (function() {
+    const chat = document.getElementById('mock-chat');
+    const scroll = document.getElementById('mock-scroll');
+    if (!chat || !scroll) return;
+
+    // Se o usuário prefere movimento reduzido, mostra tudo estático
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      chat.classList.add('is-static');
+      scroll.scrollTop = scroll.scrollHeight;
+      return;
+    }
+
+    let animationStarted = false;
+
+    function startAnimation() {
+      if (animationStarted) return;
+      animationStarted = true;
+
+      const show = (id) => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.classList.add('visible');
+          // Espera a animação de fade-in terminar (350ms) antes de scrollar
+          // pra garantir que a altura real do elemento foi medida
+          setTimeout(() => scrollToBottom(), 380);
+        }
+      };
+      const hideTyping = (id) => {
+        const el = document.getElementById(id);
+        if (el) { el.classList.remove('show', 'visible'); }
+      };
+      const showTyping = (id) => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.classList.add('show');
+          requestAnimationFrame(() => {
+            el.classList.add('visible');
+            setTimeout(() => scrollToBottom(), 380);
+          });
+        }
+      };
+      const scrollToBottom = () => {
+        scroll.scrollTo({ top: scroll.scrollHeight, behavior: 'smooth' });
+      };
+
+      // Sequência de 6 etapas do fluxo de emissão de NF
+      // Tempo total: ~14 segundos
+
+      // ETAPA 1: Selvia oferece o botão (t=0.5s → 2s)
+      setTimeout(() => showTyping('typing-1'), 500);
+      setTimeout(() => {
+        hideTyping('typing-1');
+        show('msg-1');
+        setTimeout(() => show('msg-1-buttons'), 250);
+      }, 2000);
+
+      // ETAPA 2: Cliente clica no botão (t=3.5s)
+      setTimeout(() => show('msg-2'), 3500);
+
+      // ETAPA 3: Selvia confirma e oferece 2 opções (t=4.5s → 6s)
+      setTimeout(() => showTyping('typing-2'), 4500);
+      setTimeout(() => {
+        hideTyping('typing-2');
+        show('msg-3');
+        setTimeout(() => show('msg-3-buttons'), 250);
+      }, 6000);
+
+      // ETAPA 4: Cliente responde "Emitir agora" com quote (t=7.5s → 8.5s)
+      setTimeout(() => showTyping('typing-3'), 7500);
+      setTimeout(() => {
+        hideTyping('typing-3');
+        show('msg-4');
+      }, 8500);
+
+      // ETAPA 5: Selvia processando (t=9.5s → 10.5s)
+      setTimeout(() => showTyping('typing-4'), 9500);
+      setTimeout(() => {
+        hideTyping('typing-4');
+        show('msg-5');
+      }, 10500);
+
+      // ETAPA 6: Selvia entrega PDF + mensagem final + botão avaliar (t=12s → 14s)
+      setTimeout(() => showTyping('typing-5'), 12000);
+      setTimeout(() => {
+        hideTyping('typing-5');
+        show('msg-6-file');
+        setTimeout(() => show('msg-6'), 350);
+        setTimeout(() => show('msg-6-buttons'), 700);
+      }, 13000);
+    }
+
+    // Inicia quando o chat fica visível na tela
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            startAnimation();
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.3 });
+      observer.observe(chat);
+    } else {
+      // Fallback pra browsers antigos
+      startAnimation();
+    }
+  })();
+
+  // ===== TABS DE PREÇOS =====
+  function ativarTab(vertical) {
     const tabs = document.querySelectorAll('.price-tab');
     const panes = document.querySelectorAll('.price-pane');
+    tabs.forEach(t => t.classList.toggle('active', t.getAttribute('data-vertical') === vertical));
+    panes.forEach(p => {
+      p.style.display = p.getAttribute('data-vertical') === vertical ? 'grid' : 'none';
+    });
+  }
+
+  (function() {
+    const tabs = document.querySelectorAll('.price-tab');
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
-        const target = tab.getAttribute('data-vertical');
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        panes.forEach(p => {
-          p.style.display = p.getAttribute('data-vertical') === target ? 'grid' : 'none';
-        });
+        ativarTab(tab.getAttribute('data-vertical'));
       });
     });
   })();
 
-  // ===== CALCULADORA DE IMPOSTOS =====
+  (function() {
+    const links = document.querySelectorAll('.vertical-link');
+    links.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const vertical = link.getAttribute('data-vertical');
+        if (vertical) ativarTab(vertical);
+      });
+    });
+  })();
+
   let calcEconomiaAtual = 0;
   let calcMelhorRegime = '';
 
@@ -1605,7 +2070,6 @@
       const faturamentoAnual = faturamentoMes * 12;
       const folhaSalarial = faturamentoMes * 0.28;
 
-      // SIMPLES NACIONAL (Anexo III via Fator R)
       const faixasSN = [
         { limite: 180000, aliquota: 0.06, deducao: 0 },
         { limite: 360000, aliquota: 0.112, deducao: 9360 },
@@ -1617,7 +2081,6 @@
       const faixaSN = faixasSN.find(f => faturamentoAnual <= f.limite) || faixasSN[faixasSN.length - 1];
       const dasMensal = Math.max(0, faturamentoAnual * faixaSN.aliquota - faixaSN.deducao) / 12;
 
-      // IRRF sobre pró-labore (tabela 2025)
       const tabelaIRRF = [
         { limite: 2259.20, aliquota: 0,     deducao: 0      },
         { limite: 2826.65, aliquota: 0.075, deducao: 169.44 },
@@ -1633,7 +2096,6 @@
       const inssSocioSN = baseInss * 0.11;
       const totalSN = dasMensal + inssSocioSN + irrf;
 
-      // LUCRO PRESUMIDO
       const lucroPresumidoAnual = faturamentoAnual * 0.32;
       let irpjAnual = lucroPresumidoAnual * 0.15;
       if (lucroPresumidoAnual > 240000) {
@@ -1668,7 +2130,6 @@
     });
   })();
 
-  // ===== WHATSAPP CTAs =====
   function openWhatsApp(context) {
     const msg = 'Olá! Vim do site e gostaria de saber mais sobre os serviços' + (context ? ' (' + context + ')' : '') + '.';
     const url = 'https://api.whatsapp.com/send?phone=5511936220451&text=' + encodeURIComponent(msg);
