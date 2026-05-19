@@ -559,9 +559,33 @@
 
     /* === VERTICAIS === */
     .verticais-bg {
-      background: linear-gradient(180deg, #FFFFFF 0%, #F9F9F9 100%);
+      background:
+        radial-gradient(circle, rgba(13,66,63,0.06) 1px, transparent 1.5px) 0 0 / 28px 28px,
+        linear-gradient(180deg, #FFFFFF 0%, #F9F9F9 100%);
       position: relative;
+      overflow: hidden;
     }
+    /* Mesh blob verde claro - canto superior esquerdo */
+    .verticais-bg::before {
+      content: '';
+      position: absolute;
+      top: -100px; left: -80px;
+      width: 420px; height: 420px;
+      background: radial-gradient(circle, rgba(105,228,112,0.25) 0%, transparent 65%);
+      filter: blur(60px);
+      pointer-events: none;
+    }
+    /* Mesh blob azul - canto inferior direito */
+    .verticais-bg::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; right: -80px;
+      width: 360px; height: 360px;
+      background: radial-gradient(circle, rgba(132,160,255,0.20) 0%, transparent 65%);
+      filter: blur(60px);
+      pointer-events: none;
+    }
+    .verticais-bg .container { position: relative; z-index: 1; }
     .verticais-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -599,9 +623,11 @@
     }
     .vertical-card:hover .vertical-arrow { gap: 8px; }
 
-    /* === COMO FUNCIONA - VERDE CLARO COM GRADIENT === */
+    /* === COMO FUNCIONA - VERDE CLARO COM GRADIENT + DOTS + LINHA === */
     .como-funciona-bg {
-      background: radial-gradient(ellipse at top left, #7DEC83 0%, #69E470 50%, #5FD466 100%);
+      background:
+        radial-gradient(circle, rgba(13,66,63,0.08) 1px, transparent 1.5px) 0 0 / 28px 28px,
+        radial-gradient(ellipse at top left, #7DEC83 0%, #69E470 50%, #5FD466 100%);
       position: relative;
       overflow: hidden;
     }
@@ -611,12 +637,44 @@
       position: absolute;
       bottom: -100px; right: -100px;
       width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(13,66,63,0.08) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(13,66,63,0.10) 0%, transparent 70%);
+      filter: blur(40px);
+      pointer-events: none;
+    }
+    /* Mesh blob branco sutil no topo direito */
+    .como-funciona-bg::after {
+      content: '';
+      position: absolute;
+      top: -50px; right: 10%;
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 65%);
+      filter: blur(50px);
       pointer-events: none;
     }
     .como-funciona-bg .container { position: relative; z-index: 1; }
-    .steps { display: grid; gap: 24px; }
-    .step { display: flex; gap: 20px; align-items: flex-start; }
+    .steps { display: grid; gap: 24px; position: relative; }
+
+    .step {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    /* Linha contínua entre as bolinhas - inicialmente invisível, sem animação por padrão */
+    .step:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 21px;
+      top: 50px;
+      bottom: -22px;
+      width: 2px;
+      background: rgba(13,66,63,0.45);
+      border-radius: 1px;
+      clip-path: inset(0 0 100% 0);
+      z-index: 0;
+    }
+
     .step-number {
       flex-shrink: 0;
       width: 44px;
@@ -630,9 +688,115 @@
       font-weight: 500;
       font-size: 17px;
       box-shadow: 0 8px 20px -4px rgba(13,66,63,0.3);
+      position: relative;
+      z-index: 1;
     }
+
+    /* Anel pulsante ao redor das bolinhas - escondido por padrão */
+    .step-number::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 2px solid rgba(13,66,63,0.4);
+      opacity: 0;
+      pointer-events: none;
+    }
+
     .step h3 { font-size: 18px; margin-bottom: 6px; color: #0D423F; }
     .step p { font-size: 14px; color: #0D423F; margin: 0; line-height: 1.6; opacity: 0.85; }
+
+    /* === ANIMAÇÕES DA SEÇÃO COMO FUNCIONA ===
+       Disparam UMA VEZ quando o usuário scrolla pra seção (via IntersectionObserver).
+       Quando a classe .is-playing é adicionada, todos os elementos animam em sequência
+       e ficam no estado final (forwards).
+    */
+
+    /* Bolinha 1 (0-1s) */
+    .como-funciona-bg.is-playing .step:nth-child(1) .step-number {
+      animation: number-pulse-1 6s ease-out forwards;
+    }
+    .como-funciona-bg.is-playing .step:nth-child(1) .step-number::before {
+      animation: ring-pulse-1 6s ease-out forwards;
+    }
+    /* Linha 1→2 (1-2s) */
+    .como-funciona-bg.is-playing .step:nth-child(1):not(:last-child)::before {
+      animation: line-grow-1 6s ease-in-out forwards;
+    }
+    /* Bolinha 2 (2-3s) */
+    .como-funciona-bg.is-playing .step:nth-child(2) .step-number {
+      animation: number-pulse-2 6s ease-out forwards;
+    }
+    .como-funciona-bg.is-playing .step:nth-child(2) .step-number::before {
+      animation: ring-pulse-2 6s ease-out forwards;
+    }
+    /* Linha 2→3 (3-4s) */
+    .como-funciona-bg.is-playing .step:nth-child(2):not(:last-child)::before {
+      animation: line-grow-2 6s ease-in-out forwards;
+    }
+    /* Bolinha 3 (4-5s) */
+    .como-funciona-bg.is-playing .step:nth-child(3) .step-number {
+      animation: number-pulse-3 6s ease-out forwards;
+    }
+    .como-funciona-bg.is-playing .step:nth-child(3) .step-number::before {
+      animation: ring-pulse-3 6s ease-out forwards;
+    }
+
+    @keyframes line-grow-1 {
+      0%, 16% { clip-path: inset(0 0 100% 0); }
+      33%, 100% { clip-path: inset(0 0 0 0); }
+    }
+    @keyframes line-grow-2 {
+      0%, 50% { clip-path: inset(0 0 100% 0); }
+      66%, 100% { clip-path: inset(0 0 0 0); }
+    }
+
+    @keyframes ring-pulse-1 {
+      0% { transform: scale(1); opacity: 0.7; }
+      16% { transform: scale(1.7); opacity: 0; }
+      17%, 100% { transform: scale(1); opacity: 0; }
+    }
+    @keyframes number-pulse-1 {
+      0% { transform: scale(1); box-shadow: 0 8px 20px -4px rgba(13,66,63,0.3); }
+      8% { transform: scale(1.08); box-shadow: 0 12px 30px -4px rgba(13,66,63,0.5); }
+      16%, 100% { transform: scale(1); box-shadow: 0 8px 20px -4px rgba(13,66,63,0.3); }
+    }
+
+    @keyframes ring-pulse-2 {
+      0%, 33% { transform: scale(1); opacity: 0; }
+      33.01% { transform: scale(1); opacity: 0.7; }
+      49% { transform: scale(1.7); opacity: 0; }
+      50%, 100% { transform: scale(1); opacity: 0; }
+    }
+    @keyframes number-pulse-2 {
+      0%, 33% { transform: scale(1); box-shadow: 0 8px 20px -4px rgba(13,66,63,0.3); }
+      41% { transform: scale(1.08); box-shadow: 0 12px 30px -4px rgba(13,66,63,0.5); }
+      49%, 100% { transform: scale(1); box-shadow: 0 8px 20px -4px rgba(13,66,63,0.3); }
+    }
+
+    @keyframes ring-pulse-3 {
+      0%, 66% { transform: scale(1); opacity: 0; }
+      66.01% { transform: scale(1); opacity: 0.7; }
+      82% { transform: scale(1.7); opacity: 0; }
+      83%, 100% { transform: scale(1); opacity: 0; }
+    }
+    @keyframes number-pulse-3 {
+      0%, 66% { transform: scale(1); box-shadow: 0 8px 20px -4px rgba(13,66,63,0.3); }
+      74% { transform: scale(1.08); box-shadow: 0 12px 30px -4px rgba(13,66,63,0.5); }
+      82%, 100% { transform: scale(1); box-shadow: 0 8px 20px -4px rgba(13,66,63,0.3); }
+    }
+
+    /* Respeita prefers-reduced-motion - mostra tudo direto sem animação */
+    @media (prefers-reduced-motion: reduce) {
+      .como-funciona-bg.is-playing .step:not(:last-child)::before {
+        animation: none;
+        clip-path: inset(0 0 0 0);
+      }
+      .como-funciona-bg.is-playing .step-number,
+      .como-funciona-bg.is-playing .step-number::before {
+        animation: none;
+      }
+    }
 
     /* === STATS - VERDE ESCURO COM GLOWS === */
     .stats-bg {
@@ -681,8 +845,31 @@
 
     /* === DEPOIMENTOS === */
     .depoimentos-bg {
-      background: linear-gradient(180deg, #F9F9F9 0%, #FFFFFF 100%);
+      background:
+        radial-gradient(circle, rgba(13,66,63,0.05) 1px, transparent 1.5px) 0 0 / 28px 28px,
+        linear-gradient(180deg, #F9F9F9 0%, #FFFFFF 100%);
+      position: relative;
+      overflow: hidden;
     }
+    .depoimentos-bg::before {
+      content: '';
+      position: absolute;
+      top: 10%; right: -100px;
+      width: 380px; height: 380px;
+      background: radial-gradient(circle, rgba(105,228,112,0.18) 0%, transparent 65%);
+      filter: blur(70px);
+      pointer-events: none;
+    }
+    .depoimentos-bg::after {
+      content: '';
+      position: absolute;
+      bottom: -50px; left: -100px;
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, rgba(132,160,255,0.12) 0%, transparent 65%);
+      filter: blur(70px);
+      pointer-events: none;
+    }
+    .depoimentos-bg .container { position: relative; z-index: 1; }
     .depoimentos-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -924,9 +1111,32 @@
 
     /* === CALCULADORA === */
     .calc-bg {
-      background: linear-gradient(180deg, #FFFFFF 0%, #F9F9F9 100%);
+      background:
+        radial-gradient(circle, rgba(13,66,63,0.05) 1px, transparent 1.5px) 0 0 / 28px 28px,
+        linear-gradient(180deg, #FFFFFF 0%, #F9F9F9 100%);
       border-top: 1px solid rgba(13,66,63,0.06);
+      position: relative;
+      overflow: hidden;
     }
+    .calc-bg::before {
+      content: '';
+      position: absolute;
+      top: 20%; right: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(105,228,112,0.20) 0%, transparent 65%);
+      filter: blur(70px);
+      pointer-events: none;
+    }
+    .calc-bg::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: 10%;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(132,160,255,0.14) 0%, transparent 65%);
+      filter: blur(70px);
+      pointer-events: none;
+    }
+    .calc-bg .container { position: relative; z-index: 1; }
     .calc-wrap {
       background: radial-gradient(ellipse at top right, #7DEC83 0%, #69E470 60%, #5FD466 100%);
       border-radius: 16px;
@@ -1067,9 +1277,32 @@
 
     /* === BLOG === */
     .blog-bg {
-      background: linear-gradient(180deg, #F9F9F9 0%, #FFFFFF 100%);
+      background:
+        radial-gradient(circle, rgba(13,66,63,0.05) 1px, transparent 1.5px) 0 0 / 28px 28px,
+        linear-gradient(180deg, #F9F9F9 0%, #FFFFFF 100%);
       border-top: 1px solid rgba(13,66,63,0.06);
+      position: relative;
+      overflow: hidden;
     }
+    .blog-bg::before {
+      content: '';
+      position: absolute;
+      top: -50px; left: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(132,160,255,0.18) 0%, transparent 65%);
+      filter: blur(70px);
+      pointer-events: none;
+    }
+    .blog-bg::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; right: -50px;
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, rgba(105,228,112,0.15) 0%, transparent 65%);
+      filter: blur(70px);
+      pointer-events: none;
+    }
+    .blog-bg .container { position: relative; z-index: 1; }
     .blog-header {
       display: flex;
       justify-content: space-between;
@@ -1110,8 +1343,31 @@
 
     /* === FAQ === */
     .faq-bg {
-      background: linear-gradient(180deg, #FFFFFF 0%, #F9F9F9 100%);
+      background:
+        radial-gradient(circle, rgba(13,66,63,0.05) 1px, transparent 1.5px) 0 0 / 28px 28px,
+        linear-gradient(180deg, #FFFFFF 0%, #F9F9F9 100%);
+      position: relative;
+      overflow: hidden;
     }
+    .faq-bg::before {
+      content: '';
+      position: absolute;
+      top: 20%; right: -80px;
+      width: 380px; height: 380px;
+      background: radial-gradient(circle, rgba(105,228,112,0.16) 0%, transparent 65%);
+      filter: blur(70px);
+      pointer-events: none;
+    }
+    .faq-bg::after {
+      content: '';
+      position: absolute;
+      bottom: 10%; left: -80px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(132,160,255,0.12) 0%, transparent 65%);
+      filter: blur(70px);
+      pointer-events: none;
+    }
+    .faq-bg .container { position: relative; z-index: 1; }
     .faq-grid { display: grid; gap: 10px; }
     .faq-item {
       background: #FFFFFF;
@@ -2197,6 +2453,40 @@
     } else {
       // Fallback pra browsers antigos
       startAnimation();
+    }
+  })();
+
+  // ===== ANIMAÇÃO DA SEÇÃO COMO FUNCIONA =====
+  // Dispara UMA VEZ quando a seção entra no viewport, igual ao mock chat do hero.
+  (function() {
+    const section = document.querySelector('.como-funciona-bg');
+    if (!section) return;
+
+    let played = false;
+    const play = () => {
+      if (played) return;
+      played = true;
+      section.classList.add('is-playing');
+    };
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      play();
+      return;
+    }
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            play();
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.35 });
+      observer.observe(section);
+    } else {
+      play();
     }
   })();
 
