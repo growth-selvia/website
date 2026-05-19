@@ -870,55 +870,73 @@
       pointer-events: none;
     }
     .depoimentos-bg .container { position: relative; z-index: 1; }
-    .depoimentos-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+    /* === CARROSSEL DE DEPOIMENTOS === */
+    .depoimentos-carousel {
+      max-width: 720px;
+      margin: 0 auto;
+      position: relative;
     }
-    .depoimento {
+    .depoimentos-viewport {
+      overflow: hidden;
+      border-radius: 16px;
+      /* Padding pra sombra dos cards não ser cortada */
+      padding: 8px 4px 16px;
+      margin: -8px -4px -16px;
+    }
+    .depoimentos-track {
+      display: flex;
+      transition: transform 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+      will-change: transform;
+    }
+    .depoimentos-track .depoimento {
+      flex: 0 0 100%;
+      box-sizing: border-box;
       background: #0D423F;
       color: #F9F9F9;
       border-radius: 16px;
-      padding: 32px;
+      padding: 40px 36px;
       display: flex;
       flex-direction: column;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 20px 40px -12px rgba(13,66,63,0.25), 0 8px 16px -8px rgba(13,66,63,0.15);
+      /* Sombra esfumaçada (blur maior, opacities menores - sensação de profundidade sem peso) */
+      box-shadow:
+        0 50px 100px -30px rgba(13,66,63,0.22),
+        0 24px 50px -20px rgba(13,66,63,0.12);
     }
-    /* Glow sutil no canto pra criar profundidade */
-    .depoimento::before {
+    .depoimentos-track .depoimento::before {
       content: '';
       position: absolute;
-      top: -50px; right: -50px;
-      width: 200px; height: 200px;
-      background: radial-gradient(circle, rgba(105,228,112,0.08) 0%, transparent 70%);
+      top: -80px; right: -80px;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(105,228,112,0.12) 0%, transparent 70%);
       pointer-events: none;
     }
-    .depoimento > * { position: relative; z-index: 1; }
-    .depoimento-stars {
+    .depoimentos-track .depoimento > * { position: relative; z-index: 1; }
+
+    .depoimentos-track .depoimento-stars {
       color: #69E470;
-      font-size: 18px;
+      font-size: 20px;
       letter-spacing: 4px;
-      margin-bottom: 20px;
-    }
-    .depoimento-quote {
-      font-size: 14px;
-      line-height: 1.7;
-      color: #F9F9F9;
-      flex-grow: 1;
       margin-bottom: 24px;
     }
-    .depoimento-author {
+    .depoimentos-track .depoimento-quote {
+      font-size: 17px;
+      line-height: 1.65;
+      color: #F9F9F9;
+      flex-grow: 1;
+      margin-bottom: 32px;
+    }
+    .depoimentos-track .depoimento-author {
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding-top: 20px;
+      gap: 16px;
+      padding-top: 24px;
       border-top: 1px solid rgba(105,228,112,0.25);
     }
-    .depoimento-avatar {
-      width: 48px;
-      height: 48px;
+    .depoimentos-track .depoimento-avatar {
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
       background: #69E470;
       color: #0D423F;
@@ -926,12 +944,51 @@
       align-items: center;
       justify-content: center;
       font-weight: 500;
-      font-size: 15px;
+      font-size: 16px;
       flex-shrink: 0;
-      box-shadow: 0 4px 12px rgba(105,228,112,0.3);
+      box-shadow: 0 6px 16px rgba(105,228,112,0.35);
     }
-    .depoimento-name { font-size: 14px; font-weight: 500; color: #F9F9F9; margin: 0; }
-    .depoimento-role { font-size: 12px; color: rgba(105,228,112,0.9); margin: 2px 0 0; }
+    .depoimentos-track .depoimento-name {
+      font-size: 15px;
+      font-weight: 500;
+      color: #F9F9F9;
+      margin: 0;
+    }
+    .depoimentos-track .depoimento-role {
+      font-size: 13px;
+      color: rgba(105,228,112,0.9);
+      margin: 2px 0 0;
+    }
+
+    /* Dots de navegação */
+    .depoimentos-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 28px;
+    }
+    .depoimento-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(13,66,63,0.25);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: all 0.3s ease;
+    }
+    .depoimento-dot:hover {
+      background: rgba(13,66,63,0.5);
+      transform: scale(1.2);
+    }
+    .depoimento-dot.active {
+      background: #0D423F;
+      width: 24px;
+      border-radius: 4px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .depoimentos-track { transition: none; }
+    }
 
     /* === PREÇOS - VERDE ESCURO COM GLOWS MAIS RICOS === */
     .precos-bg {
@@ -1493,7 +1550,8 @@
       .price-grid { grid-template-columns: 1fr; }
       .price-card.featured { transform: none; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .depoimentos-grid { grid-template-columns: 1fr; }
+      .depoimentos-track .depoimento { padding: 32px 24px; }
+      .depoimentos-track .depoimento-quote { font-size: 15px; }
       .blog-grid { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
       .nav-links { display: none; }
@@ -1786,41 +1844,51 @@
     <h2 class="h2">O que os clientes falam.</h2>
     <p class="section-sub">Médicos, devs e profissionais que já pararam de se estressar com contabilidade.</p>
 
-    <div class="depoimentos-grid">
-      <div class="depoimento">
-        <div class="depoimento-stars">★ ★ ★ ★ ★</div>
-        <p class="depoimento-quote">"Sempre me auxiliaram em todo o processo, desde a abertura da empresa até regularização fiscal. Qualquer dúvida que surgia estavam sempre dispostos a me ajudar."</p>
-        <div class="depoimento-author">
-          <div class="depoimento-avatar">JR</div>
-          <div>
-            <p class="depoimento-name">Dr. João Rogério</p>
-            <p class="depoimento-role">Cardiologista — CRM-SP 250328</p>
+    <div class="depoimentos-carousel" id="depoimentos-carousel">
+      <div class="depoimentos-viewport">
+        <div class="depoimentos-track" id="depoimentos-track">
+          <div class="depoimento">
+            <div class="depoimento-stars">★ ★ ★ ★ ★</div>
+            <p class="depoimento-quote">"Sempre me auxiliaram em todo o processo, desde a abertura da empresa até regularização fiscal. Qualquer dúvida que surgia estavam sempre dispostos a me ajudar."</p>
+            <div class="depoimento-author">
+              <div class="depoimento-avatar">JR</div>
+              <div>
+                <p class="depoimento-name">Dr. João Rogério</p>
+                <p class="depoimento-role">Cardiologista — CRM-SP 250328</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="depoimento">
+            <div class="depoimento-stars">★ ★ ★ ★ ★</div>
+            <p class="depoimento-quote">"Desde que comecei a usar a Selvia, a troca de MEI para ME foi resolvida sem dor de cabeça e passei a emitir notas pelo WhatsApp no mesmo dia, e foi muito mais prático e ágil. Ganhei confiança nas decisões tomadas e reduzi tarefas operacionais."</p>
+            <div class="depoimento-author">
+              <div class="depoimento-avatar">AD</div>
+              <div>
+                <p class="depoimento-name">André Diogo</p>
+                <p class="depoimento-role">Engenheiro de Produto</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="depoimento">
+            <div class="depoimento-stars">★ ★ ★ ★ ★</div>
+            <p class="depoimento-quote">"Desde que comecei a usar a Selvia, tenho 0 preocupações quanto aos impostos que preciso pagar e quando preciso pagar! Além disso, tenho toda uma assessoria automática dos meus gastos o que diminuiu meus gastos com plataformas de gestão financeira."</p>
+            <div class="depoimento-author">
+              <div class="depoimento-avatar">JF</div>
+              <div>
+                <p class="depoimento-name">João Fraga</p>
+                <p class="depoimento-role">AI Deployment</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="depoimento">
-        <div class="depoimento-stars">★ ★ ★ ★ ★</div>
-        <p class="depoimento-quote">"Desde que comecei a usar a Selvia, a troca de MEI para ME foi resolvida sem dor de cabeça e passei a emitir notas pelo WhatsApp no mesmo dia, e foi muito mais prático e ágil. Ganhei confiança nas decisões tomadas e reduzi tarefas operacionais."</p>
-        <div class="depoimento-author">
-          <div class="depoimento-avatar">AD</div>
-          <div>
-            <p class="depoimento-name">André Diogo</p>
-            <p class="depoimento-role">Engenheiro de Produto</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="depoimento">
-        <div class="depoimento-stars">★ ★ ★ ★ ★</div>
-        <p class="depoimento-quote">"Desde que comecei a usar a Selvia, tenho 0 preocupações quanto aos impostos que preciso pagar e quando preciso pagar! Além disso, tenho toda uma assessoria automática dos meus gastos o que diminuiu meus gastos com plataformas de gestão financeira."</p>
-        <div class="depoimento-author">
-          <div class="depoimento-avatar">JF</div>
-          <div>
-            <p class="depoimento-name">João Fraga</p>
-            <p class="depoimento-role">AI Deployment</p>
-          </div>
-        </div>
+      <div class="depoimentos-dots" role="tablist" aria-label="Navegação dos depoimentos">
+        <button type="button" class="depoimento-dot active" data-i="0" aria-label="Depoimento 1"></button>
+        <button type="button" class="depoimento-dot" data-i="1" aria-label="Depoimento 2"></button>
+        <button type="button" class="depoimento-dot" data-i="2" aria-label="Depoimento 3"></button>
       </div>
     </div>
   </div>
@@ -2453,6 +2521,88 @@
     } else {
       // Fallback pra browsers antigos
       startAnimation();
+    }
+  })();
+
+  // ===== CARROSSEL DE DEPOIMENTOS =====
+  // Slide automático a cada 6s, pause on hover, dots clicáveis pra nav manual
+  (function() {
+    const carousel = document.getElementById('depoimentos-carousel');
+    if (!carousel) return;
+
+    const track = document.getElementById('depoimentos-track');
+    const slides = track.querySelectorAll('.depoimento');
+    const dots = carousel.querySelectorAll('.depoimento-dot');
+    const total = slides.length;
+    if (total <= 1) return;
+
+    let current = 0;
+    let direction = 1; // 1 = avançando, -1 = voltando
+    let timer = null;
+    const INTERVAL = 6000;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const goTo = (i) => {
+      current = Math.max(0, Math.min(total - 1, i));
+      track.style.transform = `translateX(-${current * 100}%)`;
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === current);
+        dot.setAttribute('aria-selected', idx === current ? 'true' : 'false');
+      });
+    };
+
+    const next = () => {
+      // Ping-pong: ao chegar nas pontas, inverte a direção
+      if (current === total - 1) direction = -1;
+      else if (current === 0) direction = 1;
+      goTo(current + direction);
+    };
+
+    const start = () => {
+      if (prefersReducedMotion) return;
+      stop();
+      timer = setInterval(next, INTERVAL);
+    };
+
+    const stop = () => {
+      if (timer) { clearInterval(timer); timer = null; }
+    };
+
+    // Click nos dots: pula pro slide, ajusta direção e reseta o timer
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const i = parseInt(dot.dataset.i, 10);
+        // Atualiza a direção baseado em pra onde está indo
+        if (i > current) direction = 1;
+        else if (i < current) direction = -1;
+        goTo(i);
+        start();
+      });
+    });
+
+    // Pause on hover (desktop) e touch (mobile)
+    carousel.addEventListener('mouseenter', stop);
+    carousel.addEventListener('mouseleave', start);
+    carousel.addEventListener('touchstart', stop, { passive: true });
+    carousel.addEventListener('touchend', start, { passive: true });
+
+    // Pause quando a aba não tá ativa (não desperdiça energia)
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stop(); else start();
+    });
+
+    // Disparar só quando o carrossel fica visível pela primeira vez
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) start();
+          else stop();
+        });
+      }, { threshold: 0.25 });
+      io.observe(carousel);
+    } else {
+      start();
     }
   })();
 
