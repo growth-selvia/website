@@ -289,43 +289,51 @@
       gap: 6px;
     }
 
-    /* === ANIMAÇÃO DO MOCK CHAT === */
+    /* === ANIMAÇÃO DO MOCK CHAT ===
+       Estratégia: elementos começam com display:none (não ocupam espaço no layout)
+       Quando ganham classe .visible, viram display:block/flex/inline-flex com fade-in
+    */
+
+    /* Estado inicial: invisível E sem ocupar espaço */
     .mock-chat .mock-msg-them,
     .mock-chat .mock-msg-us,
     .mock-chat .mock-msg-action,
     .mock-chat .mock-buttons,
     .mock-chat .mock-file,
     .mock-chat .mock-typing {
+      display: none;
       opacity: 0;
       transform: translateY(8px);
       transition: opacity 0.35s ease-out, transform 0.35s ease-out;
     }
-    .mock-chat.is-static .mock-msg-them,
-    .mock-chat.is-static .mock-msg-us,
-    .mock-chat.is-static .mock-msg-action,
-    .mock-chat.is-static .mock-buttons,
-    .mock-chat.is-static .mock-file {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .mock-chat .visible {
-      opacity: 1 !important;
-      transform: translateY(0) !important;
-    }
 
-    /* Indicador "digitando..." */
+    /* Quando .visible é adicionado: mostra com display correto pra cada tipo */
+    .mock-chat .mock-msg-them.visible { display: block; opacity: 1; transform: translateY(0); }
+    .mock-chat .mock-msg-us.visible { display: block; opacity: 1; transform: translateY(0); }
+    .mock-chat .mock-buttons.visible { display: block; opacity: 1; transform: translateY(0); }
+    .mock-chat .mock-msg-action.visible { display: flex; opacity: 1; transform: translateY(0); }
+    .mock-chat .mock-file.visible { display: flex; opacity: 1; transform: translateY(0); }
+    .mock-chat .mock-typing.visible { display: inline-flex; opacity: 1; transform: translateY(0); }
+
+    /* Fallback estático (prefers-reduced-motion) - mostra tudo direto */
+    .mock-chat.is-static .mock-msg-them { display: block; opacity: 1; transform: translateY(0); }
+    .mock-chat.is-static .mock-msg-us { display: block; opacity: 1; transform: translateY(0); }
+    .mock-chat.is-static .mock-buttons { display: block; opacity: 1; transform: translateY(0); }
+    .mock-chat.is-static .mock-msg-action { display: flex; opacity: 1; transform: translateY(0); }
+    .mock-chat.is-static .mock-file { display: flex; opacity: 1; transform: translateY(0); }
+    .mock-chat.is-static .mock-typing { display: none; }
+
+    /* Indicador "digitando..." - estilos visuais (independente de visibilidade) */
     .mock-typing {
       background: #FFFFFF;
       border-radius: 12px 12px 12px 4px;
       border: 1px solid rgba(13,66,63,0.1);
       padding: 14px 16px;
       margin-bottom: 8px;
-      display: none;
       align-items: center;
       gap: 4px;
       width: fit-content;
     }
-    .mock-typing.show { display: inline-flex; }
     .mock-typing-us {
       background: #DCF8C6;
       border-radius: 12px 12px 4px 12px;
@@ -358,7 +366,12 @@
         transform: none;
         transition: none;
       }
-      .mock-typing { display: none !important; }
+      .mock-chat .mock-msg-them { display: block; }
+      .mock-chat .mock-msg-us { display: block; }
+      .mock-chat .mock-buttons { display: block; }
+      .mock-chat .mock-msg-action { display: flex; }
+      .mock-chat .mock-file { display: flex; }
+      .mock-chat .mock-typing { display: none !important; }
     }
 
     /* Mock WhatsApp */
@@ -1937,22 +1950,18 @@
         if (el) {
           el.classList.add('visible');
           // Espera a animação de fade-in terminar (350ms) antes de scrollar
-          // pra garantir que a altura real do elemento foi medida
           setTimeout(() => scrollToBottom(), 380);
         }
       };
       const hideTyping = (id) => {
         const el = document.getElementById(id);
-        if (el) { el.classList.remove('show', 'visible'); }
+        if (el) { el.classList.remove('visible'); }
       };
       const showTyping = (id) => {
         const el = document.getElementById(id);
         if (el) {
-          el.classList.add('show');
-          requestAnimationFrame(() => {
-            el.classList.add('visible');
-            setTimeout(() => scrollToBottom(), 380);
-          });
+          el.classList.add('visible');
+          setTimeout(() => scrollToBottom(), 380);
         }
       };
       const scrollToBottom = () => {
