@@ -592,8 +592,8 @@
       gap: 16px;
     }
     .vertical-card {
-      background: #FFFFFF;
-      border: 1px solid rgba(13,66,63,0.08);
+      /* Gradient sutil interno: branco no topo (luz vindo de cima), off-white na base */
+      background: linear-gradient(180deg, #FFFFFF 0%, #FAFAFA 100%);
       border-radius: 14px;
       padding: 24px;
       transition: all 0.25s;
@@ -601,12 +601,25 @@
       text-decoration: none;
       color: inherit;
       display: block;
-      box-shadow: 0 1px 2px rgba(13,66,63,0.04);
+      /* Inset highlights + box-shadow em camadas pra dar efeito 3D */
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.9),
+        inset 0 -1px 0 rgba(13,66,63,0.05),
+        inset 0 0 0 1px rgba(13,66,63,0.06),
+        0 1px 3px rgba(13,66,63,0.04),
+        0 4px 8px rgba(13,66,63,0.06),
+        0 12px 24px rgba(13,66,63,0.08);
     }
     .vertical-card:hover {
-      border-color: #0D423F;
-      transform: translateY(-3px);
-      box-shadow: 0 20px 40px -10px rgba(13,66,63,0.18), 0 8px 16px -8px rgba(105,228,112,0.15);
+      transform: translateY(-4px);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.9),
+        inset 0 -1px 0 rgba(13,66,63,0.06),
+        inset 0 0 0 1px rgba(13,66,63,0.12),
+        0 2px 6px rgba(13,66,63,0.06),
+        0 8px 16px rgba(13,66,63,0.10),
+        0 20px 40px rgba(13,66,63,0.14),
+        0 8px 24px rgba(105,228,112,0.18);
     }
     .vertical-card svg { color: #0D423F; margin-bottom: 14px; }
     .vertical-card h3 { font-size: 16px; margin-bottom: 6px; color: #0D423F; }
@@ -871,6 +884,13 @@
     }
     .depoimentos-bg .container { position: relative; z-index: 1; }
     /* === CARROSSEL DE DEPOIMENTOS === */
+    /* Wrapper externo: contém carrossel + dots */
+    .depoimentos-shell {
+      max-width: 720px;
+      margin: 0 auto;
+      position: relative;
+    }
+    /* === CARROSSEL DE DEPOIMENTOS === */
     .depoimentos-carousel {
       max-width: 720px;
       margin: 0 auto;
@@ -880,7 +900,11 @@
       overflow: hidden;
       border-radius: 16px;
       position: relative;
-      z-index: 1;
+      z-index: 2;
+      /* Sombra com 2 camadas - drop-shadow respeita border-radius e não é cortado por overflow:hidden */
+      filter:
+        drop-shadow(0 8px 16px rgba(13,66,63,0.25))
+        drop-shadow(0 24px 50px rgba(13,66,63,0.30));
     }
     .depoimentos-track {
       display: flex;
@@ -890,7 +914,8 @@
     .depoimentos-track .depoimento {
       flex: 0 0 100%;
       box-sizing: border-box;
-      background: #0D423F;
+      /* Gradient interno: simula luz vindo de cima (topo mais claro, base mais escura) */
+      background: linear-gradient(180deg, #156961 0%, #0D423F 60%, #082E2C 100%);
       color: #F9F9F9;
       border-radius: 16px;
       padding: 40px 36px;
@@ -898,15 +923,15 @@
       flex-direction: column;
       position: relative;
       overflow: hidden;
-      /* Sombra em 5 camadas com opacidades altas - cor verde escuro mantida.
-         Camadas próximas têm opacidade alta (presença real).
-         Camadas distantes têm blur grande e opacidade menor (halo esfumaçado). */
+      /* Inset shadows pra efeito 3D interno (luz refletida + profundidade do material) */
       box-shadow:
-        0 6px 12px rgba(13,66,63,0.35),
-        0 16px 32px rgba(13,66,63,0.40),
-        0 36px 72px rgba(13,66,63,0.38),
-        0 70px 140px rgba(13,66,63,0.30),
-        0 120px 240px rgba(13,66,63,0.18);
+        inset 0 1px 0 rgba(255,255,255,0.12),
+        inset 0 -1px 0 rgba(0,0,0,0.30),
+        inset 0 0 0 1px rgba(255,255,255,0.04);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .depoimentos-track { transition: none; }
     }
     .depoimentos-track .depoimento::before {
       content: '';
@@ -969,7 +994,9 @@
       display: flex;
       justify-content: center;
       gap: 8px;
-      margin-top: 28px;
+      margin-top: 56px;
+      position: relative;
+      z-index: 3;
     }
     .depoimento-dot {
       width: 8px;
@@ -1377,18 +1404,31 @@
       gap: 16px;
     }
     .blog-card {
-      background: #FFFFFF;
-      border: 1px solid rgba(13,66,63,0.08);
+      /* Gradient sutil interno: branco no topo (luz vindo de cima), off-white na base */
+      background: linear-gradient(180deg, #FFFFFF 0%, #FAFAFA 100%);
       border-radius: 14px;
       overflow: hidden;
       transition: all 0.25s;
       cursor: pointer;
-      box-shadow: 0 2px 4px rgba(13,66,63,0.04);
+      /* Inset highlights + box-shadow em camadas pra dar efeito 3D */
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.9),
+        inset 0 -1px 0 rgba(13,66,63,0.05),
+        inset 0 0 0 1px rgba(13,66,63,0.06),
+        0 1px 3px rgba(13,66,63,0.04),
+        0 4px 8px rgba(13,66,63,0.06),
+        0 12px 24px rgba(13,66,63,0.08);
     }
     .blog-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 20px 40px -10px rgba(13,66,63,0.18), 0 8px 16px -8px rgba(105,228,112,0.12);
-      border-color: #0D423F;
+      transform: translateY(-4px);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.9),
+        inset 0 -1px 0 rgba(13,66,63,0.06),
+        inset 0 0 0 1px rgba(13,66,63,0.12),
+        0 2px 6px rgba(13,66,63,0.06),
+        0 8px 16px rgba(13,66,63,0.10),
+        0 20px 40px rgba(13,66,63,0.14),
+        0 8px 24px rgba(105,228,112,0.14);
     }
     .blog-card-img {
       height: 140px;
@@ -1848,41 +1888,43 @@
     <h2 class="h2">O que os clientes falam.</h2>
     <p class="section-sub">Médicos, devs e profissionais que já pararam de se estressar com contabilidade.</p>
 
-    <div class="depoimentos-carousel" id="depoimentos-carousel">
-      <div class="depoimentos-viewport">
-        <div class="depoimentos-track" id="depoimentos-track">
-          <div class="depoimento">
-            <div class="depoimento-stars">★ ★ ★ ★ ★</div>
-            <p class="depoimento-quote">"Sempre me auxiliaram em todo o processo, desde a abertura da empresa até regularização fiscal. Qualquer dúvida que surgia estavam sempre dispostos a me ajudar."</p>
-            <div class="depoimento-author">
-              <div class="depoimento-avatar">JR</div>
-              <div>
-                <p class="depoimento-name">Dr. João Rogério</p>
-                <p class="depoimento-role">Cardiologista — CRM-SP 250328</p>
+    <div class="depoimentos-shell">
+      <div class="depoimentos-carousel" id="depoimentos-carousel">
+        <div class="depoimentos-viewport">
+          <div class="depoimentos-track" id="depoimentos-track">
+            <div class="depoimento">
+              <div class="depoimento-stars">★ ★ ★ ★ ★</div>
+              <p class="depoimento-quote">"Sempre me auxiliaram em todo o processo, desde a abertura da empresa até regularização fiscal. Qualquer dúvida que surgia estavam sempre dispostos a me ajudar."</p>
+              <div class="depoimento-author">
+                <div class="depoimento-avatar">JR</div>
+                <div>
+                  <p class="depoimento-name">Dr. João Rogério</p>
+                  <p class="depoimento-role">Cardiologista — CRM-SP 250328</p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="depoimento">
-            <div class="depoimento-stars">★ ★ ★ ★ ★</div>
-            <p class="depoimento-quote">"Desde que comecei a usar a Selvia, a troca de MEI para ME foi resolvida sem dor de cabeça e passei a emitir notas pelo WhatsApp no mesmo dia, e foi muito mais prático e ágil. Ganhei confiança nas decisões tomadas e reduzi tarefas operacionais."</p>
-            <div class="depoimento-author">
-              <div class="depoimento-avatar">AD</div>
-              <div>
-                <p class="depoimento-name">André Diogo</p>
-                <p class="depoimento-role">Engenheiro de Produto</p>
+            <div class="depoimento">
+              <div class="depoimento-stars">★ ★ ★ ★ ★</div>
+              <p class="depoimento-quote">"Desde que comecei a usar a Selvia, a troca de MEI para ME foi resolvida sem dor de cabeça e passei a emitir notas pelo WhatsApp no mesmo dia, e foi muito mais prático e ágil. Ganhei confiança nas decisões tomadas e reduzi tarefas operacionais."</p>
+              <div class="depoimento-author">
+                <div class="depoimento-avatar">AD</div>
+                <div>
+                  <p class="depoimento-name">André Diogo</p>
+                  <p class="depoimento-role">Engenheiro de Produto</p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="depoimento">
-            <div class="depoimento-stars">★ ★ ★ ★ ★</div>
-            <p class="depoimento-quote">"Desde que comecei a usar a Selvia, tenho 0 preocupações quanto aos impostos que preciso pagar e quando preciso pagar! Além disso, tenho toda uma assessoria automática dos meus gastos o que diminuiu meus gastos com plataformas de gestão financeira."</p>
-            <div class="depoimento-author">
-              <div class="depoimento-avatar">JF</div>
-              <div>
-                <p class="depoimento-name">João Fraga</p>
-                <p class="depoimento-role">AI Deployment</p>
+            <div class="depoimento">
+              <div class="depoimento-stars">★ ★ ★ ★ ★</div>
+              <p class="depoimento-quote">"Desde que comecei a usar a Selvia, tenho 0 preocupações quanto aos impostos que preciso pagar e quando preciso pagar! Além disso, tenho toda uma assessoria automática dos meus gastos o que diminuiu meus gastos com plataformas de gestão financeira."</p>
+              <div class="depoimento-author">
+                <div class="depoimento-avatar">JF</div>
+                <div>
+                  <p class="depoimento-name">João Fraga</p>
+                  <p class="depoimento-role">AI Deployment</p>
+                </div>
               </div>
             </div>
           </div>
@@ -2534,9 +2576,10 @@
     const carousel = document.getElementById('depoimentos-carousel');
     if (!carousel) return;
 
+    const shell = carousel.closest('.depoimentos-shell') || carousel.parentElement;
     const track = document.getElementById('depoimentos-track');
     const slides = track.querySelectorAll('.depoimento');
-    const dots = carousel.querySelectorAll('.depoimento-dot');
+    const dots = shell.querySelectorAll('.depoimento-dot');
     const total = slides.length;
     if (total <= 1) return;
 
@@ -2585,11 +2628,11 @@
       });
     });
 
-    // Pause on hover (desktop) e touch (mobile)
-    carousel.addEventListener('mouseenter', stop);
-    carousel.addEventListener('mouseleave', start);
-    carousel.addEventListener('touchstart', stop, { passive: true });
-    carousel.addEventListener('touchend', start, { passive: true });
+    // Pause on hover (desktop) e touch (mobile) - shell cobre carousel + dots
+    shell.addEventListener('mouseenter', stop);
+    shell.addEventListener('mouseleave', start);
+    shell.addEventListener('touchstart', stop, { passive: true });
+    shell.addEventListener('touchend', start, { passive: true });
 
     // Pause quando a aba não tá ativa (não desperdiça energia)
     document.addEventListener('visibilitychange', () => {
