@@ -127,7 +127,10 @@
     */
 
     *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
     body {
       margin: 0;
       font-family: 'Lexend', system-ui, -apple-system, sans-serif;
@@ -136,6 +139,7 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
     img, svg { max-width: 100%; display: block; }
     button { font-family: inherit; cursor: pointer; }
@@ -193,7 +197,19 @@
       transition: color 0.15s;
     }
     .nav-links a:hover { color: #0D423F; }
-    .nav-mobile { display: none; }
+    /* Link secundário no header (pra páginas futuras como /contabilidades) */
+    .nav-link-secondary {
+      font-weight: 500;
+      color: #0D423F !important;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(13,66,63,0.15);
+      transition: all 0.15s;
+    }
+    .nav-link-secondary:hover {
+      background: rgba(13,66,63,0.04);
+      border-color: rgba(13,66,63,0.35);
+    }
 
     /* === BUTTONS === */
     .btn-primary {
@@ -287,6 +303,17 @@
       gap: 48px;
       align-items: center;
     }
+    /* CSS Grid bug fix: itens do grid têm min-width:auto por padrão e não encolhem.
+       Sem isso, conteúdo com width fixo (como mock-chat 420px) estoura o grid em mobile. */
+    .hero-grid > * { min-width: 0; }
+
+    /* Mesma defesa em outras grids do site */
+    .verticais-grid > *,
+    .stats-grid > *,
+    .price-grid > *,
+    .depoimentos-track > *,
+    .blog-grid > *,
+    .footer-grid > * { min-width: 0; }
     .hero h1 {
       font-size: 56px;
       line-height: 1.05;
@@ -1197,6 +1224,34 @@
     }
     .price-note a { color: #69E470; text-decoration: underline; }
 
+    /* === DEEP LINKS DE PRICING (pras páginas futuras por vertical) === */
+    .price-deep-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 24px;
+      padding: 14px 24px;
+      background: rgba(105,228,112,0.08);
+      border: 1px solid rgba(105,228,112,0.25);
+      border-radius: 10px;
+      color: #69E470;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .price-deep-link:hover {
+      background: rgba(105,228,112,0.14);
+      border-color: rgba(105,228,112,0.5);
+      transform: translateY(-1px);
+    }
+    .price-deep-link span {
+      transition: transform 0.2s;
+      display: inline-block;
+    }
+    .price-deep-link:hover span { transform: translateX(4px); }
+
     /* === CALCULADORA === */
     .calc-bg {
       background:
@@ -1589,7 +1644,11 @@
       .hero h1 { font-size: 40px; }
       .h2 { font-size: 28px; }
       .hero-grid { grid-template-columns: 1fr; gap: 32px; }
-      .mock-chat { margin: 0 auto; }
+      .mock-chat {
+        width: 100%;
+        max-width: 420px;
+        margin: 0 auto;
+      }
       .verticais-grid { grid-template-columns: repeat(2, 1fr); }
       .price-grid { grid-template-columns: 1fr; }
       .price-card.featured { transform: none; }
@@ -1599,7 +1658,6 @@
       .blog-grid { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
       .nav-links { display: none; }
-      .nav-mobile { display: flex; }
       section { padding: 56px 0; }
       .cta-final { padding: 56px 24px; margin-top: 56px; }
       .cta-final h2 { font-size: 28px; }
@@ -1634,13 +1692,10 @@
       <a href="#precos">Preços</a>
       <a href="#calculadora">Calculadora</a>
       <a href="#blog">Blog</a>
-      <a href="https://api.whatsapp.com/send?phone=5511936220451&text=Ol%C3%A1!%20Vim%20do%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os!" target="_blank" rel="noopener" class="btn-primary btn-small">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"></path><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"></path></svg>
-        Falar no WhatsApp
-      </a>
+      <a href="/contabilidades" class="nav-link-secondary" data-future-page="contabilidades">Para contabilidades</a>
     </nav>
-    <a href="https://api.whatsapp.com/send?phone=5511936220451&text=Ol%C3%A1!%20Vim%20do%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os!" target="_blank" rel="noopener" class="btn-primary btn-small nav-mobile">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"></path></svg>
+    <a href="https://api.whatsapp.com/send?phone=5511936220451&text=Ol%C3%A1!%20Vim%20do%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os!" target="_blank" rel="noopener" class="btn-primary btn-small">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"></path><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"></path></svg>
       WhatsApp
     </a>
   </div>
@@ -1975,7 +2030,8 @@
     </div>
 
     <!-- MÉDICOS -->
-    <div class="price-grid price-pane" data-vertical="medicos">
+    <div class="price-pane" data-vertical="medicos">
+      <div class="price-grid">
       <div class="price-card featured">
         <p class="price-modalidade">SIMPLES NACIONAL</p>
         <p class="price-plano">Basic</p>
@@ -2015,10 +2071,12 @@
         <p class="price-disclaimer">Profissionais com conselho de classe (CRM, CRO, etc.) não podem ser MEI pela legislação atual.</p>
         <p class="price-disclaimer" style="margin-top: auto;">Recomendamos o plano Basic via Simples Nacional.</p>
       </div>
+      </div>
     </div>
 
     <!-- DEVS -->
-    <div class="price-grid price-pane" data-vertical="devs" style="display: none;">
+    <div class="price-pane" data-vertical="devs" style="display: none;">
+      <div class="price-grid">
       <div class="price-card price-card-mei">
         <p class="price-modalidade">MEI</p>
         <p class="price-plano">Tech Júnior</p>
@@ -2066,10 +2124,15 @@
           Falar no WhatsApp
         </button>
       </div>
+      </div>
+      <a class="price-deep-link" href="/devs" data-future-page="devs">
+        Ver plano completo para Devs e TI <span>→</span>
+      </a>
     </div>
 
     <!-- ADVOGADOS -->
-    <div class="price-grid price-pane" data-vertical="advogados" style="display: none;">
+    <div class="price-pane" data-vertical="advogados" style="display: none;">
+      <div class="price-grid">
       <div class="price-card featured">
         <p class="price-modalidade">SIMPLES NACIONAL</p>
         <p class="price-plano">Basic</p>
@@ -2107,10 +2170,15 @@
         <p class="price-disclaimer">Advogados inscritos na OAB não podem ser MEI pela legislação atual.</p>
         <p class="price-disclaimer" style="margin-top: auto;">Recomendamos o plano Basic via Simples Nacional.</p>
       </div>
+      </div>
+      <a class="price-deep-link" href="/advogados" data-future-page="advogados">
+        Ver plano completo para Advogados <span>→</span>
+      </a>
     </div>
 
     <!-- CRIADORES -->
-    <div class="price-grid price-pane" data-vertical="criadores" style="display: none;">
+    <div class="price-pane" data-vertical="criadores" style="display: none;">
+      <div class="price-grid">
       <div class="price-card price-card-mei">
         <p class="price-modalidade">MEI</p>
         <p class="price-plano">Plano Júnior</p>
@@ -2158,10 +2226,15 @@
           Falar no WhatsApp
         </button>
       </div>
+      </div>
+      <a class="price-deep-link" href="/criadores" data-future-page="criadores">
+        Ver plano completo para Criadores de conteúdo <span>→</span>
+      </a>
     </div>
 
     <!-- SAÚDE -->
-    <div class="price-grid price-pane" data-vertical="saude" style="display: none;">
+    <div class="price-pane" data-vertical="saude" style="display: none;">
+      <div class="price-grid">
       <div class="price-card featured">
         <p class="price-modalidade">SIMPLES NACIONAL</p>
         <p class="price-plano">Basic</p>
@@ -2199,10 +2272,15 @@
         <p class="price-disclaimer">Profissionais com conselho de classe (CRP, CREFITO, CRO, CRN) não podem ser MEI.</p>
         <p class="price-disclaimer" style="margin-top: auto;">Recomendamos o plano Basic via Simples Nacional.</p>
       </div>
+      </div>
+      <a class="price-deep-link" href="/saude" data-future-page="saude">
+        Ver plano completo para Saúde geral <span>→</span>
+      </a>
     </div>
 
     <!-- OUTRAS PJ -->
-    <div class="price-grid price-pane" data-vertical="outras" style="display: none;">
+    <div class="price-pane" data-vertical="outras" style="display: none;">
+      <div class="price-grid">
       <div class="price-card price-card-mei">
         <p class="price-modalidade">MEI</p>
         <p class="price-plano">Plano Júnior</p>
@@ -2250,6 +2328,10 @@
           Falar no WhatsApp
         </button>
       </div>
+      </div>
+      <a class="price-deep-link" href="/outras-pj" data-future-page="outras-pj">
+        Ver plano completo para Outras PJ <span>→</span>
+      </a>
     </div>
 
     <p class="price-note">
@@ -2693,7 +2775,7 @@
     const panes = document.querySelectorAll('.price-pane');
     tabs.forEach(t => t.classList.toggle('active', t.getAttribute('data-vertical') === vertical));
     panes.forEach(p => {
-      p.style.display = p.getAttribute('data-vertical') === vertical ? 'grid' : 'none';
+      p.style.display = p.getAttribute('data-vertical') === vertical ? 'block' : 'none';
     });
   }
 
