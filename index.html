@@ -879,9 +879,8 @@
     .depoimentos-viewport {
       overflow: hidden;
       border-radius: 16px;
-      /* Padding pra sombra dos cards não ser cortada */
-      padding: 8px 4px 16px;
-      margin: -8px -4px -16px;
+      position: relative;
+      z-index: 1;
     }
     .depoimentos-track {
       display: flex;
@@ -899,10 +898,15 @@
       flex-direction: column;
       position: relative;
       overflow: hidden;
-      /* Sombra esfumaçada (blur maior, opacities menores - sensação de profundidade sem peso) */
+      /* Sombra em 5 camadas com opacidades altas - cor verde escuro mantida.
+         Camadas próximas têm opacidade alta (presença real).
+         Camadas distantes têm blur grande e opacidade menor (halo esfumaçado). */
       box-shadow:
-        0 50px 100px -30px rgba(13,66,63,0.22),
-        0 24px 50px -20px rgba(13,66,63,0.12);
+        0 6px 12px rgba(13,66,63,0.35),
+        0 16px 32px rgba(13,66,63,0.40),
+        0 36px 72px rgba(13,66,63,0.38),
+        0 70px 140px rgba(13,66,63,0.30),
+        0 120px 240px rgba(13,66,63,0.18);
     }
     .depoimentos-track .depoimento::before {
       content: '';
