@@ -1684,6 +1684,88 @@
     .footer-legal strong { color: #0D423F; font-weight: 500; }
     .footer-copy { margin-top: 16px; opacity: 0.7; }
 
+    /* === SCROLL ANIMATIONS ===
+       Aplicado em seções via class="scroll-animate".
+       Quando a seção entra no viewport, JS adiciona .is-visible
+       e os filhos diretos animam com fade-in escalonado. */
+
+    /* Estado inicial: filhos diretos do container invisíveis e levemente abaixo */
+    .scroll-animate > .container > *,
+    .scroll-animate > .container > * > h2,
+    .scroll-animate > .container > * > p,
+    .scroll-animate > .container > * > .pill {
+      opacity: 0;
+      transform: translateY(28px);
+      transition:
+        opacity 0.75s cubic-bezier(0.22, 0.61, 0.36, 1),
+        transform 0.75s cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+
+    /* Quando .is-visible é adicionado: anima os filhos com stagger automático */
+    .scroll-animate.is-visible > .container > * {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .scroll-animate.is-visible > .container > *:nth-child(1) { transition-delay: 0s; }
+    .scroll-animate.is-visible > .container > *:nth-child(2) { transition-delay: 0.08s; }
+    .scroll-animate.is-visible > .container > *:nth-child(3) { transition-delay: 0.16s; }
+    .scroll-animate.is-visible > .container > *:nth-child(4) { transition-delay: 0.24s; }
+    .scroll-animate.is-visible > .container > *:nth-child(5) { transition-delay: 0.32s; }
+    .scroll-animate.is-visible > .container > *:nth-child(6) { transition-delay: 0.4s; }
+    .scroll-animate.is-visible > .container > *:nth-child(7) { transition-delay: 0.48s; }
+
+    /* Stagger interno: filhos de grids/listas tambem animam em cadeia */
+    .scroll-animate .stagger-children > * {
+      opacity: 0;
+      transform: translateY(20px);
+      transition:
+        opacity 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+        transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+    .scroll-animate.is-visible .stagger-children > * {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .scroll-animate.is-visible .stagger-children > *:nth-child(1) { transition-delay: 0.35s; }
+    .scroll-animate.is-visible .stagger-children > *:nth-child(2) { transition-delay: 0.42s; }
+    .scroll-animate.is-visible .stagger-children > *:nth-child(3) { transition-delay: 0.49s; }
+    .scroll-animate.is-visible .stagger-children > *:nth-child(4) { transition-delay: 0.56s; }
+    .scroll-animate.is-visible .stagger-children > *:nth-child(5) { transition-delay: 0.63s; }
+    .scroll-animate.is-visible .stagger-children > *:nth-child(6) { transition-delay: 0.7s; }
+    .scroll-animate.is-visible .stagger-children > *:nth-child(7) { transition-delay: 0.77s; }
+    .scroll-animate.is-visible .stagger-children > *:nth-child(8) { transition-delay: 0.84s; }
+
+    /* === PARALLAX DOS BLOBS DECORATIVOS ===
+       Usa CSS variable --parallax-y setada via JS no scroll.
+       Aplicado nos pseudo-elementos ::before/::after de algumas seções. */
+    [data-parallax]::before,
+    [data-parallax]::after {
+      transform: translateY(var(--parallax-y, 0));
+    }
+    /* Como Funciona tem position diferente nos blobs - overide específico */
+    .como-funciona-bg[data-parallax]::before {
+      transform: translateY(var(--parallax-y, 0)) translateZ(0);
+    }
+
+    /* Counter dos stats - hide do conteúdo até iniciar */
+    .stat-num[data-counter] {
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Respeitar preferência de redução de movimento */
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-animate > .container > *,
+      .scroll-animate .stagger-children > * {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+      [data-parallax]::before,
+      [data-parallax]::after {
+        transform: none !important;
+      }
+    }
+
     /* === RESPONSIVE === */
     @media (max-width: 900px) {
       .hero h1 { font-size: 40px; }
@@ -1877,13 +1959,13 @@
 </section>
 
 <!-- ============ VERTICAIS ============ -->
-<section id="verticais" class="verticais-bg">
+<section id="verticais" class="verticais-bg scroll-animate" data-parallax>
   <div class="container">
     <span class="pill pill-dark">Pra quem é</span>
     <h2 class="h2">A Selvia é para você se é:</h2>
     <p class="section-sub">Atendimento especializado por profissão, com contadores que entendem do seu mundo. Clica e vê o plano da sua área.</p>
 
-    <div class="verticais-grid">
+    <div class="verticais-grid stagger-children">
       <a href="#precos" data-vertical="medicos" class="vertical-card vertical-link">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h-1a2 2 0 0 0 -2 2v3.5h0a5.5 5.5 0 0 0 11 0v-3.5a2 2 0 0 0 -2 -2h-1"></path><rect x="4" y="3" width="3" height="3" rx=".5"></rect><rect x="11" y="3" width="3" height="3" rx=".5"></rect><path d="M8 15a6 6 0 1 0 12 0v-3"></path><path d="M20 11m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path></svg>
         <h3>Médicos</h3>
@@ -1925,7 +2007,7 @@
 </section>
 
 <!-- ============ COMO FUNCIONA (verde claro) ============ -->
-<section class="como-funciona-bg">
+<section class="como-funciona-bg scroll-animate" data-parallax>
   <div class="container">
     <span class="pill pill-dark">Como funciona</span>
     <h2 class="h2">Três passos. Zero burocracia.</h2>
@@ -1958,13 +2040,13 @@
 </section>
 
 <!-- ============ STATS (verde escuro - alto impacto) ============ -->
-<section class="stats-bg">
+<section class="stats-bg scroll-animate" data-parallax>
   <div class="container">
     <span class="pill pill-light">Selvia em números</span>
     <h2 class="h2 h2-light">Confiança construída todos os dias.</h2>
     <p class="section-sub section-sub-light">Dados atualizados em maio de 2026.</p>
 
-    <div class="stats-grid">
+    <div class="stats-grid stagger-children">
       <div class="stat">
         <p class="stat-num">+1.000</p>
         <p class="stat-label">clientes ativos</p>
@@ -1986,7 +2068,7 @@
 </section>
 
 <!-- ============ DEPOIMENTOS ============ -->
-<section class="depoimentos-bg">
+<section class="depoimentos-bg scroll-animate" data-parallax>
   <div class="container">
     <span class="pill pill-dark">Depoimentos</span>
     <h2 class="h2">O que os clientes falam.</h2>
@@ -2051,7 +2133,7 @@
 </section>
 
 <!-- ============ PREÇOS (verde escuro - seção marcante) ============ -->
-<section id="precos" class="precos-bg">
+<section id="precos" class="precos-bg scroll-animate" data-parallax>
   <div class="container">
     <span class="pill pill-light">Preços</span>
     <h2 class="h2 h2-light">Planos transparentes por profissão.</h2>
@@ -2396,7 +2478,7 @@
 </section>
 
 <!-- ============ CALCULADORA ============ -->
-<section id="calculadora" class="calc-bg">
+<section id="calculadora" class="calc-bg scroll-animate" data-parallax>
   <div class="container">
     <span class="pill pill-dark">Calculadora</span>
     <h2 class="h2">Quanto você economiza com a Selvia?</h2>
@@ -2440,7 +2522,7 @@
 </section>
 
 <!-- ============ BLOG ============ -->
-<section id="blog" class="blog-bg">
+<section id="blog" class="blog-bg scroll-animate" data-parallax>
   <div class="container">
     <div class="blog-header">
       <div>
@@ -2451,7 +2533,7 @@
       <a href="#">Ver todos →</a>
     </div>
 
-    <div class="blog-grid">
+    <div class="blog-grid stagger-children">
       <article class="blog-card">
         <div class="blog-card-img" style="background: rgba(132,160,255,0.18);">
           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"></rect><path d="M8 7h8"></path><path d="M8 11h8"></path><path d="M8 15h5"></path></svg>
@@ -2489,13 +2571,13 @@
 </section>
 
 <!-- ============ FAQ ============ -->
-<section class="faq-bg">
+<section class="faq-bg scroll-animate" data-parallax>
   <div class="container">
     <span class="pill pill-dark">Dúvidas frequentes</span>
     <h2 class="h2">Perguntas que a gente recebe todo dia.</h2>
     <p class="section-sub">Se a sua não tá aqui, manda no WhatsApp.</p>
 
-    <div class="faq-grid">
+    <div class="faq-grid stagger-children">
       <details class="faq-item">
         <summary>Quanto custa a Selvia pra mim?</summary>
         <p>Depende da sua profissão e do seu faturamento. Médicos começam em R$ 347/mês. Devs, advogados e outras profissões PJ começam em R$ 189,90/mês. Criadores de conteúdo, dentistas, psicólogos e fisios começam em R$ 99,90/mês. Quem fatura até R$ 81k/ano e pode ser MEI paga R$ 9,90/mês.</p>
@@ -2537,7 +2619,7 @@
 </div>
 
 <!-- ============ MÍDIA ============ -->
-<section class="midia-bg">
+<section class="midia-bg scroll-animate" data-parallax>
   <div class="container">
     <span class="pill pill-light">Imprensa</span>
     <h2 class="h2 h2-light">Selvia na mídia.</h2>
@@ -2808,6 +2890,125 @@
     } else {
       start();
     }
+  })();
+
+  // ===== SCROLL ANIMATIONS (opção C: fade-in + parallax + counter) =====
+  // Aplicado em todas as seções com class="scroll-animate", exceto a hero.
+
+  (function() {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      // Marca tudo como visível direto, sem animação
+      document.querySelectorAll('.scroll-animate').forEach(s => s.classList.add('is-visible'));
+      return;
+    }
+
+    // -- 1) FADE-IN ao entrar no viewport (uma vez só) --
+    if ('IntersectionObserver' in window) {
+      const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            fadeObserver.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -80px 0px' // dispara um pouco antes da seção entrar 100%
+      });
+      document.querySelectorAll('.scroll-animate').forEach(s => fadeObserver.observe(s));
+    } else {
+      // Fallback antigo: mostra tudo direto
+      document.querySelectorAll('.scroll-animate').forEach(s => s.classList.add('is-visible'));
+    }
+
+    // -- 2) PARALLAX sutil nos blobs decorativos (apenas desktop, mobile pesa demais) --
+    const isMobile = window.matchMedia('(max-width: 900px)').matches;
+    if (!isMobile) {
+      const parallaxSections = document.querySelectorAll('[data-parallax]');
+      let ticking = false;
+
+      const updateParallax = () => {
+        const viewportH = window.innerHeight;
+        const viewportCenter = viewportH / 2;
+        parallaxSections.forEach(section => {
+          const rect = section.getBoundingClientRect();
+          // Só processa se a seção está minimamente visível
+          if (rect.bottom < -200 || rect.top > viewportH + 200) return;
+          const sectionCenter = rect.top + rect.height / 2;
+          // distância do centro da seção ao centro da viewport
+          const distance = sectionCenter - viewportCenter;
+          // Parallax sutil: 12% do scroll relativo
+          const parallaxY = distance * 0.12;
+          section.style.setProperty('--parallax-y', `${-parallaxY}px`);
+        });
+        ticking = false;
+      };
+
+      const onScroll = () => {
+        if (!ticking) {
+          requestAnimationFrame(updateParallax);
+          ticking = true;
+        }
+      };
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      updateParallax(); // estado inicial
+    }
+
+    // -- 3) COUNTER ANIMATION nos stats (números crescem ao entrar no viewport) --
+    const stats = [
+      { selector: '.stat:nth-child(1) .stat-num', target: 1000, prefix: '+', suffix: '', format: 'thousand' },
+      { selector: '.stat:nth-child(2) .stat-num', target: 22, prefix: '', suffix: '', format: 'int' },
+      { selector: '.stat:nth-child(3) .stat-num', target: 9.7, prefix: '', suffix: '', format: 'decimal' },
+      // .stat:nth-child(4) é "< 1 min" - não anima (não é numérico simples)
+    ];
+
+    const formatNum = (val, fmt) => {
+      if (fmt === 'thousand') {
+        // Mostra como "1.000" (com ponto como separador de milhar)
+        return Math.round(val).toLocaleString('pt-BR');
+      }
+      if (fmt === 'decimal') {
+        return val.toFixed(1).replace('.', ',');
+      }
+      return Math.round(val).toString();
+    };
+
+    const animateCounter = (el, target, prefix, suffix, fmt) => {
+      const duration = 1800; // 1.8s
+      const startTime = performance.now();
+      const start = 0;
+      const tick = (now) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // easeOutCubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = start + (target - start) * eased;
+        el.textContent = prefix + formatNum(value, fmt) + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          stats.forEach(s => {
+            const el = entry.target.querySelector(s.selector);
+            if (el && !el.dataset.counted) {
+              el.dataset.counted = '1';
+              el.textContent = s.prefix + formatNum(0, s.format) + s.suffix;
+              animateCounter(el, s.target, s.prefix, s.suffix, s.format);
+            }
+          });
+          statsObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    const statsSection = document.querySelector('.stats-bg');
+    if (statsSection) statsObserver.observe(statsSection);
   })();
 
   // ===== ANIMAÇÃO DA SEÇÃO COMO FUNCIONA =====
