@@ -692,150 +692,142 @@
       pointer-events: none;
     }
     .como-funciona-bg .container { position: relative; z-index: 1; }
-    .steps { display: grid; gap: 24px; position: relative; }
 
-    .step {
-      display: flex;
-      gap: 20px;
-      align-items: flex-start;
+    /* Layout horizontal: 3 colunas lado a lado no desktop */
+    .steps-h {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
       position: relative;
+      margin-top: 56px;
+      padding: 0 8px;
     }
 
-    /* Linha contínua entre as bolinhas - inicialmente invisível, sem animação por padrão */
-    .step:not(:last-child)::before {
-      content: '';
-      position: absolute;
-      left: 21px;
-      top: 50px;
-      bottom: -22px;
-      width: 2px;
-      background: rgba(13,66,63,0.45);
-      border-radius: 1px;
-      clip-path: inset(0 0 100% 0);
-      z-index: 0;
+    .step-h {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
     }
 
-    .step-number {
-      flex-shrink: 0;
-      width: 44px;
-      height: 44px;
-      background: #0D423F;
-      color: #69E470;
-      border-radius: 50%;
+    /* Visual decorativo (ícone grande com glow) acima do número */
+    .step-h-visual {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 8px;
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 500;
-      font-size: 17px;
-      box-shadow: 0 8px 20px -4px rgba(13,66,63,0.3);
+    }
+    .step-h-icon {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.15) 40%, transparent 70%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       position: relative;
       z-index: 1;
     }
-
-    /* Anel pulsante ao redor das bolinhas - escondido por padrão */
-    .step-number::before {
+    .step-h-icon::before {
       content: '';
       position: absolute;
-      inset: -6px;
+      inset: -12px;
       border-radius: 50%;
-      border: 2px solid rgba(13,66,63,0.4);
-      opacity: 0;
+      background: radial-gradient(circle, rgba(255,255,255,0.35) 0%, transparent 65%);
+      filter: blur(12px);
+      z-index: -1;
       pointer-events: none;
     }
-
-    .step h3 { font-size: 18px; margin-bottom: 6px; color: #0D423F; }
-    .step p { font-size: 14px; color: #0D423F; margin: 0; line-height: 1.6; opacity: 0.85; }
-
-    /* === ANIMAÇÕES DA SEÇÃO COMO FUNCIONA ===
-       Disparam UMA VEZ quando o usuário scrolla pra seção (via IntersectionObserver).
-       Quando a classe .is-playing é adicionada, todos os elementos animam em sequência
-       e ficam no estado final (forwards).
-    */
-
-    /* Bolinha 1 (0-1s) */
-    .como-funciona-bg.is-playing .step:nth-child(1) .step-number {
-      animation: number-pulse-1 6s ease-out forwards;
-    }
-    .como-funciona-bg.is-playing .step:nth-child(1) .step-number::before {
-      animation: ring-pulse-1 6s ease-out forwards;
-    }
-    /* Linha 1→2 (1-2s) */
-    .como-funciona-bg.is-playing .step:nth-child(1):not(:last-child)::before {
-      animation: line-grow-1 6s ease-in-out forwards;
-    }
-    /* Bolinha 2 (2-3s) */
-    .como-funciona-bg.is-playing .step:nth-child(2) .step-number {
-      animation: number-pulse-2 6s ease-out forwards;
-    }
-    .como-funciona-bg.is-playing .step:nth-child(2) .step-number::before {
-      animation: ring-pulse-2 6s ease-out forwards;
-    }
-    /* Linha 2→3 (3-4s) */
-    .como-funciona-bg.is-playing .step:nth-child(2):not(:last-child)::before {
-      animation: line-grow-2 6s ease-in-out forwards;
-    }
-    /* Bolinha 3 (4-5s) */
-    .como-funciona-bg.is-playing .step:nth-child(3) .step-number {
-      animation: number-pulse-3 6s ease-out forwards;
-    }
-    .como-funciona-bg.is-playing .step:nth-child(3) .step-number::before {
-      animation: ring-pulse-3 6s ease-out forwards;
+    .step-h-icon svg {
+      width: 44px;
+      height: 44px;
+      color: #0D423F;
+      opacity: 0.85;
     }
 
-    @keyframes line-grow-1 {
-      0%, 16% { clip-path: inset(0 0 100% 0); }
-      33%, 100% { clip-path: inset(0 0 0 0); }
-    }
-    @keyframes line-grow-2 {
-      0%, 50% { clip-path: inset(0 0 100% 0); }
-      66%, 100% { clip-path: inset(0 0 0 0); }
-    }
-
-    @keyframes ring-pulse-1 {
-      0% { transform: scale(1); opacity: 0.7; }
-      16% { transform: scale(1.7); opacity: 0; }
-      17%, 100% { transform: scale(1); opacity: 0; }
-    }
-    @keyframes number-pulse-1 {
-      0% { transform: scale(1); box-shadow: 0 8px 20px -4px rgba(13,66,63,0.3); }
-      8% { transform: scale(1.08); box-shadow: 0 12px 30px -4px rgba(13,66,63,0.5); }
-      16%, 100% { transform: scale(1); box-shadow: 0 8px 20px -4px rgba(13,66,63,0.3); }
+    /* Número gigante - elemento visual dominante (como comp.vc) */
+    .step-h-number {
+      font-size: 140px;
+      line-height: 1;
+      font-weight: 500;
+      color: #0D423F;
+      letter-spacing: -4px;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 2;
     }
 
-    @keyframes ring-pulse-2 {
-      0%, 33% { transform: scale(1); opacity: 0; }
-      33.01% { transform: scale(1); opacity: 0.7; }
-      49% { transform: scale(1.7); opacity: 0; }
-      50%, 100% { transform: scale(1); opacity: 0; }
+    /* Texto abaixo */
+    .step-h-body { max-width: 320px; }
+    .step-h-title { font-size: 22px; margin-bottom: 10px; color: #0D423F; font-weight: 500; }
+    .step-h-desc { font-size: 14px; color: #0D423F; opacity: 0.85; line-height: 1.6; margin: 0; }
+
+    /* Linha horizontal contínua que conecta os 3 números (entre eles).
+       Posicionada exatamente na linha de base dos números (~110px abaixo do topo do step). */
+    .steps-h-line {
+      position: absolute;
+      top: 178px; /* topo do número (108) + ~70% do número (~70) = base do número */
+      left: 16.67%;  /* 1/6: depois do 1º número */
+      right: 16.67%; /* 1/6: antes do 3º número */
+      height: 2px;
+      background: rgba(13,66,63,0.35);
+      border-radius: 1px;
+      transform-origin: left center;
+      transform: scaleX(0);
+      transition: transform 1.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+      transition-delay: 0.4s;
+      z-index: 0;
     }
-    @keyframes number-pulse-2 {
-      0%, 33% { transform: scale(1); box-shadow: 0 8px 20px -4px rgba(13,66,63,0.3); }
-      41% { transform: scale(1.08); box-shadow: 0 12px 30px -4px rgba(13,66,63,0.5); }
-      49%, 100% { transform: scale(1); box-shadow: 0 8px 20px -4px rgba(13,66,63,0.3); }
+    /* Quando a seção entra no viewport (via JS adicionando .is-playing), a linha se desenha */
+    .como-funciona-bg.is-playing .steps-h-line { transform: scaleX(1); }
+
+    /* === ANIMAÇÃO DE ENTRADA: cada step entra com fade-in + scale-up no número === */
+    /* Estado inicial (escondido) */
+    .step-h-visual,
+    .step-h-number,
+    .step-h-body {
+      opacity: 0;
+      transform: translateY(20px);
+      transition:
+        opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
+        transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+    .step-h-number {
+      transform: translateY(20px) scale(0.85);
     }
 
-    @keyframes ring-pulse-3 {
-      0%, 66% { transform: scale(1); opacity: 0; }
-      66.01% { transform: scale(1); opacity: 0.7; }
-      82% { transform: scale(1.7); opacity: 0; }
-      83%, 100% { transform: scale(1); opacity: 0; }
+    /* Quando entra: cada step aparece em cadeia */
+    .como-funciona-bg.is-playing .step-h:nth-child(1) .step-h-visual { transition-delay: 0.2s; }
+    .como-funciona-bg.is-playing .step-h:nth-child(1) .step-h-number { transition-delay: 0.3s; }
+    .como-funciona-bg.is-playing .step-h:nth-child(1) .step-h-body { transition-delay: 0.4s; }
+    .como-funciona-bg.is-playing .step-h:nth-child(2) .step-h-visual { transition-delay: 0.5s; }
+    .como-funciona-bg.is-playing .step-h:nth-child(2) .step-h-number { transition-delay: 0.6s; }
+    .como-funciona-bg.is-playing .step-h:nth-child(2) .step-h-body { transition-delay: 0.7s; }
+    .como-funciona-bg.is-playing .step-h:nth-child(3) .step-h-visual { transition-delay: 0.8s; }
+    .como-funciona-bg.is-playing .step-h:nth-child(3) .step-h-number { transition-delay: 0.9s; }
+    .como-funciona-bg.is-playing .step-h:nth-child(3) .step-h-body { transition-delay: 1.0s; }
+
+    .como-funciona-bg.is-playing .step-h-visual,
+    .como-funciona-bg.is-playing .step-h-body {
+      opacity: 1;
+      transform: translateY(0);
     }
-    @keyframes number-pulse-3 {
-      0%, 66% { transform: scale(1); box-shadow: 0 8px 20px -4px rgba(13,66,63,0.3); }
-      74% { transform: scale(1.08); box-shadow: 0 12px 30px -4px rgba(13,66,63,0.5); }
-      82%, 100% { transform: scale(1); box-shadow: 0 8px 20px -4px rgba(13,66,63,0.3); }
+    .como-funciona-bg.is-playing .step-h-number {
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
 
-    /* Respeita prefers-reduced-motion - mostra tudo direto sem animação */
+    /* Respeita prefers-reduced-motion */
     @media (prefers-reduced-motion: reduce) {
-      .como-funciona-bg.is-playing .step:not(:last-child)::before {
-        animation: none;
-        clip-path: inset(0 0 0 0);
+      .step-h-visual, .step-h-number, .step-h-body {
+        opacity: 1;
+        transform: none;
+        transition: none;
       }
-      .como-funciona-bg.is-playing .step-number,
-      .como-funciona-bg.is-playing .step-number::before {
-        animation: none;
-      }
+      .steps-h-line { transform: scaleX(1); transition: none; }
     }
 
     /* === STATS - VERDE ESCURO COM GLOWS === */
@@ -1787,6 +1779,49 @@
       .depoimento-arrow-prev { left: 6px; }
       .depoimento-arrow-next { right: 6px; }
       .blog-grid { grid-template-columns: 1fr; }
+
+      /* === COMO FUNCIONA MOBILE: vertical (1 coluna), estilo idêntico ao desktop mas empilhado === */
+      .steps-h {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        margin-top: 40px;
+        padding: 0;
+      }
+      .step-h {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .step-h-visual {
+        width: 72px;
+        height: 72px;
+        margin-bottom: 4px;
+      }
+      .step-h-icon { width: 72px; height: 72px; }
+      .step-h-icon svg { width: 32px; height: 32px; }
+      .step-h-number {
+        font-size: 80px;
+        letter-spacing: -2px;
+        margin-bottom: 16px;
+      }
+      .step-h-body { max-width: 100%; }
+      .step-h-title { font-size: 20px; }
+      .step-h-desc { font-size: 14px; }
+
+      /* Linha vertical entre os steps no mobile - posicionada no centro do ícone (72/2 = 36) */
+      .steps-h-line {
+        top: 96px;     /* abaixo do ícone do 1º step */
+        left: 35px;
+        right: auto;
+        bottom: 96px;  /* até logo acima do ícone do último step */
+        width: 2px;
+        height: auto;
+        transform-origin: top center;
+        transform: scaleY(0);
+        transition: transform 1.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+        transition-delay: 0.4s;
+      }
+      .como-funciona-bg.is-playing .steps-h-line { transform: scaleY(1); }
+
       .footer-grid { grid-template-columns: 1fr 1fr; }
       .nav-links { display: none; }
       section { padding: 56px 0; }
@@ -2013,28 +2048,60 @@
     <h2 class="h2">Três passos. Zero burocracia.</h2>
     <p class="section-sub">Sem app pra baixar, sem cadastro. Tudo acontece no seu WhatsApp.</p>
 
-    <div class="steps">
-      <div class="step">
-        <div class="step-number">1</div>
-        <div>
-          <h3>Você manda mensagem</h3>
-          <p>Texto, áudio, foto, PDF — manda do jeito que for mais fácil. A gente responde em minutos com gente de verdade, não bot.</p>
+    <div class="steps-h">
+      <!-- STEP 1 -->
+      <div class="step-h">
+        <div class="step-h-visual">
+          <div class="step-h-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="step-h-number">1</div>
+        <div class="step-h-body">
+          <h3 class="step-h-title">Você manda mensagem</h3>
+          <p class="step-h-desc">Texto, áudio, foto, PDF — manda do jeito que for mais fácil. A gente responde em minutos com gente de verdade, não bot.</p>
         </div>
       </div>
-      <div class="step">
-        <div class="step-number">2</div>
-        <div>
-          <h3>A Selvia cuida de tudo</h3>
-          <p>Abertura de CNPJ, emissão de NF-e, pagamento de DAS, contabilidade mensal, IRPF. Você só vê o resultado.</p>
+
+      <!-- STEP 2 -->
+      <div class="step-h">
+        <div class="step-h-visual">
+          <div class="step-h-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3 L13.5 8.5 L19 10 L13.5 11.5 L12 17 L10.5 11.5 L5 10 L10.5 8.5 Z"/>
+              <path d="M19 3 L19.7 5 L21.5 5.7 L19.7 6.4 L19 8.4 L18.3 6.4 L16.5 5.7 L18.3 5 Z"/>
+              <path d="M5 14 L5.7 16 L7.5 16.7 L5.7 17.4 L5 19.4 L4.3 17.4 L2.5 16.7 L4.3 16 Z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="step-h-number">2</div>
+        <div class="step-h-body">
+          <h3 class="step-h-title">A Selvia cuida de tudo</h3>
+          <p class="step-h-desc">Abertura de CNPJ, emissão de NF-e, pagamento de DAS, contabilidade mensal, IRPF. Você só vê o resultado.</p>
         </div>
       </div>
-      <div class="step">
-        <div class="step-number">3</div>
-        <div>
-          <h3>Você decide o que fazer com o dinheiro que sobra</h3>
-          <p>Relatório mensal claro: quanto entrou, quanto saiu, quanto sobrou. Quer investir? Temos assessor pra te ajudar.</p>
+
+      <!-- STEP 3 -->
+      <div class="step-h">
+        <div class="step-h-visual">
+          <div class="step-h-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+              <polyline points="17 6 23 6 23 12"/>
+            </svg>
+          </div>
+        </div>
+        <div class="step-h-number">3</div>
+        <div class="step-h-body">
+          <h3 class="step-h-title">Você decide com clareza</h3>
+          <p class="step-h-desc">Relatório mensal: quanto entrou, quanto saiu, quanto sobrou. Quer investir? Temos assessor pra te ajudar.</p>
         </div>
       </div>
+
+      <!-- Linha horizontal que conecta os 3 números (animada via JS) -->
+      <div class="steps-h-line" aria-hidden="true"></div>
     </div>
   </div>
 </section>
