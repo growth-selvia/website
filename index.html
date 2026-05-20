@@ -765,24 +765,30 @@
     .step-h-title { font-size: 22px; margin-bottom: 10px; color: #0D423F; font-weight: 500; }
     .step-h-desc { font-size: 14px; color: #0D423F; opacity: 0.85; line-height: 1.6; margin: 0; }
 
-    /* Linha horizontal contínua que conecta os 3 números (entre eles).
-       Posicionada exatamente na linha de base dos números (~110px abaixo do topo do step). */
-    .steps-h-line {
+    /* Linhas conectoras entre os números.
+       No DESKTOP: 2 segmentos horizontais, posicionados via JS exatamente entre os números (1→2 e 2→3).
+       No MOBILE: segmentos verticais conectando os ícones. */
+    .steps-h-segment {
       position: absolute;
-      top: 178px; /* topo do número (108) + ~70% do número (~70) = base do número */
-      left: 16.67%;  /* 1/6: depois do 1º número */
-      right: 16.67%; /* 1/6: antes do 3º número */
-      height: 2px;
       background: rgba(13,66,63,0.35);
       border-radius: 1px;
-      transform-origin: left center;
-      transform: scaleX(0);
-      transition: transform 1.4s cubic-bezier(0.22, 0.61, 0.36, 1);
-      transition-delay: 0.4s;
+      pointer-events: none;
       z-index: 0;
+      /* Estado inicial: invisível, anima quando .is-playing entra */
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+      /* Posicionamento real (top, left, width) é calculado dinamicamente via JS no desktop */
     }
-    /* Quando a seção entra no viewport (via JS adicionando .is-playing), a linha se desenha */
-    .como-funciona-bg.is-playing .steps-h-line { transform: scaleX(1); }
+    /* Stagger: segmento 1 anima primeiro, segmento 2 depois */
+    .como-funciona-bg.is-playing .steps-h-segment[data-segment="1"] {
+      transform: scaleX(1);
+      transition-delay: 0.4s;
+    }
+    .como-funciona-bg.is-playing .steps-h-segment[data-segment="2"] {
+      transform: scaleX(1);
+      transition-delay: 0.8s;
+    }
 
     /* === ANIMAÇÃO DE ENTRADA: cada step entra com fade-in + scale-up no número === */
     /* Estado inicial (escondido) */
@@ -827,7 +833,7 @@
         transform: none;
         transition: none;
       }
-      .steps-h-line { transform: scaleX(1); transition: none; }
+      .steps-h-segment { transform: scaleX(1) scaleY(1); transition: none; }
     }
 
     /* === STATS - VERDE ESCURO COM GLOWS === */
@@ -1807,20 +1813,8 @@
       .step-h-title { font-size: 20px; }
       .step-h-desc { font-size: 14px; }
 
-      /* Linha vertical entre os steps no mobile - posicionada no centro do ícone (72/2 = 36) */
-      .steps-h-line {
-        top: 96px;     /* abaixo do ícone do 1º step */
-        left: 35px;
-        right: auto;
-        bottom: 96px;  /* até logo acima do ícone do último step */
-        width: 2px;
-        height: auto;
-        transform-origin: top center;
-        transform: scaleY(0);
-        transition: transform 1.4s cubic-bezier(0.22, 0.61, 0.36, 1);
-        transition-delay: 0.4s;
-      }
-      .como-funciona-bg.is-playing .steps-h-line { transform: scaleY(1); }
+      /* No mobile: esconde as linhas - layout vertical já comunica a sequência sem precisar delas */
+      .steps-h-segment { display: none; }
 
       .footer-grid { grid-template-columns: 1fr 1fr; }
       .nav-links { display: none; }
@@ -2100,8 +2094,9 @@
         </div>
       </div>
 
-      <!-- Linha horizontal que conecta os 3 números (animada via JS) -->
-      <div class="steps-h-line" aria-hidden="true"></div>
+      <!-- Linhas conectoras entre os números (posicionadas via JS baseado no posicionamento real dos números) -->
+      <div class="steps-h-segment" data-segment="1" aria-hidden="true"></div>
+      <div class="steps-h-segment" data-segment="2" aria-hidden="true"></div>
     </div>
   </div>
 </section>
@@ -3079,15 +3074,77 @@
   })();
 
   // ===== ANIMAÇÃO DA SEÇÃO COMO FUNCIONA =====
-  // Dispara UMA VEZ quando a seção entra no viewport, igual ao mock chat do hero.
+  // Dispara UMA VEZ quando a seção entra no viewport.
+  // Adicionalmente, calcula dinamicamente a posição dos 2 segmentos da linha
+  // (entre número 1-2 e entre número 2-3) baseado no rect real dos números.
   (function() {
     const section = document.querySelector('.como-funciona-bg');
     if (!section) return;
 
+    const numbers = section.querySelectorAll('.step-h-number');
+    const segments = section.querySelectorAll('.steps-h-segment');
+    const stepsContainer = section.querySelector('.steps-h');
+
+    // Calcula posição dos segmentos: cada um vai do final de um número até o início do próximo
+    const layoutSegments = () => {
+      // Só aplica no desktop. No mobile (≤900px), CSS posiciona os segmentos verticalmente
+      const isMobile = window.matchMedia('(max-width: 900px)').matches;
+      if (isMobile) {
+        // Limpa estilos inline pro CSS mobile assumir o controle
+        segments.forEach(s => {
+          s.style.top = '';
+          s.style.left = '';
+          s.style.width = '';
+          s.style.height = '';
+        });
+        return;
+      }
+      if (numbers.length < 3 || segments.length < 2 || !stepsContainer) return;
+
+      const containerRect = stepsContainer.getBoundingClientRect();
+      const num1 = numbers[0].getBoundingClientRect();
+      const num2 = numbers[1].getBoundingClientRect();
+      const num3 = numbers[2].getBoundingClientRect();
+
+      // Altura na qual a linha cruza os números (~70% da altura do número, na base)
+      const lineY = (num1.top + num1.height * 0.72) - containerRect.top;
+
+      const RESPIRO = 18; // espaço entre o número e a linha (px)
+
+      // Segmento 1: do fim do número 1 até o início do número 2
+      const seg1_left = (num1.right - containerRect.left) + RESPIRO;
+      const seg1_width = (num2.left - containerRect.left) - seg1_left - RESPIRO;
+
+      // Segmento 2: do fim do número 2 até o início do número 3
+      const seg2_left = (num2.right - containerRect.left) + RESPIRO;
+      const seg2_width = (num3.left - containerRect.left) - seg2_left - RESPIRO;
+
+      segments[0].style.top = `${lineY}px`;
+      segments[0].style.left = `${seg1_left}px`;
+      segments[0].style.width = `${Math.max(0, seg1_width)}px`;
+      segments[0].style.height = '2px';
+
+      segments[1].style.top = `${lineY}px`;
+      segments[1].style.left = `${seg2_left}px`;
+      segments[1].style.width = `${Math.max(0, seg2_width)}px`;
+      segments[1].style.height = '2px';
+    };
+
+    // Roda no carregamento e em resize (debounced)
+    layoutSegments();
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(layoutSegments, 100);
+    });
+
+    // Disparar a animação quando a seção entra no viewport
     let played = false;
     const play = () => {
       if (played) return;
       played = true;
+      // Garantir que segmentos estão posicionados antes de animar
+      layoutSegments();
       section.classList.add('is-playing');
     };
 
