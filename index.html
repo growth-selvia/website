@@ -720,6 +720,18 @@
       align-items: center;
       justify-content: center;
     }
+    /* Glow externo pulsante - dá o efeito de "respiração" premium */
+    .step-h-visual::before {
+      content: '';
+      position: absolute;
+      inset: -10px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.45) 0%, transparent 65%);
+      filter: blur(14px);
+      pointer-events: none;
+      z-index: 0;
+      animation: icon-glow-pulse 4s ease-in-out infinite;
+    }
     .step-h-icon {
       width: 96px;
       height: 96px;
@@ -730,22 +742,67 @@
       justify-content: center;
       position: relative;
       z-index: 1;
+      overflow: hidden;
+      isolation: isolate;
     }
-    .step-h-icon::before {
+    /* Shine traveling: faixa de luz que atravessa o ícone diagonalmente.
+       Loop suave que cria a sensação de cristal/vidro reflexivo - efeito premium. */
+    .step-h-icon::after {
       content: '';
       position: absolute;
-      inset: -12px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.35) 0%, transparent 65%);
-      filter: blur(12px);
-      z-index: -1;
+      top: -20%;
+      left: -50%;
+      width: 60%;
+      height: 140%;
+      background: linear-gradient(
+        105deg,
+        transparent 0%,
+        rgba(255,255,255,0.35) 40%,
+        rgba(255,255,255,0.85) 50%,
+        rgba(255,255,255,0.35) 60%,
+        transparent 100%
+      );
+      transform: translateX(-100%) skewX(-15deg);
+      animation: icon-shine 4.5s ease-in-out infinite;
       pointer-events: none;
+      z-index: 1;
     }
     .step-h-icon svg {
       width: 44px;
       height: 44px;
       color: #0D423F;
       opacity: 0.85;
+      position: relative;
+      z-index: 2;  /* fica acima do shine - shine passa "atrás" do ícone */
+    }
+
+    /* Delays escalonados pra parecer orgânico (não sincronizado) */
+    .step-h:nth-child(1) .step-h-visual::before { animation-delay: 0s; }
+    .step-h:nth-child(2) .step-h-visual::before { animation-delay: 1.3s; }
+    .step-h:nth-child(3) .step-h-visual::before { animation-delay: 2.6s; }
+
+    .step-h:nth-child(1) .step-h-icon::after { animation-delay: 0.4s; }
+    .step-h:nth-child(2) .step-h-icon::after { animation-delay: 1.9s; }
+    .step-h:nth-child(3) .step-h-icon::after { animation-delay: 3.4s; }
+
+    @keyframes icon-glow-pulse {
+      0%, 100% {
+        opacity: 0.65;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.08);
+      }
+    }
+
+    @keyframes icon-shine {
+      0%, 30% {
+        transform: translateX(-100%) skewX(-15deg);
+      }
+      60%, 100% {
+        transform: translateX(380%) skewX(-15deg);
+      }
     }
 
     /* Número gigante - elemento visual dominante (como comp.vc) */
@@ -834,6 +891,10 @@
         transition: none;
       }
       .steps-h-segment { transform: scaleX(1) scaleY(1); transition: none; }
+      .step-h-visual::before,
+      .step-h-icon::after {
+        animation: none;
+      }
     }
 
     /* === STATS - VERDE ESCURO COM GLOWS === */
@@ -1833,6 +1894,93 @@
       .hero { padding: 56px 0 64px; }
       .calc-wrap { padding: 24px; }
     }
+
+    /* =====================================================
+       CURVAS DECORATIVAS DE FUNDO (efeito 3D + blur de profundidade)
+       Uma curva por seção, desfocada no plano de fundo
+       ===================================================== */
+    .curve {
+      position: absolute;
+      pointer-events: none;
+      z-index: 0;
+      clip-path: polygon(0% 0%, 0% 0%, -3% 100%, -3% 100%);
+      transition: clip-path 3.2s cubic-bezier(0.65, 0, 0.35, 1);
+      filter: blur(4px);
+    }
+    .curve svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    /* Quando a seção entra no viewport, a curva é "desenhada" da esquerda pra direita */
+    .scroll-animate.is-visible .curve,
+    .hero.is-visible .curve {
+      clip-path: polygon(0% 0%, 110% 0%, 105% 100%, -3% 100%);
+      transition-delay: 0.3s;
+    }
+
+    /* Posicionamentos individuais (escolhidos pra não sobrepor conteúdo) */
+    .curve-hero {
+      width: 120vw; height: 320px;
+      bottom: 8%; left: 50%;
+      transform: translateX(-50%);
+      opacity: 0.30;
+    }
+    .curve-verticais {
+      width: 120vw; height: 320px;
+      top: 58%; left: 50%;
+      transform: translateX(-50%);
+      opacity: 0.20;
+    }
+    .curve-como {
+      width: 120vw; height: 320px;
+      top: 22%; left: 50%;
+      transform: translateX(-50%);
+      opacity: 0.10;
+    }
+    .curve-stats {
+      width: 120vw; height: 320px;
+      top: 28%; left: 50%;
+      transform: translateX(-50%);
+      opacity: 0.22;
+    }
+    .curve-depoimentos {
+      width: 120vw; height: 320px;
+      top: 52%; left: 50%;
+      transform: translateX(-50%);
+      opacity: 0.20;
+    }
+    .curve-precos {
+      width: 120vw; height: 320px;
+      top: 18%; left: 50%;
+      transform: translateX(-50%);
+      opacity: 0.22;
+    }
+    .curve-cta-final {
+      width: 120%; height: 220px;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.18;
+    }
+
+    /* Mobile: curva menor, blur menor (pra não pesar performance) */
+    @media (max-width: 900px) {
+      .curve {
+        filter: blur(2px);
+        height: 180px !important;
+        width: 110vw !important;
+        opacity: 0.12 !important;
+      }
+      .curve-hero { bottom: 4%; opacity: 0.25 !important; }
+    }
+
+    /* Pra acessibilidade: respeitar reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      .curve {
+        clip-path: polygon(0% 0%, 110% 0%, 105% 100%, -3% 100%);
+        transition: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1863,6 +2011,18 @@
 
 <!-- ============ HERO ============ -->
 <section class="hero">
+  <div class="curve curve-hero">
+<svg viewBox="0 -50 1400 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+  <defs>
+    <filter id="shadow-hero" x="-15%" y="-30%" width="130%" height="180%">
+      <feGaussianBlur stdDeviation="12" />
+    </filter>
+  </defs>
+  <path d="M -30 130 C 200 40, 380 200, 560 110 C 700 40, 820 80, 880 150 C 920 200, 870 230, 820 200 C 770 170, 810 100, 920 120 C 1080 150, 1220 90, 1430 50" stroke="#000000" stroke-width="34" stroke-linecap="round" fill="none" opacity="0.55" filter="url(#shadow-hero)" transform="translate(8, 20)"/>
+  <path d="M -30 130 C 200 40, 380 200, 560 110 C 700 40, 820 80, 880 150 C 920 200, 870 230, 820 200 C 770 170, 810 100, 920 120 C 1080 150, 1220 90, 1430 50" stroke="#69E470" stroke-width="26" stroke-linecap="round" fill="none"/>
+  <path d="M -30 130 C 200 40, 380 200, 560 110 C 700 40, 820 80, 880 150 C 920 200, 870 230, 820 200 C 770 170, 810 100, 920 120 C 1080 150, 1220 90, 1430 50" stroke="#C4F5C8" stroke-width="7" stroke-linecap="round" fill="none" opacity="0.7" transform="translate(-1, -3)"/>
+</svg>
+</div>
   <div class="container hero-grid">
     <div>
       <span class="pill pill-green">Para profissionais PJ no Brasil</span>
@@ -1989,6 +2149,18 @@
 
 <!-- ============ VERTICAIS ============ -->
 <section id="verticais" class="verticais-bg scroll-animate" data-parallax>
+  <div class="curve curve-verticais">
+<svg viewBox="0 -50 1400 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+  <defs>
+    <filter id="shadow-vert" x="-15%" y="-30%" width="130%" height="180%">
+      <feGaussianBlur stdDeviation="12" />
+    </filter>
+  </defs>
+  <path d="M -30 130 C 200 40, 380 200, 560 110 C 700 40, 820 80, 880 150 C 920 200, 870 230, 820 200 C 770 170, 810 100, 920 120 C 1080 150, 1220 90, 1430 50" stroke="#000000" stroke-width="34" stroke-linecap="round" fill="none" opacity="0.30" filter="url(#shadow-vert)" transform="translate(8, 20)"/>
+  <path d="M -30 130 C 200 40, 380 200, 560 110 C 700 40, 820 80, 880 150 C 920 200, 870 230, 820 200 C 770 170, 810 100, 920 120 C 1080 150, 1220 90, 1430 50" stroke="#0D423F" stroke-width="26" stroke-linecap="round" fill="none"/>
+  <path d="M -30 130 C 200 40, 380 200, 560 110 C 700 40, 820 80, 880 150 C 920 200, 870 230, 820 200 C 770 170, 810 100, 920 120 C 1080 150, 1220 90, 1430 50" stroke="#2A6862" stroke-width="7" stroke-linecap="round" fill="none" opacity="0.7" transform="translate(-1, -3)"/>
+</svg>
+</div>
   <div class="container">
     <span class="pill pill-dark">Pra quem é</span>
     <h2 class="h2">A Selvia é para você se é:</h2>
@@ -2037,6 +2209,18 @@
 
 <!-- ============ COMO FUNCIONA (verde claro) ============ -->
 <section class="como-funciona-bg scroll-animate" data-parallax>
+  <div class="curve curve-como">
+<svg viewBox="0 -50 1400 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+  <defs>
+    <filter id="shadow-como" x="-15%" y="-30%" width="130%" height="180%">
+      <feGaussianBlur stdDeviation="12" />
+    </filter>
+  </defs>
+  <path d="M -30 130 C 200 40, 380 200, 560 110 C 700 40, 820 80, 880 150 C 920 200, 870 230, 820 200 C 770 170, 810 100, 920 120 C 1080 150, 1220 90, 1430 50" stroke="#000000" stroke-width="34" stroke-linecap="round" fill="none" opacity="0.20" filter="url(#shadow-como)" transform="translate(8, 20)"/>
+  <path d="M -30 130 C 200 40, 380 200, 560 110 C 700 40, 820 80, 880 150 C 920 200, 870 230, 820 200 C 770 170, 810 100, 920 120 C 1080 150, 1220 90, 1430 50" stroke="#0D423F" stroke-width="26" stroke-linecap="round" fill="none"/>
+  <path d="M -30 130 C 200 40, 380 200, 560 110 C 700 40, 820 80, 880 150 C 920 200, 870 230, 820 200 C 770 170, 810 100, 920 120 C 1080 150, 1220 90, 1430 50" stroke="#2A6862" stroke-width="7" stroke-linecap="round" fill="none" opacity="0.7" transform="translate(-1, -3)"/>
+</svg>
+</div>
   <div class="container">
     <span class="pill pill-dark">Como funciona</span>
     <h2 class="h2">Três passos. Zero burocracia.</h2>
@@ -2103,6 +2287,18 @@
 
 <!-- ============ STATS (verde escuro - alto impacto) ============ -->
 <section class="stats-bg scroll-animate" data-parallax>
+  <div class="curve curve-stats">
+<svg viewBox="0 -50 1400 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+  <defs>
+    <filter id="shadow-stats" x="-15%" y="-30%" width="130%" height="180%">
+      <feGaussianBlur stdDeviation="12" />
+    </filter>
+  </defs>
+  <path d="M -30 130 C 200 40, 380 200, 560 110 C 700 40, 820 80, 880 150 C 920 200, 870 230, 820 200 C 770 170, 810 100, 920 120 C 1080 150, 1220 90, 1430 50" stroke="#000000" stroke-width="34" stroke-linecap="round" fill="none" opacity="0.55" filter="url(#shadow-stats)" transform="translate(8, 20)"/>
+  <path d="M -30 130 C 200 40, 380 200, 560 110 C 700 40, 820 80, 880 150 C 920 200, 870 230, 820 200 C 770 170, 810 100, 920 120 C 1080 150, 1220 90, 1430 50" stroke="#69E470" stroke-width="26" stroke-linecap="round" fill="none"/>
+  <path d="M -30 130 C 200 40, 380 200, 560 110 C 700 40, 820 80, 880 150 C 920 200, 870 230, 820 200 C 770 170, 810 100, 920 120 C 1080 150, 1220 90, 1430 50" stroke="#C4F5C8" stroke-width="7" stroke-linecap="round" fill="none" opacity="0.7" transform="translate(-1, -3)"/>
+</svg>
+</div>
   <div class="container">
     <span class="pill pill-light">Selvia em números</span>
     <h2 class="h2 h2-light">Confiança construída todos os dias.</h2>
@@ -2131,6 +2327,18 @@
 
 <!-- ============ DEPOIMENTOS ============ -->
 <section class="depoimentos-bg scroll-animate" data-parallax>
+  <div class="curve curve-depoimentos">
+<svg viewBox="0 -50 1400 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+  <defs>
+    <filter id="shadow-dep" x="-15%" y="-30%" width="130%" height="180%">
+      <feGaussianBlur stdDeviation="12" />
+    </filter>
+  </defs>
+  <path d="M -30 130 C 200 40, 380 200, 560 110 C 700 40, 820 80, 880 150 C 920 200, 870 230, 820 200 C 770 170, 810 100, 920 120 C 1080 150, 1220 90, 1430 50" stroke="#000000" stroke-width="34" stroke-linecap="round" fill="none" opacity="0.30" filter="url(#shadow-dep)" transform="translate(8, 20)"/>
+  <path d="M -30 130 C 200 40, 380 200, 560 110 C 700 40, 820 80, 880 150 C 920 200, 870 230, 820 200 C 770 170, 810 100, 920 120 C 1080 150, 1220 90, 1430 50" stroke="#0D423F" stroke-width="26" stroke-linecap="round" fill="none"/>
+  <path d="M -30 130 C 200 40, 380 200, 560 110 C 700 40, 820 80, 880 150 C 920 200, 870 230, 820 200 C 770 170, 810 100, 920 120 C 1080 150, 1220 90, 1430 50" stroke="#2A6862" stroke-width="7" stroke-linecap="round" fill="none" opacity="0.7" transform="translate(-1, -3)"/>
+</svg>
+</div>
   <div class="container">
     <span class="pill pill-dark">Depoimentos</span>
     <h2 class="h2">O que os clientes falam.</h2>
@@ -2196,6 +2404,18 @@
 
 <!-- ============ PREÇOS (verde escuro - seção marcante) ============ -->
 <section id="precos" class="precos-bg scroll-animate" data-parallax>
+  <div class="curve curve-precos">
+<svg viewBox="0 -50 1400 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+  <defs>
+    <filter id="shadow-prec" x="-15%" y="-30%" width="130%" height="180%">
+      <feGaussianBlur stdDeviation="12" />
+    </filter>
+  </defs>
+  <path d="M -30 130 C 200 40, 380 200, 560 110 C 700 40, 820 80, 880 150 C 920 200, 870 230, 820 200 C 770 170, 810 100, 920 120 C 1080 150, 1220 90, 1430 50" stroke="#000000" stroke-width="34" stroke-linecap="round" fill="none" opacity="0.55" filter="url(#shadow-prec)" transform="translate(8, 20)"/>
+  <path d="M -30 130 C 200 40, 380 200, 560 110 C 700 40, 820 80, 880 150 C 920 200, 870 230, 820 200 C 770 170, 810 100, 920 120 C 1080 150, 1220 90, 1430 50" stroke="#69E470" stroke-width="26" stroke-linecap="round" fill="none"/>
+  <path d="M -30 130 C 200 40, 380 200, 560 110 C 700 40, 820 80, 880 150 C 920 200, 870 230, 820 200 C 770 170, 810 100, 920 120 C 1080 150, 1220 90, 1430 50" stroke="#C4F5C8" stroke-width="7" stroke-linecap="round" fill="none" opacity="0.7" transform="translate(-1, -3)"/>
+</svg>
+</div>
   <div class="container">
     <span class="pill pill-light">Preços</span>
     <h2 class="h2 h2-light">Planos transparentes por profissão.</h2>
@@ -2670,8 +2890,20 @@
 
 <!-- ============ CTA FINAL ============ -->
 <div class="container">
-  <div class="cta-final">
-    <h2>Pronto pra parar de se estressar com contabilidade?</h2>
+  <div class="cta-final scroll-animate">
+    <div class="curve curve-cta-final">
+<svg viewBox="0 -50 1400 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+  <defs>
+    <filter id="shadow-cta" x="-15%" y="-30%" width="130%" height="180%">
+      <feGaussianBlur stdDeviation="12" />
+    </filter>
+  </defs>
+  <path d="M -30 130 C 200 40, 380 200, 560 110 C 700 40, 820 80, 880 150 C 920 200, 870 230, 820 200 C 770 170, 810 100, 920 120 C 1080 150, 1220 90, 1430 50" stroke="#000000" stroke-width="34" stroke-linecap="round" fill="none" opacity="0.55" filter="url(#shadow-cta)" transform="translate(8, 20)"/>
+  <path d="M -30 130 C 200 40, 380 200, 560 110 C 700 40, 820 80, 880 150 C 920 200, 870 230, 820 200 C 770 170, 810 100, 920 120 C 1080 150, 1220 90, 1430 50" stroke="#ffffff" stroke-width="26" stroke-linecap="round" fill="none"/>
+  <path d="M -30 130 C 200 40, 380 200, 560 110 C 700 40, 820 80, 880 150 C 920 200, 870 230, 820 200 C 770 170, 810 100, 920 120 C 1080 150, 1220 90, 1430 50" stroke="#ffffff" stroke-width="7" stroke-linecap="round" fill="none" opacity="0.7" transform="translate(-1, -3)"/>
+</svg>
+</div>
+  <h2>Pronto pra parar de se estressar com contabilidade?</h2>
     <p>Sem cadastro. Sem fidelidade. Atendimento humano em até 1 minuto.</p>
     <a href="https://api.whatsapp.com/send?phone=5511936220451&text=Ol%C3%A1!%20Vim%20do%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os!" target="_blank" rel="noopener" class="btn-primary">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"></path><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"></path></svg>
@@ -2979,9 +3211,17 @@
         rootMargin: '0px 0px -80px 0px' // dispara um pouco antes da seção entrar 100%
       });
       document.querySelectorAll('.scroll-animate').forEach(s => fadeObserver.observe(s));
+      // Hero não tem .scroll-animate (não usa fade-in nos filhos), mas precisa de is-visible
+      // pra animar a curva de fundo. Adicionamos imediatamente pois Hero já está na tela no load.
+      const heroEl = document.querySelector('.hero');
+      if (heroEl) {
+        // pequeno delay pra dar tempo da página carregar e a transição ser visível
+        requestAnimationFrame(() => requestAnimationFrame(() => heroEl.classList.add('is-visible')));
+      }
     } else {
       // Fallback antigo: mostra tudo direto
       document.querySelectorAll('.scroll-animate').forEach(s => s.classList.add('is-visible'));
+      document.querySelector('.hero')?.classList.add('is-visible');
     }
 
     // -- 2) PARALLAX sutil nos blobs decorativos (apenas desktop, mobile pesa demais) --
