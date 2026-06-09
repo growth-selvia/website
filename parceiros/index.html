@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selvia Parceiros — Indique e cresça junto</title>
+<meta name="description" content="Programa de Parceiros da Selvia. Indique contabilidade, ganhe 100% da 1ª mensalidade + 10% recorrente. Simples, como deveria ser.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --verde-escuro:#0D423F;
+    --verde-claro:#69E470;
+    --off-white:#F9F9F9;
+    --amarelo-claro:#F1FDC1;
+    --bege:#E2E7C7;
+    --amarelo:#FFD15C;
+    --laranja:#F4933B;
+    --azul:#84A0FF;
+    --rosa:#F2B8F4;
+    --txt:#0D423F;
+    --radius:24px;
+    --shadow:0 18px 50px -18px rgba(13,66,63,.35);
+    --maxw:1080px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Lexend',system-ui,-apple-system,sans-serif;
+    color:var(--txt);
+    background:var(--off-white);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;width:100%}
+
+  /* ===== Nav ===== */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 32px;transition:.4s;
+  }
+  nav.scrolled{background:rgba(249,249,249,.86);backdrop-filter:blur(14px);box-shadow:0 4px 20px -12px rgba(13,66,63,.3);padding:12px 32px}
+  .logo{font-weight:800;font-size:26px;letter-spacing:-.04em;color:#fff;transition:.4s}
+  nav.scrolled .logo{color:var(--verde-escuro)}
+  .logo span{color:var(--verde-claro)}
+  .nav-tag{
+    color:#fff;font-weight:600;font-size:14px;letter-spacing:.04em;opacity:.85;transition:.4s;
+  }
+  nav.scrolled .nav-tag{color:var(--verde-escuro)}
+
+  /* ===== Section base ===== */
+  section{padding:110px 0;position:relative}
+  .reveal{opacity:0;transform:translateY(38px);transition:.9s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+  .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.40s}
+
+  .eyebrow{
+    display:inline-block;font-weight:700;font-size:13px;letter-spacing:.16em;
+    text-transform:uppercase;padding:7px 16px;border-radius:100px;margin-bottom:24px;
+  }
+  h1{font-size:clamp(38px,7vw,76px);font-weight:800;letter-spacing:-.035em;line-height:1.02}
+  h2{font-size:clamp(30px,5vw,52px);font-weight:800;letter-spacing:-.03em;line-height:1.07;margin-bottom:22px}
+  .lead{font-size:clamp(18px,2.4vw,23px);font-weight:400;opacity:.85;max-width:620px}
+
+  /* ===== Hero ===== */
+  .hero{
+    min-height:100vh;display:flex;align-items:center;
+    background:var(--verde-escuro);color:#fff;overflow:hidden;padding-top:90px;
+  }
+  .hero .blob{position:absolute;border-radius:50%;filter:blur(8px);opacity:.18}
+  .hero .b1{width:480px;height:480px;background:var(--verde-claro);top:-120px;right:-120px}
+  .hero .b2{width:300px;height:300px;background:var(--amarelo-claro);bottom:-80px;left:-60px;opacity:.10}
+  .hero h1{max-width:14ch}
+  .hero h1 em{font-style:normal;color:var(--verde-claro)}
+  .hero .lead{color:#dfeeec;margin-top:26px}
+  .hero-eyebrow{background:rgba(105,228,112,.16);color:var(--verde-claro)}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:40px}
+  .btn-primary{
+    background:var(--verde-claro);color:var(--verde-escuro);border:none;font-family:inherit;
+    font-weight:700;font-size:17px;padding:17px 34px;border-radius:100px;cursor:pointer;
+    text-decoration:none;transition:.25s;display:inline-block;
+  }
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 36px -10px rgba(105,228,112,.55)}
+  .btn-ghost{
+    background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.3);font-family:inherit;
+    font-weight:600;font-size:17px;padding:17px 30px;border-radius:100px;cursor:pointer;
+    text-decoration:none;transition:.25s;display:inline-block;
+  }
+  .btn-ghost:hover{border-color:var(--verde-claro);color:var(--verde-claro)}
+  .scroll-cue{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.5);font-size:13px;text-align:center;animation:bob 2s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
+
+  /* ===== Oportunidade ===== */
+  .oport{background:var(--off-white)}
+  .big-stat{font-size:clamp(60px,12vw,140px);font-weight:800;color:var(--verde-escuro);letter-spacing:-.05em;line-height:.9}
+  .big-stat em{font-style:normal;color:var(--verde-claro)}
+
+  /* ===== Deal / a proposta ===== */
+  .deal{background:var(--verde-escuro);color:#fff;text-align:center}
+  .deal h2{color:#fff}
+  .deal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px}
+  .deal-card{
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+    border-radius:var(--radius);padding:38px 26px;text-align:left;transition:.3s;
+  }
+  .deal-card:hover{background:rgba(105,228,112,.10);border-color:rgba(105,228,112,.4);transform:translateY(-6px)}
+  .deal-card .num{font-size:46px;font-weight:800;color:var(--verde-claro);letter-spacing:-.04em;line-height:1}
+  .deal-card .lbl{font-size:17px;font-weight:600;margin-top:14px}
+  .deal-card .desc{font-size:14.5px;opacity:.7;margin-top:8px}
+
+  /* ===== Passos ===== */
+  .steps{background:var(--off-white)}
+  .step-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:54px}
+  .step{background:#fff;border-radius:var(--radius);padding:38px 30px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .step .n{
+    width:52px;height:52px;border-radius:50%;background:var(--amarelo-claro);color:var(--verde-escuro);
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;margin-bottom:22px;
+  }
+  .step h3{font-size:21px;font-weight:700;margin-bottom:10px}
+  .step p{font-size:15.5px;opacity:.8}
+  .step .deco{position:absolute;right:-30px;bottom:-30px;width:120px;height:120px;border-radius:50%;background:var(--verde-claro);opacity:.07}
+
+  /* ===== Prova social ===== */
+  .proof{background:var(--amarelo-claro)}
+  .proof-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:46px}
+  .pcard{background:var(--off-white);border-radius:var(--radius);padding:34px 22px;text-align:center}
+  .pcard .v{font-size:44px;font-weight:800;color:var(--verde-escuro);letter-spacing:-.04em;line-height:1}
+  .pcard .l{font-size:14.5px;font-weight:500;opacity:.7;margin-top:10px}
+  .testi{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:24px}
+  .tcard{background:#fff;border-radius:var(--radius);padding:28px;font-size:14.5px;line-height:1.6}
+  .tcard .stars{color:var(--amarelo);font-size:16px;letter-spacing:2px;margin-bottom:12px}
+  .tcard .who{margin-top:16px;font-weight:700;font-size:14px}
+  .tcard .who span{display:block;font-weight:400;opacity:.6;font-size:12.5px}
+
+  /* ===== Seguro / não é pirâmide ===== */
+  .safe{background:var(--off-white)}
+  .safe-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:46px}
+  .scard{background:#fff;border:1px solid var(--bege);border-radius:18px;padding:26px 20px;text-align:center}
+  .scard .ico{font-size:30px;margin-bottom:12px}
+  .scard p{font-size:14px;font-weight:600;line-height:1.35}
+
+  /* ===== Calculadora ===== */
+  .calc{background:var(--verde-escuro);color:#fff}
+  .calc h2{color:#fff}
+  .calc .lead{color:#dfeeec}
+  .calc-box{
+    background:var(--off-white);color:var(--txt);border-radius:32px;
+    margin-top:48px;padding:46px;box-shadow:var(--shadow);
+    display:grid;grid-template-columns:1fr 1fr;gap:48px;
+  }
+  .calc-inputs label{display:block;font-weight:700;font-size:15px;margin:0 0 14px}
+  .calc-field{margin-bottom:34px}
+  .chips{display:flex;flex-wrap:wrap;gap:9px}
+  .chip{
+    border:1.5px solid var(--bege);background:#fff;color:var(--verde-escuro);
+    font-family:inherit;font-weight:600;font-size:13.5px;padding:9px 15px;border-radius:100px;cursor:pointer;transition:.2s;
+  }
+  .chip:hover{border-color:var(--verde-claro)}
+  .chip.active{background:var(--verde-escuro);color:#fff;border-color:var(--verde-escuro)}
+  .ticket-display{font-weight:800;font-size:15px;color:var(--verde-escuro)}
+  input[type=range]{
+    -webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:100px;
+    background:var(--bege);outline:none;margin-top:6px;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;width:26px;height:26px;border-radius:50%;
+    background:var(--verde-claro);cursor:pointer;border:4px solid #fff;box-shadow:0 3px 10px -2px rgba(13,66,63,.5);
+  }
+  input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:var(--verde-claro);cursor:pointer;border:4px solid #fff}
+  .slider-val{display:flex;justify-content:space-between;align-items:baseline;margin-top:12px}
+  .slider-val .big{font-size:30px;font-weight:800;color:var(--verde-escuro);letter-spacing:-.03em}
+  .slider-val .unit{font-size:14px;opacity:.6}
+
+  .calc-results{display:flex;flex-direction:column;gap:18px;justify-content:center}
+  .res-hero{
+    background:var(--verde-escuro);color:#fff;border-radius:22px;padding:30px 28px;
+  }
+  .res-hero .cap{font-size:13.5px;letter-spacing:.04em;opacity:.7;text-transform:uppercase;font-weight:600}
+  .res-hero .val{font-size:clamp(38px,5vw,56px);font-weight:800;color:var(--verde-claro);letter-spacing:-.03em;line-height:1.05;margin-top:6px}
+  .res-hero .sub{font-size:13.5px;opacity:.65;margin-top:8px}
+  .res-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .res-mini{background:#fff;border:1px solid var(--bege);border-radius:18px;padding:22px 20px}
+  .res-mini .cap{font-size:12.5px;font-weight:600;opacity:.6;text-transform:uppercase;letter-spacing:.03em}
+  .res-mini .val{font-size:27px;font-weight:800;color:var(--verde-escuro);letter-spacing:-.02em;margin-top:6px}
+
+  .chart{margin-top:14px;background:#fff;border:1px solid var(--bege);border-radius:18px;padding:22px}
+  .chart .cap{font-size:12.5px;font-weight:600;opacity:.6;text-transform:uppercase;letter-spacing:.03em;margin-bottom:16px}
+  .bars{display:flex;align-items:flex-end;gap:5px;height:90px}
+  .bar{flex:1;background:linear-gradient(to top,var(--verde-claro),#9af0a0);border-radius:5px 5px 0 0;transition:height .8s cubic-bezier(.16,1,.3,1);min-height:3px}
+  .bars-x{display:flex;gap:5px;margin-top:8px}
+  .bars-x span{flex:1;text-align:center;font-size:9.5px;opacity:.45}
+
+  .calc-note{font-size:12.5px;opacity:.6;margin-top:24px;text-align:center;grid-column:1/-1}
+
+  /* ===== Fases ===== */
+  .phase{background:var(--bege)}
+  .phase-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:42px}
+  .phcard{background:var(--off-white);border-radius:var(--radius);padding:36px;border-top:5px solid var(--verde-claro)}
+  .phcard.future{border-top-color:var(--amarelo);opacity:.92}
+  .phcard .tag{font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--verde-escuro);opacity:.55}
+  .phcard h3{font-size:24px;font-weight:800;margin:8px 0 14px}
+  .phcard p{font-size:15.5px;opacity:.82}
+
+  /* ===== CTA final ===== */
+  .final{background:var(--verde-escuro);color:#fff;text-align:center}
+  .final h2{color:#fff;font-size:clamp(32px,5.5vw,58px)}
+  .final .lead{margin:18px auto 0}
+  .final-deal{display:flex;align-items:center;justify-content:center;gap:30px;margin-top:50px;flex-wrap:wrap}
+  .fd-item{display:flex;flex-direction:column;align-items:center;font-size:15px;color:#dfeeec;font-weight:500}
+  .fd-item span{font-size:46px;font-weight:800;color:var(--verde-claro);letter-spacing:-.04em;line-height:1;margin-bottom:8px}
+  .fd-sep{width:1px;height:54px;background:rgba(255,255,255,.18)}
+  @media(max-width:600px){.fd-sep{display:none}}
+  .final .hero-actions{justify-content:center}
+  footer{background:var(--verde-escuro);color:rgba(255,255,255,.5);text-align:center;padding:30px;font-size:13px;border-top:1px solid rgba(255,255,255,.08)}
+
+  /* ===== Responsive ===== */
+  @media(max-width:880px){
+    .deal-grid,.step-grid,.proof-grid,.safe-grid,.testi,.phase-grid{grid-template-columns:1fr}
+    .proof-grid{grid-template-columns:repeat(2,1fr)}
+    .calc-box{grid-template-columns:1fr;padding:32px 24px;gap:36px}
+    section{padding:80px 0}
+    nav .nav-cta{display:none}
+  }
+  @media(max-width:520px){
+    .proof-grid{grid-template-columns:repeat(2,1fr)}
+    .res-row{grid-template-columns:1fr}
+    .wrap{padding:0 20px}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="logo">selvia<span>.</span></div>
+  <div class="nav-tag">Programa de Parceiros</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="wrap">
+    <span class="eyebrow hero-eyebrow reveal">Programa de Parceiros</span>
+    <h1 class="reveal d1">Indique a Selvia. <em>Seja remunerado de forma recorrente.</em></h1>
+    <p class="lead reveal d2">Você possui a rede de relacionamento. A Selvia opera toda a contabilidade.<br>A remuneração é recorrente — mês após mês.</p>
+  </div>
+  <div class="scroll-cue">role para conhecer a proposta ↓</div>
+</section>
+
+<!-- OPORTUNIDADE -->
+<section class="oport">
+  <div class="wrap">
+    <span class="eyebrow reveal" style="background:var(--amarelo-claro)">A oportunidade</span>
+    <h2 class="reveal d1">Toda pessoa jurídica precisa<br>de contabilidade.</h2>
+    <p class="lead reveal d2">Médicos, desenvolvedores, advogados, criadores e donos de restaurante — você já se relaciona com dezenas deles. Cada indicação gera comissão, e a comissão é recorrente: repete-se a cada mês.</p>
+    <div class="big-stat reveal d3" style="margin-top:50px"><em>+1.000</em> PJs</div>
+    <p class="lead reveal d3" style="margin-top:10px">já confiam na Selvia, em 22 estados. Há um mercado relevante a ser atendido.</p>
+  </div>
+</section>
+
+<!-- A PROPOSTA -->
+<section class="deal" id="como">
+  <div class="wrap">
+    <span class="eyebrow reveal" style="background:rgba(105,228,112,.16);color:var(--verde-claro)">Os termos da parceria</span>
+    <h2 class="reveal d1">Objetivos e transparentes.</h2>
+    <p class="lead reveal d2" style="margin:0 auto;color:#dfeeec">Sem custo de adesão, sem estoque e sem meta obrigatória. Você indica, a Selvia executa e ambos são remunerados.</p>
+    <div class="deal-grid">
+      <div class="deal-card reveal d2">
+        <div class="num">100%</div>
+        <div class="lbl">da primeira mensalidade</div>
+        <div class="desc">Cada cliente que contrata com o seu cupom paga a primeira mensalidade integralmente destinada ao parceiro.</div>
+      </div>
+      <div class="deal-card reveal d3">
+        <div class="num">10%</div>
+        <div class="lbl">recorrente, mensal</div>
+        <div class="desc">Enquanto o cliente permanecer ativo na Selvia, o parceiro recebe 10% do valor, mês a mês.</div>
+      </div>
+      <div class="deal-card reveal d4">
+        <div class="num">R$ 0</div>
+        <div class="lbl">de adesão</div>
+        <div class="desc">Participação gratuita, com cupom exclusivo, material de apoio e treinamento inclusos.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="steps">
+  <div class="wrap">
+    <span class="eyebrow reveal" style="background:var(--amarelo-claro)">Como funciona</span>
+    <h2 class="reveal d1">Da indicação à remuneração.</h2>
+    <div class="step-grid">
+      <div class="step reveal d2">
+        <div class="deco"></div>
+        <div class="n">1</div>
+        <h3>Indicação</h3>
+        <p>O parceiro compartilha seu cupom exclusivo com contatos da rede que possuem CNPJ ou pretendem abrir.</p>
+      </div>
+      <div class="step reveal d3">
+        <div class="deco"></div>
+        <div class="n">2</div>
+        <h3>A Selvia executa</h3>
+        <p>A Selvia conduz todo o processo: abertura de CNPJ, migração do contador, emissão de notas e atendimento — no WhatsApp.</p>
+      </div>
+      <div class="step reveal d4">
+        <div class="deco"></div>
+        <div class="n">3</div>
+        <h3>Remuneração</h3>
+        <p>100% da primeira mensalidade e 10% recorrente, pagos todo dia 10 via PIX ou TED, mediante nota fiscal da PJ do parceiro.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROVA SOCIAL -->
+<section class="proof">
+  <div class="wrap">
+    <span class="eyebrow reveal" style="background:var(--off-white)">Credibilidade</span>
+    <h2 class="reveal d1">Contabilidade com DNA de tecnologia.</h2>
+    <p class="lead reveal d2">Profissionais formados nas melhores instituições do Brasil e do mundo, com atendimento no WhatsApp em menos de 1 minuto. Indicar a Selvia é recomendar um serviço consolidado e bem avaliado.</p>
+    <div class="proof-grid">
+      <div class="pcard reveal d2"><div class="v" data-count="1000" data-prefix="+">+1.000</div><div class="l">clientes atendidos</div></div>
+      <div class="pcard reveal d3"><div class="v" data-count="9.7" data-decimals="1">9,7</div><div class="l">nota média (de 10)</div></div>
+      <div class="pcard reveal d4"><div class="v" data-count="22">22</div><div class="l">estados atendidos</div></div>
+      <div class="pcard reveal d5"><div class="v">&lt;1min</div><div class="l">resposta no WhatsApp</div></div>
+    </div>
+    <div class="testi">
+      <div class="tcard reveal d2">
+        <div class="stars">★★★★★</div>
+        "Sempre me auxiliaram em todo o processo, desde a abertura da empresa até a regularização fiscal. Qualquer dúvida, estavam sempre dispostos a ajudar."
+        <div class="who">Dr. João Rogério<span>Cardiologista · CRM-SP 250328</span></div>
+      </div>
+      <div class="tcard reveal d3">
+        <div class="stars">★★★★★</div>
+        "Desde que me formei estou com a Selvia. Me ajudaram muito na abertura da empresa, eu estava perdida com a burocracia. A consultoria financeira foi maravilhosa."
+        <div class="who">Dra. Bruna Lourenço<span>CRM-SP 250815</span></div>
+      </div>
+      <div class="tcard reveal d4">
+        <div class="stars">★★★★★</div>
+        "Só tenho elogios para a equipe, extremamente atenciosos e competentes. Muito resolutivos com a abertura da minha empresa e o planejamento financeiro."
+        <div class="who">Dra. Letícia Mendes<span>CRM-SP 251229</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULADORA -->
+<section class="calc" id="calc">
+  <div class="wrap">
+    <span class="eyebrow reveal" style="background:rgba(105,228,112,.16);color:var(--verde-claro)">Simulação de remuneração</span>
+    <h2 class="reveal d1">Qual seria o seu potencial?</h2>
+    <p class="lead reveal d2">Ajuste os parâmetros e visualize a remuneração em tempo real, conforme a regra atual do programa: <strong style="color:#fff">100% da primeira mensalidade + 10% recorrente</strong>.</p>
+
+    <div class="calc-box reveal d2">
+      <!-- inputs -->
+      <div class="calc-inputs">
+        <div class="calc-field">
+          <label>1. Perfil do cliente indicado</label>
+          <div class="chips" id="chips">
+            <button class="chip" data-ticket="99.90">Criador · R$ 99,90</button>
+            <button class="chip active" data-ticket="189.90">Dev / Advogado · R$ 189,90</button>
+            <button class="chip" data-ticket="347">Médico · R$ 347</button>
+            <button class="chip" data-ticket="687">Restaurante · R$ 687</button>
+            <button class="chip" data-ticket="1473">Restaurante Growth · R$ 1.473</button>
+            <button class="chip" data-ticket="2697">Startup Series A · R$ 2.697</button>
+          </div>
+          <div style="margin-top:14px;font-size:13.5px;opacity:.7">Mensalidade do cliente: <span class="ticket-display" id="ticketDisp">R$ 189,90</span></div>
+        </div>
+
+        <div class="calc-field">
+          <label>2. Clientes convertidos por mês</label>
+          <input type="range" id="qtd" min="1" max="20" value="3" step="1">
+          <div class="slider-val"><span class="big" id="qtdVal">3</span><span class="unit">clientes / mês</span></div>
+        </div>
+
+        <div class="calc-field" style="margin-bottom:0">
+          <label>3. Permanência média do cliente</label>
+          <input type="range" id="perm" min="3" max="36" value="18" step="1">
+          <div class="slider-val"><span class="big" id="permVal">18</span><span class="unit">meses</span></div>
+        </div>
+      </div>
+
+      <!-- results -->
+      <div class="calc-results">
+        <div class="res-hero">
+          <div class="cap">Remuneração acumulada em 12 meses</div>
+          <div class="val" id="rTotal">R$ 0</div>
+          <div class="sub" id="rTotalSub">considerando 3 clientes/mês de R$ 189,90</div>
+        </div>
+        <div class="res-row">
+          <div class="res-mini">
+            <div class="cap">Primeiro mês</div>
+            <div class="val" id="rMes1">R$ 0</div>
+          </div>
+          <div class="res-mini">
+            <div class="cap">Recorrente no 12º mês</div>
+            <div class="val" id="rRec">R$ 0</div>
+          </div>
+        </div>
+        <div class="chart">
+          <div class="cap">Remuneração mês a mês (12 meses)</div>
+          <div class="bars" id="bars"></div>
+          <div class="bars-x" id="barsX"></div>
+        </div>
+      </div>
+
+      <p class="calc-note">Simulação ilustrativa baseada na regra da Fase 1 do programa (modelo single-level). Os valores consideram a manutenção do ritmo de novas indicações a cada mês e a permanência média selecionada. A remuneração recorrente é válida enquanto o cliente permanecer ativo na Selvia. Condições sujeitas ao Termo de Parceria Comercial.</p>
+    </div>
+  </div>
+</section>
+
+<!-- POR QUE É SEGURO -->
+<section class="safe">
+  <div class="wrap">
+    <span class="eyebrow reveal" style="background:var(--amarelo-claro)">Transparência</span>
+    <h2 class="reveal d1">Uma parceria justa e formalizada.</h2>
+    <p class="lead reveal d2">Cinco garantias que asseguram a integridade do programa — para o parceiro e para a Selvia.</p>
+    <div class="safe-grid">
+      <div class="scard reveal d2"><div class="ico">🆓</div><p>Sem taxa de adesão.</p></div>
+      <div class="scard reveal d2"><div class="ico">📦</div><p>Sem compra de estoque.</p></div>
+      <div class="scard reveal d3"><div class="ico">🤝</div><p>Comissão apenas sobre venda real.</p></div>
+      <div class="scard reveal d4"><div class="ico">🔓</div><p>Cancelamento livre, sem multa.</p></div>
+      <div class="scard reveal d5"><div class="ico">📃</div><p>Tudo formalizado em contrato.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FASES -->
+<section class="phase">
+  <div class="wrap">
+    <span class="eyebrow reveal" style="background:var(--off-white)">Estrutura do programa</span>
+    <h2 class="reveal d1">Um programa estruturado em duas fases.</h2>
+    <div class="phase-grid">
+      <div class="phcard reveal d2">
+        <div class="tag">Fase 1 · Atual</div>
+        <h3>Comissão direta</h3>
+        <p>100% da primeira mensalidade e 10% recorrente sobre cada cliente indicado. Etapa de validação com os primeiros parceiros, construída de forma criteriosa.</p>
+      </div>
+      <div class="phcard future reveal d3">
+        <div class="tag">Fase 2 · Próxima etapa</div>
+        <h3>Estrutura multinível</h3>
+        <p>Parceiros com resultado consolidado na Fase 1 poderão formar rede e receber remuneração adicional (override) sobre as indicações dos parceiros que apresentarem ao programa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FECHAMENTO -->
+<section class="final">
+  <div class="wrap">
+    <span class="eyebrow reveal" style="background:rgba(105,228,112,.16);color:var(--verde-claro)">Selvia Parceiros</span>
+    <h2 class="reveal d1">Sua rede já existe.<br>Resta ativá-la.</h2>
+    <p class="lead reveal d2" style="color:#dfeeec">Uma parceria comercial transparente, com remuneração recorrente e suporte completo da Selvia.</p>
+    <div class="final-deal reveal d3">
+      <div class="fd-item"><span>100%</span>primeira mensalidade</div>
+      <div class="fd-sep"></div>
+      <div class="fd-item"><span>10%</span>recorrente, mensal</div>
+      <div class="fd-sep"></div>
+      <div class="fd-item"><span>R$ 0</span>de adesão</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Selvia · Programa de Parceiros · Material confidencial — uso interno e apresentação a parceiros
+</footer>
+
+<script>
+/* ===== Nav scroll state ===== */
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40));
+
+/* ===== Reveal on scroll ===== */
+const io=new IntersectionObserver((es)=>{
+  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ===== Count-up for proof numbers ===== */
+const cio=new IntersectionObserver((es)=>{
+  es.forEach(e=>{
+    if(!e.isIntersecting)return;
+    const el=e.target,target=parseFloat(el.dataset.count),dec=+(el.dataset.decimals||0),pre=el.dataset.prefix||'';
+    let start=0,dur=1300,t0=null;
+    const step=(t)=>{
+      if(!t0)t0=t;const p=Math.min((t-t0)/dur,1);
+      const ease=1-Math.pow(1-p,3);
+      const v=(target*ease);
+      el.textContent=pre+(dec?v.toFixed(dec).replace('.',','):Math.floor(v).toLocaleString('pt-BR'));
+      if(p<1)requestAnimationFrame(step);
+      else el.textContent=pre+(dec?target.toFixed(dec).replace('.',','):target.toLocaleString('pt-BR'));
+    };
+    requestAnimationFrame(step);cio.unobserve(el);
+  });
+},{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
+
+/* ===== Calculadora ===== */
+const fmt=(n)=>'R$ '+Math.round(n).toLocaleString('pt-BR');
+let ticket=189.90;
+const qtd=document.getElementById('qtd'),perm=document.getElementById('perm');
+const qtdVal=document.getElementById('qtdVal'),permVal=document.getElementById('permVal');
+const ticketDisp=document.getElementById('ticketDisp');
+const rTotal=document.getElementById('rTotal'),rMes1=document.getElementById('rMes1'),rRec=document.getElementById('rRec'),rTotalSub=document.getElementById('rTotalSub');
+const barsEl=document.getElementById('bars'),barsXEl=document.getElementById('barsX');
+
+// build chart skeleton
+for(let i=1;i<=12;i++){
+  const b=document.createElement('div');b.className='bar';b.style.height='3px';barsEl.appendChild(b);
+  const x=document.createElement('span');x.textContent=i;barsXEl.appendChild(x);
+}
+const barEls=[...barsEl.children];
+
+function fmtTicket(t){return 'R$ '+t.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+
+function calc(){
+  const N=+qtd.value, R=+perm.value, T=ticket;
+  qtdVal.textContent=N; permVal.textContent=R;
+  ticketDisp.textContent=fmtTicket(T);
+
+  // month-by-month simulation over 12 months
+  // each month: N new clients -> first mensalidade commission = N*T (100%)
+  // existing clients within retention -> 10%*T recurring each (months after the first)
+  const monthly=[]; let total=0;
+  const cohorts=[]; // {arrived}
+  for(let m=1;m<=12;m++){
+    let earn=N*T;            // new cohort first mensalidade
+    cohorts.push(m);
+    for(const c of cohorts){
+      const age=m-c;          // 0 = just arrived
+      if(age>=1 && age<R){ earn+=N*T*0.10; } // recurring after 1st month, within retention
+    }
+    monthly.push(earn); total+=earn;
+  }
+  const mes1=monthly[0];
+  const recMes12=monthly[11]-N*T>0?monthly[11]-N*T:0; // recurring portion in month 12 (passive)
+
+  // animate result numbers
+  animateNum(rTotal,total);
+  animateNum(rMes1,mes1);
+  animateNum(rRec,recMes12);
+  rTotalSub.textContent=`considerando ${N} cliente${N>1?'s':''}/mês de ${fmtTicket(T)}`;
+
+  // chart
+  const max=Math.max(...monthly);
+  barEls.forEach((b,i)=>{ b.style.height=Math.max(3,(monthly[i]/max)*90)+'px'; });
+}
+
+let animTimers={};
+function animateNum(el,target){
+  const key=el.id; cancelAnimationFrame(animTimers[key]);
+  const from=parseFloat((el.textContent||'0').replace(/[^\d]/g,''))||0;
+  let t0=null,dur=600;
+  const step=(t)=>{
+    if(!t0)t0=t;const p=Math.min((t-t0)/dur,1);const ease=1-Math.pow(1-p,3);
+    el.textContent=fmt(from+(target-from)*ease);
+    if(p<1)animTimers[key]=requestAnimationFrame(step); else el.textContent=fmt(target);
+  };
+  animTimers[key]=requestAnimationFrame(step);
+}
+
+// chip selection
+document.querySelectorAll('#chips .chip').forEach(c=>{
+  c.addEventListener('click',()=>{
+    document.querySelectorAll('#chips .chip').forEach(x=>x.classList.remove('active'));
+    c.classList.add('active'); ticket=parseFloat(c.dataset.ticket); calc();
+  });
+});
+qtd.addEventListener('input',calc);
+perm.addEventListener('input',calc);
+
+// run once when calculator scrolls into view (so numbers animate from 0)
+let calcDone=false;
+new IntersectionObserver((es)=>{
+  es.forEach(e=>{if(e.isIntersecting&&!calcDone){calcDone=true;calc();}});
+},{threshold:.3}).observe(document.getElementById('calc'));
+
+// init silently
+calc();
+</script>
+</body>
+</html>
