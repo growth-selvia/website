@@ -79,9 +79,14 @@
   /* ---------- CONTROLS ---------- */
   .controls{
     margin-top:38px;
-    display:flex;flex-wrap:wrap;gap:18px 26px;align-items:flex-end;justify-content:space-between;
+    display:flex;flex-direction:column;gap:20px;
     padding:22px;border:1px solid var(--line);border-radius:var(--radius);
     background:linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0));
+  }
+  .filters{display:flex;flex-wrap:wrap;gap:18px 32px;}
+  .actions{
+    display:flex;flex-wrap:wrap;gap:18px 26px;align-items:flex-end;
+    padding-top:18px;border-top:1px solid var(--line);
   }
   .control-block{display:flex;flex-direction:column;gap:11px;}
   .control-label{
@@ -249,10 +254,69 @@
   .note b{color:var(--gold-soft);font-weight:600;display:block;margin-bottom:3px;font-family:"Space Mono",monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;}
   .note span{color:var(--muted);}
 
+  /* ---------- RATING (estrelas) ---------- */
+  .rate{margin-top:18px;padding-top:16px;border-top:1px dashed var(--line-strong);}
+  .rate-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:4px;}
+  .stars{display:inline-flex;gap:3px;}
+  .star{
+    background:none;border:none;cursor:pointer;padding:2px;line-height:1;
+    font-size:25px;color:rgba(243,236,221,0.20);
+    transition:color .12s, transform .12s;
+  }
+  .star:hover{transform:scale(1.12);}
+  .star.on{color:var(--gold);}
+  .star:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px;}
+  .rate-send{
+    font-family:"Outfit",sans-serif;font-size:13px;font-weight:600;
+    color:#0C1413;background:var(--gold);border:none;border-radius:999px;
+    padding:8px 16px;cursor:pointer;transition:opacity .2s,transform .12s,background .2s;
+  }
+  .rate-send:disabled{opacity:.32;cursor:not-allowed;background:var(--surface-2);color:var(--muted);}
+  .rate-send:not(:disabled):hover{background:var(--gold-soft);}
+  .rate-send:not(:disabled):active{transform:scale(.96);}
+  .rate-avg{
+    margin:11px 0 0;font-family:"Space Mono",monospace;font-size:12.5px;
+    letter-spacing:0.04em;color:var(--gold-soft);
+  }
+  .rate-avg.none{color:var(--muted-dim);}
+
+  /* ---------- RANKING ---------- */
+  .ranking{margin-top:40px;padding-top:30px;border-top:1px solid var(--line);}
+  .ranking-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+  .ranking h2{font-family:"Fraunces",serif;color:var(--cream);font-size:clamp(26px,4vw,38px);font-weight:600;margin:0;letter-spacing:-0.01em;}
+  .ranking h2 em{font-style:italic;color:var(--gold-soft);}
+  .rank-reset{
+    font-family:"Space Mono",monospace;font-size:11px;letter-spacing:0.1em;
+    color:var(--muted-dim);background:none;border:none;cursor:pointer;text-decoration:underline;
+    text-underline-offset:3px;transition:color .2s;
+  }
+  .rank-reset:hover{color:var(--cranberry);}
+  .ranking-sub{font-family:"Space Mono",monospace;font-size:12px;color:var(--muted-dim);margin:8px 0 22px;letter-spacing:0.06em;}
+  .rank-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px;}
+  .rank-item{
+    display:flex;align-items:center;gap:14px;
+    padding:13px 16px;border:1px solid var(--line);border-radius:14px;
+    background:linear-gradient(180deg, var(--surface), var(--bg-2));
+  }
+  .rank-pos{
+    flex:0 0 34px;font-family:"Space Mono",monospace;font-size:18px;text-align:center;color:var(--muted);
+  }
+  .rank-name{flex:1 1 140px;min-width:0;font-family:"Fraunces",serif;font-size:17px;color:var(--cream);font-weight:540;}
+  .rank-bar{flex:1 1 90px;height:7px;border-radius:999px;background:rgba(243,236,221,0.10);overflow:hidden;min-width:60px;}
+  .rank-fill{display:block;height:100%;border-radius:999px;transition:width .5s ease;}
+  .rank-score{flex:0 0 auto;font-family:"Space Mono",monospace;font-size:16px;color:var(--gold-soft);white-space:nowrap;}
+  .rank-score small{color:var(--muted-dim);font-size:11px;}
+  .rank-empty{
+    padding:26px 18px;text-align:center;color:var(--muted-dim);
+    font-family:"Space Mono",monospace;font-size:13px;
+    border:1px dashed var(--line-strong);border-radius:14px;
+  }
+
   @media (max-width:560px){
     header{padding:46px 0 22px;}
-    .controls{flex-direction:column;align-items:stretch;}
     .control-block{width:100%;}
+    .rank-name{flex-basis:100%;}
+    .rank-bar{order:3;flex-basis:100%;}
   }
   @media (prefers-reduced-motion:reduce){
     *{transition:none!important;animation:none!important;scroll-behavior:auto!important;}
@@ -264,34 +328,65 @@
 
   <header>
     <h1>Noite de<br><em>Drinks</em></h1>
-    <p class="lede">Dezoito coquetéis montados só com o que você tem em casa. Filtre pelo destilado, escolha quantas porções vai preparar e toque em qualquer drink pra ver a receita completa.</p>
+    <p class="lede">Dezoito coquetéis montados só com o que você tem em casa. Filtre por destilado, estilo ou nota, ajuste as porções, e toque em qualquer drink pra ver a receita — e avaliar. No fim da noite, confira o ranking lá embaixo.</p>
 
     <div class="controls">
-      <div class="control-block">
-        <span class="control-label">Filtrar por destilado</span>
-        <div class="chips" id="chips" role="group" aria-label="Filtrar por destilado base">
-          <button class="chip" data-filter="todos" aria-pressed="true">Todos</button>
-          <button class="chip" data-filter="vodka" aria-pressed="false">Vodka</button>
-          <button class="chip" data-filter="cachaca" aria-pressed="false">Cachaça</button>
-          <button class="chip" data-filter="tequila" aria-pressed="false">Tequila</button>
-          <button class="chip" data-filter="rum" aria-pressed="false">Rum</button>
-          <button class="chip" data-filter="saque" aria-pressed="false">Saquê</button>
-          <button class="chip" data-filter="fernet" aria-pressed="false">Fernet</button>
+      <div class="filters">
+        <div class="control-block">
+          <span class="control-label">Destilado</span>
+          <div class="chips" id="chips-base" role="group" aria-label="Filtrar por destilado">
+            <button class="chip" data-val="todos" aria-pressed="true">Todos</button>
+            <button class="chip" data-val="vodka" aria-pressed="false">Vodka</button>
+            <button class="chip" data-val="cachaca" aria-pressed="false">Cachaça</button>
+            <button class="chip" data-val="tequila" aria-pressed="false">Tequila</button>
+            <button class="chip" data-val="rum" aria-pressed="false">Rum</button>
+            <button class="chip" data-val="saque" aria-pressed="false">Saquê</button>
+            <button class="chip" data-val="fernet" aria-pressed="false">Fernet</button>
+          </div>
+        </div>
+
+        <div class="control-block">
+          <span class="control-label">Estilo</span>
+          <div class="chips" id="chips-estilo" role="group" aria-label="Filtrar por estilo">
+            <button class="chip" data-val="todos" aria-pressed="true">Todos</button>
+            <button class="chip" data-val="classicos" aria-pressed="false">Clássicos</button>
+            <button class="chip" data-val="tropicais" aria-pressed="false">Tropicais</button>
+            <button class="chip" data-val="frutas" aria-pressed="false">Com fruta &amp; hortelã</button>
+          </div>
+        </div>
+
+        <div class="control-block">
+          <span class="control-label">Nota mínima</span>
+          <div class="chips" id="chips-nota" role="group" aria-label="Filtrar por nota mínima">
+            <button class="chip" data-val="0" aria-pressed="true">Todas</button>
+            <button class="chip" data-val="3" aria-pressed="false">★ 3+</button>
+            <button class="chip" data-val="4" aria-pressed="false">★ 4+</button>
+          </div>
         </div>
       </div>
 
-      <div class="control-block">
-        <span class="control-label">Porções</span>
-        <div class="stepper">
-          <button id="minus" aria-label="Menos uma porção">−</button>
-          <div class="count"><span id="qty">1</span><small>copo(s)</small></div>
-          <button id="plus" aria-label="Mais uma porção">+</button>
+      <div class="actions">
+        <div class="control-block">
+          <span class="control-label">Ordenar</span>
+          <div class="chips" id="chips-sort" role="group" aria-label="Ordenar">
+            <button class="chip" data-val="menu" aria-pressed="true">Cardápio</button>
+            <button class="chip" data-val="rating" aria-pressed="false">Mais bem avaliados</button>
+          </div>
         </div>
-      </div>
 
-      <div class="control-block">
-        <span class="control-label">Sem ideia?</span>
-        <button class="ghost-btn" id="random"><span class="dice">🎲</span> Surpreenda-me</button>
+        <div class="control-block">
+          <span class="control-label">Porções</span>
+          <div class="stepper">
+            <button id="minus" aria-label="Menos uma porção">−</button>
+            <div class="count"><span id="qty">1</span><small>copo(s)</small></div>
+            <button id="plus" aria-label="Mais uma porção">+</button>
+          </div>
+        </div>
+
+        <div class="control-block">
+          <span class="control-label">Sem ideia?</span>
+          <button class="ghost-btn" id="random"><span class="dice">🎲</span> Surpreenda-me</button>
+        </div>
       </div>
     </div>
 
@@ -299,6 +394,15 @@
   </header>
 
   <main class="grid" id="grid"></main>
+
+  <section class="ranking" id="ranking">
+    <div class="ranking-head">
+      <h2>Ranking da <em>noite</em></h2>
+      <button class="rank-reset" id="rank-reset">limpar avaliações</button>
+    </div>
+    <p class="ranking-sub" id="ranking-sub">A média sobe a cada estrela. <span id="rank-meta"></span></p>
+    <ol class="rank-list" id="rank-list"></ol>
+  </section>
 
   <footer>
     <p class="ftitle">Pra noite render</p>
@@ -618,7 +722,56 @@ const DRINKS = [
 
 /* ---------- ESTADO ---------- */
 let multiplier = 1;
-let filtro = "todos";
+let fBase   = "todos";
+let fEstilo = "todos";
+let fNota   = 0;
+let ordenar = "menu";
+
+/* estilo de cada drink (mapa separado pra não poluir os dados) */
+const ESTILO_MAP = {
+  "Cosmopolitan":"classicos","Caipirinha":"classicos","Saquerinha":"classicos",
+  "Margarita":"classicos","Daiquiri":"classicos","Mula do Gengibre":"classicos",
+  "Macunaíma":"classicos","Fernet Sour":"classicos",
+  "Margarita de Maracujá":"tropicais","Batida de Maracujá":"tropicais","Saquê Tropical":"tropicais",
+  "Caipiroska de Cranberry":"frutas","Mojito":"frutas","Daiquiri de Morango":"frutas",
+  "Caipirinha de Morango com Hortelã":"frutas","Margarita Picante":"frutas",
+  "Smash de Morango":"frutas","Margarita de Morango":"frutas"
+};
+function slug(s){
+  return s.normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"");
+}
+DRINKS.forEach(d=>{ d.id = slug(d.nome); d.estilo = ESTILO_MAP[d.nome] || "classicos"; });
+
+/* armazenamento: localStorage quando der, senão memória (não quebra em previews restritos) */
+const Store = (()=>{
+  let ok=false; const mem={};
+  try{ const k="__nd_test"; localStorage.setItem(k,"1"); localStorage.removeItem(k); ok=true; }catch(e){}
+  return {
+    get(k){ if(ok){ try{ return localStorage.getItem(k); }catch(e){} } return (k in mem)?mem[k]:null; },
+    set(k,v){ if(ok){ try{ localStorage.setItem(k,v); return; }catch(e){} } mem[k]=v; }
+  };
+})();
+
+/* avaliações: { id: { sum, count } } */
+const RKEY = "noite_drinks_ratings_v1";
+let ratings = (()=>{ try{ return JSON.parse(Store.get(RKEY)) || {}; }catch(e){ return {}; } })();
+function saveRatings(){ Store.set(RKEY, JSON.stringify(ratings)); }
+function statsFor(id){
+  const r = ratings[id];
+  if(!r || !r.count) return {avg:0, count:0};
+  return {avg:r.sum/r.count, count:r.count};
+}
+function addRating(id, value){
+  const r = ratings[id] || {sum:0, count:0};
+  r.sum += value; r.count += 1;
+  ratings[id] = r; saveRatings();
+}
+function avgText(id){
+  const s = statsFor(id);
+  if(!s.count) return "Ainda sem avaliações";
+  return "★ " + s.avg.toFixed(1) + " · " + s.count + (s.count===1?" avaliação":" avaliações");
+}
 
 /* ---------- HELPERS ---------- */
 function round5(v){ return Math.round(v/5)*5; }
@@ -671,11 +824,14 @@ function ingredientsHTML(d){
      </div>`).join("");
 }
 
-function cardHTML(d, idx){
+function cardHTML(d){
   const dots = [1,2,3].map(n =>
     `<span class="dot ${n<=d.forca?'on':''}"></span>`).join("");
+  const s = statsFor(d.id);
+  const stars = [1,2,3,4,5].map(n =>
+    `<button type="button" class="star" data-v="${n}" aria-label="${n} de 5 estrelas">★</button>`).join("");
   return `
-  <article class="card" data-base="${d.base}" data-idx="${idx}" tabindex="0"
+  <article class="card" data-id="${d.id}" data-base="${d.base}" data-estilo="${d.estilo}" tabindex="0"
            role="button" aria-expanded="false" aria-label="${d.nome}, ver receita">
     <div class="card__top">
       ${glassSVG(d.copo, d.cor)}
@@ -705,6 +861,14 @@ function cardHTML(d, idx){
           <p class="sub">Modo de preparo</p>
           <ol class="steps">${d.modo.map(s=>`<li>${s}</li>`).join("")}</ol>
           ${d.dica?`<div class="tip"><b>Dica · </b>${d.dica}</div>`:""}
+          <div class="rate" data-id="${d.id}">
+            <p class="sub">Avalie este drink</p>
+            <div class="rate-row">
+              <div class="stars" role="group" aria-label="Sua nota para ${d.nome}">${stars}</div>
+              <button type="button" class="rate-send" disabled>Enviar nota</button>
+            </div>
+            <p class="rate-avg ${s.count?'':'none'}">${avgText(d.id)}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -712,16 +876,54 @@ function cardHTML(d, idx){
 }
 
 function render(){
-  const visiveis = DRINKS
-    .map((d,i)=>({d,i}))
-    .filter(o => filtro==="todos" || o.d.base===filtro);
+  let list = DRINKS.filter(d =>
+    (fBase==="todos"   || d.base===fBase) &&
+    (fEstilo==="todos" || d.estilo===fEstilo) &&
+    (fNota===0         || statsFor(d.id).avg >= fNota)
+  );
 
-  grid.innerHTML = visiveis.length
-    ? visiveis.map(o => cardHTML(o.d,o.i)).join("")
-    : `<p class="empty">Nada com esse destilado ainda.<br>Tente outro filtro ✦</p>`;
+  if(ordenar==="rating"){
+    list = list.slice().sort((a,b)=>{
+      const sa=statsFor(a.id), sb=statsFor(b.id);
+      return (sb.avg-sa.avg) || (sb.count-sa.count) || a.nome.localeCompare(b.nome);
+    });
+  }
 
-  document.getElementById("count").textContent = visiveis.length;
+  grid.innerHTML = list.length
+    ? list.map(d => cardHTML(d)).join("")
+    : `<p class="empty">Nada com esses filtros.<br>Afrouxa um pouco e tenta de novo ✦</p>`;
+
+  document.getElementById("count").textContent = list.length;
   bindCards();
+  renderRanking();
+}
+
+function renderRanking(){
+  const rated = DRINKS.map(d => ({d, ...statsFor(d.id)}))
+    .filter(x => x.count>0)
+    .sort((a,b)=> (b.avg-a.avg) || (b.count-a.count) || a.d.nome.localeCompare(b.d.nome));
+
+  const listEl = document.getElementById("rank-list");
+  const metaEl = document.getElementById("rank-meta");
+  const totalVotes = DRINKS.reduce((t,d)=> t + statsFor(d.id).count, 0);
+
+  if(!rated.length){
+    listEl.innerHTML = `<li class="rank-empty">Ninguém avaliou ainda. Abra um drink, prove e dê a primeira nota ✦</li>`;
+    metaEl.textContent = "";
+    return;
+  }
+  metaEl.textContent = `${totalVotes} ${totalVotes===1?"voto":"votos"} até agora.`;
+  listEl.innerHTML = rated.map((x,i)=>{
+    const pos = i+1;
+    const mark = pos===1?"🥇":pos===2?"🥈":pos===3?"🥉":String(pos).padStart(2,"0");
+    const pct = (x.avg/5*100).toFixed(0);
+    return `<li class="rank-item">
+      <span class="rank-pos">${mark}</span>
+      <span class="rank-name">${x.d.nome}</span>
+      <span class="rank-bar"><span class="rank-fill" style="width:${pct}%;background:${x.d.cor}"></span></span>
+      <span class="rank-score">${x.avg.toFixed(1)}<small>/5 · ${x.count}</small></span>
+    </li>`;
+  }).join("");
 }
 
 function bindCards(){
@@ -730,10 +932,44 @@ function bindCards(){
       const open = card.getAttribute("aria-expanded")==="true";
       card.setAttribute("aria-expanded", String(!open));
     };
-    card.addEventListener("click", toggle);
+    card.addEventListener("click", e=>{
+      if(e.target.closest(".rate")) return;   // cliques na área de avaliação não fecham o card
+      toggle();
+    });
     card.addEventListener("keydown", e=>{
+      if(e.target.closest(".rate")) return;
       if(e.key==="Enter" || e.key===" "){ e.preventDefault(); toggle(); }
     });
+    bindRate(card);
+  });
+}
+
+function bindRate(card){
+  const rate = card.querySelector(".rate");
+  if(!rate) return;
+  const id    = rate.dataset.id;
+  const stars = [...rate.querySelectorAll(".star")];
+  const send  = rate.querySelector(".rate-send");
+  const avgEl = rate.querySelector(".rate-avg");
+  let sel = 0;
+
+  const paint = n => stars.forEach(s => s.classList.toggle("on", (+s.dataset.v)<=n));
+
+  stars.forEach(s=>{
+    s.addEventListener("mouseenter", ()=> paint(+s.dataset.v));
+    s.addEventListener("mouseleave", ()=> paint(sel));
+    s.addEventListener("click", ()=>{ sel = +s.dataset.v; paint(sel); send.disabled = false; });
+  });
+
+  send.addEventListener("click", ()=>{
+    if(!sel) return;
+    addRating(id, sel);
+    avgEl.textContent = avgText(id);
+    avgEl.classList.remove("none");
+    sel = 0; paint(0); send.disabled = true;
+    send.textContent = "Valeu! ✦";
+    setTimeout(()=>{ send.textContent = "Enviar nota"; }, 1500);
+    renderRanking();
   });
 }
 
@@ -746,14 +982,21 @@ function updateAmounts(){
 }
 
 /* ---------- CONTROLES ---------- */
-document.getElementById("chips").addEventListener("click", e=>{
-  const btn = e.target.closest(".chip");
-  if(!btn) return;
-  document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed","false"));
-  btn.setAttribute("aria-pressed","true");
-  filtro = btn.dataset.filter;
-  render();
-});
+function bindChipGroup(groupId, onPick){
+  const group = document.getElementById(groupId);
+  group.addEventListener("click", e=>{
+    const btn = e.target.closest(".chip");
+    if(!btn) return;
+    group.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed","false"));
+    btn.setAttribute("aria-pressed","true");
+    onPick(btn.dataset.val);
+    render();
+  });
+}
+bindChipGroup("chips-base",   v => fBase   = v);
+bindChipGroup("chips-estilo", v => fEstilo = v);
+bindChipGroup("chips-nota",   v => fNota   = parseFloat(v));
+bindChipGroup("chips-sort",   v => ordenar = v);
 
 const qtyEl = document.getElementById("qty");
 document.getElementById("plus").addEventListener("click", ()=>{
@@ -771,6 +1014,12 @@ document.getElementById("random").addEventListener("click", ()=>{
   pick.setAttribute("aria-expanded","true");
   pick.classList.remove("flash"); void pick.offsetWidth; pick.classList.add("flash");
   pick.scrollIntoView({behavior:"smooth", block:"center"});
+});
+
+document.getElementById("rank-reset").addEventListener("click", ()=>{
+  if(confirm("Zerar todas as avaliações desta noite? Não dá pra desfazer.")){
+    ratings = {}; saveRatings(); render();
+  }
 });
 
 render();
