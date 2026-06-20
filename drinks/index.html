@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noite de Drinks · Cardápio da casa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Outfit:wght@300..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0C1413;
+    --bg-2:#0F1A19;
+    --surface:#14211F;
+    --surface-2:#1B2C29;
+    --line:rgba(243,236,221,0.10);
+    --line-strong:rgba(243,236,221,0.18);
+    --cream:#F3ECDD;
+    --muted:#9DB0AB;
+    --muted-dim:#71837F;
+    --gold:#F2B705;
+    --gold-soft:#F8D567;
+    --lime:#B6D957;
+    --cranberry:#E0476B;
+    --radius:18px;
+    --shadow:0 22px 50px -28px rgba(0,0,0,0.85);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    background:
+      radial-gradient(1100px 620px at 78% -8%, rgba(242,183,5,0.16), transparent 60%),
+      radial-gradient(900px 520px at 0% 12%, rgba(224,71,107,0.10), transparent 58%),
+      linear-gradient(180deg, var(--bg-2), var(--bg) 38%);
+    background-attachment:fixed;
+    color:var(--cream);
+    font-family:"Outfit",system-ui,sans-serif;
+    font-weight:300;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+
+  .wrap{max-width:1140px;margin:0 auto;padding:0 22px;}
+
+  /* ---------- HERO ---------- */
+  header{padding:64px 0 30px;}
+  .eyebrow{
+    font-family:"Space Mono",monospace;
+    font-size:12px;letter-spacing:0.32em;text-transform:uppercase;
+    color:var(--gold);
+    display:flex;align-items:center;gap:12px;margin:0 0 22px;
+  }
+  .eyebrow::before{content:"";width:30px;height:1px;background:var(--gold);opacity:.7;}
+
+  h1{
+    font-family:"Fraunces",serif;
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:clamp(46px,9vw,104px);
+    line-height:0.92;
+    letter-spacing:-0.02em;
+    margin:0;
+    color:var(--cream);
+  }
+  h1 em{
+    font-style:italic;
+    font-weight:500;
+    color:var(--gold-soft);
+  }
+  .lede{
+    max-width:50ch;margin:22px 0 0;
+    color:var(--muted);font-size:clamp(15px,2.1vw,18px);
+  }
+
+  /* ---------- CONTROLS ---------- */
+  .controls{
+    margin-top:38px;
+    display:flex;flex-wrap:wrap;gap:18px 26px;align-items:flex-end;justify-content:space-between;
+    padding:22px;border:1px solid var(--line);border-radius:var(--radius);
+    background:linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0));
+  }
+  .control-block{display:flex;flex-direction:column;gap:11px;}
+  .control-label{
+    font-family:"Space Mono",monospace;font-size:11px;letter-spacing:0.22em;
+    text-transform:uppercase;color:var(--muted-dim);
+  }
+
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{
+    font-family:"Outfit",sans-serif;font-size:13.5px;font-weight:400;
+    color:var(--muted);
+    background:transparent;border:1px solid var(--line-strong);
+    padding:7px 15px;border-radius:999px;cursor:pointer;
+    transition:color .2s, border-color .2s, background .2s, transform .12s;
+  }
+  .chip:hover{color:var(--cream);border-color:rgba(243,236,221,0.4);}
+  .chip[aria-pressed="true"]{
+    color:#0C1413;background:var(--gold);border-color:var(--gold);font-weight:600;
+  }
+
+  .stepper{
+    display:flex;align-items:center;gap:4px;
+    border:1px solid var(--line-strong);border-radius:999px;padding:4px;
+    background:rgba(0,0,0,0.18);
+  }
+  .stepper button{
+    width:34px;height:34px;border-radius:999px;border:none;cursor:pointer;
+    background:transparent;color:var(--cream);font-size:20px;line-height:1;
+    display:grid;place-items:center;transition:background .18s,color .18s;
+  }
+  .stepper button:hover{background:var(--surface-2);color:var(--gold-soft);}
+  .stepper .count{
+    min-width:62px;text-align:center;font-family:"Space Mono",monospace;
+    font-size:14px;color:var(--cream);
+  }
+  .stepper .count small{display:block;font-size:9.5px;color:var(--muted-dim);letter-spacing:0.18em;text-transform:uppercase;}
+
+  .ghost-btn{
+    font-family:"Outfit",sans-serif;font-size:13.5px;font-weight:500;
+    color:var(--cream);background:transparent;
+    border:1px solid var(--line-strong);border-radius:999px;
+    padding:9px 18px;cursor:pointer;display:inline-flex;align-items:center;gap:9px;
+    transition:border-color .2s,color .2s,transform .12s;
+  }
+  .ghost-btn:hover{border-color:var(--gold);color:var(--gold-soft);}
+  .ghost-btn:active{transform:scale(.97);}
+  .ghost-btn .dice{font-size:16px;}
+
+  /* ---------- GRID ---------- */
+  .count-line{
+    font-family:"Space Mono",monospace;font-size:12px;color:var(--muted-dim);
+    letter-spacing:0.12em;margin:42px 0 18px;
+    display:flex;align-items:center;gap:14px;
+  }
+  .count-line::after{content:"";flex:1;height:1px;background:var(--line);}
+
+  .grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:18px;
+    padding-bottom:30px;
+  }
+
+  .card{
+    position:relative;
+    border:1px solid var(--line);border-radius:var(--radius);
+    background:linear-gradient(180deg, var(--surface), var(--bg-2));
+    overflow:hidden;cursor:pointer;
+    transition:border-color .25s, transform .25s, box-shadow .25s;
+  }
+  .card:hover{border-color:var(--line-strong);transform:translateY(-3px);box-shadow:var(--shadow);}
+  .card:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+  .card.flash{animation:flash 1.1s ease;}
+  @keyframes flash{0%,100%{box-shadow:var(--shadow);}30%{box-shadow:0 0 0 2px var(--gold), var(--shadow);}}
+
+  .card__top{display:flex;gap:16px;padding:20px 20px 16px;align-items:flex-start;}
+  .glass{flex:0 0 58px;width:58px;height:74px;}
+
+  .card__head{flex:1;min-width:0;}
+  .card__name{
+    font-family:"Fraunces",serif;font-weight:560;font-size:23px;line-height:1.08;
+    letter-spacing:-0.01em;margin:2px 0 8px;color:var(--cream);
+  }
+  .tags{display:flex;flex-wrap:wrap;gap:6px;}
+  .tag{
+    font-family:"Space Mono",monospace;font-size:10px;letter-spacing:0.1em;
+    text-transform:uppercase;padding:3px 8px;border-radius:6px;
+    background:rgba(255,255,255,0.05);color:var(--muted);border:1px solid var(--line);
+  }
+  .tag.base{color:var(--gold-soft);border-color:rgba(248,213,103,0.25);background:rgba(242,183,5,0.07);}
+
+  .card__desc{
+    padding:0 20px 16px;color:var(--muted);font-size:14px;
+  }
+
+  .card__meta{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 20px 18px;
+  }
+  .strength{display:flex;align-items:center;gap:9px;}
+  .strength .lbl{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted-dim);}
+  .dots{display:flex;gap:4px;}
+  .dot{width:7px;height:7px;border-radius:999px;background:rgba(243,236,221,0.16);}
+  .dot.on{background:var(--gold);}
+  .expand-hint{
+    font-family:"Space Mono",monospace;font-size:11px;color:var(--muted-dim);
+    display:inline-flex;align-items:center;gap:6px;transition:color .2s;
+  }
+  .expand-hint .arw{transition:transform .3s;}
+  .card[aria-expanded="true"] .expand-hint{color:var(--gold-soft);}
+  .card[aria-expanded="true"] .expand-hint .arw{transform:rotate(180deg);}
+
+  /* expanding details (grid-rows trick for smooth auto height) */
+  .details{display:grid;grid-template-rows:0fr;transition:grid-template-rows .38s ease;}
+  .card[aria-expanded="true"] .details{grid-template-rows:1fr;}
+  .details-inner{overflow:hidden;}
+  .details-pad{
+    padding:6px 20px 22px;border-top:1px solid var(--line);
+    margin:0 0 0;
+  }
+  .sub{
+    font-family:"Space Mono",monospace;font-size:10.5px;letter-spacing:0.2em;
+    text-transform:uppercase;color:var(--gold);margin:16px 0 11px;
+  }
+  .ing-row{
+    display:flex;align-items:baseline;gap:10px;padding:7px 0;
+    border-bottom:1px dashed var(--line);
+  }
+  .ing-row:last-child{border-bottom:none;}
+  .ing-name{color:var(--cream);font-size:14.5px;}
+  .ing-rule{flex:1;border-bottom:1px dotted rgba(243,236,221,0.18);transform:translateY(-3px);}
+  .ing-qty{
+    font-family:"Space Mono",monospace;font-size:13px;color:var(--gold-soft);
+    white-space:nowrap;
+  }
+  .steps{margin:4px 0 0;padding:0;list-style:none;counter-reset:s;}
+  .steps li{
+    position:relative;padding:7px 0 7px 30px;color:var(--muted);font-size:14px;
+    counter-increment:s;
+  }
+  .steps li::before{
+    content:counter(s);position:absolute;left:0;top:7px;
+    width:20px;height:20px;border-radius:999px;
+    font-family:"Space Mono",monospace;font-size:11px;
+    display:grid;place-items:center;
+    color:var(--gold);border:1px solid rgba(242,183,5,0.4);
+  }
+  .tip{
+    margin-top:14px;padding:11px 14px;border-radius:12px;
+    background:rgba(242,183,5,0.06);border:1px solid rgba(242,183,5,0.16);
+    font-size:13px;color:var(--cream);
+  }
+  .tip b{color:var(--gold-soft);font-weight:600;}
+
+  .empty{
+    grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted-dim);
+    font-family:"Space Mono",monospace;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1px solid var(--line);margin-top:30px;padding:34px 0 70px;
+    color:var(--muted-dim);font-size:13px;
+  }
+  footer .ftitle{font-family:"Fraunces",serif;color:var(--cream);font-size:20px;margin:0 0 14px;font-weight:560;}
+  .notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:6px;}
+  .note b{color:var(--gold-soft);font-weight:600;display:block;margin-bottom:3px;font-family:"Space Mono",monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;}
+  .note span{color:var(--muted);}
+
+  @media (max-width:560px){
+    header{padding:46px 0 22px;}
+    .controls{flex-direction:column;align-items:stretch;}
+    .control-block{width:100%;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important;scroll-behavior:auto!important;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Noite de<br><em>Drinks</em></h1>
+    <p class="lede">Doze coquetéis montados só com o que você tem em casa. Filtre pelo destilado, escolha quantas porções vai preparar e toque em qualquer drink pra ver a receita completa.</p>
+
+    <div class="controls">
+      <div class="control-block">
+        <span class="control-label">Filtrar por destilado</span>
+        <div class="chips" id="chips" role="group" aria-label="Filtrar por destilado base">
+          <button class="chip" data-filter="todos" aria-pressed="true">Todos</button>
+          <button class="chip" data-filter="vodka" aria-pressed="false">Vodka</button>
+          <button class="chip" data-filter="cachaca" aria-pressed="false">Cachaça</button>
+          <button class="chip" data-filter="tequila" aria-pressed="false">Tequila</button>
+          <button class="chip" data-filter="rum" aria-pressed="false">Rum</button>
+          <button class="chip" data-filter="saque" aria-pressed="false">Saquê</button>
+          <button class="chip" data-filter="fernet" aria-pressed="false">Fernet</button>
+        </div>
+      </div>
+
+      <div class="control-block">
+        <span class="control-label">Porções</span>
+        <div class="stepper">
+          <button id="minus" aria-label="Menos uma porção">−</button>
+          <div class="count"><span id="qty">1</span><small>copo(s)</small></div>
+          <button id="plus" aria-label="Mais uma porção">+</button>
+        </div>
+      </div>
+
+      <div class="control-block">
+        <span class="control-label">Sem ideia?</span>
+        <button class="ghost-btn" id="random"><span class="dice">🎲</span> Surpreenda-me</button>
+      </div>
+    </div>
+
+    <p class="count-line"><span id="count">12</span> coquetéis no cardápio</p>
+  </header>
+
+  <main class="grid" id="grid"></main>
+
+  <footer>
+    <p class="ftitle">Pra noite render</p>
+    <div class="notes">
+      <div class="note"><b>Gelo é rei</b><span>Tenha o dobro do que acha que precisa. Drink batido pede coqueteleira bem cheia de gelo; macerado, copo cheio.</span></div>
+      <div class="note"><b>Limão fresco</b><span>Esprema na hora. Suco de limão velho deixa tudo amargo — a alma desses drinks é a acidez fresca.</span></div>
+      <div class="note"><b>Bateu, coou</b><span>Os drinks de coqueteleira ficam melhores coados pra taça gelada. Os macerados vão direto no copo com o gelo.</span></div>
+      <div class="note"><b>Sem água com gás?</b><span>A Mula do Gengibre funciona batida e bem gelada. Com soda por cima fica ainda mais refrescante.</span></div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+/* ---------- DADOS ---------- */
+const DRINKS = [
+  {
+    nome:"Cosmopolitan", base:"vodka", baseLabel:"Vodka", metodo:"Coqueteleira",
+    forca:3, cor:"#E0476B", copo:"taca", perfil:"Ácido & frutado",
+    desc:"O clássico rosa: vodka, triple sec e cranberry com um toque de limão. Elegante e fácil de gostar.",
+    ing:[
+      {nome:"Vodka",qtd:50,un:"ml"},
+      {nome:"Triple sec",qtd:20,un:"ml"},
+      {nome:"Suco de cranberry",qtd:25,un:"ml"},
+      {nome:"Limão (suco)",qtd:15,un:"ml"}
+    ],
+    modo:[
+      "Coloque tudo na coqueteleira cheia de gelo.",
+      "Bata firme por uns 15 segundos.",
+      "Coe numa taça gelada e sirva."
+    ],
+    dica:"Uma casquinha de limão torcida por cima solta o aroma e dá o acabamento."
+  },
+  {
+    nome:"Caipirinha", base:"cachaca", baseLabel:"Cachaça", metodo:"Macerado",
+    forca:3, cor:"#B6D957", copo:"copo", perfil:"Cítrico & direto",
+    desc:"A nossa de sempre. Limão macerado, açúcar e cachaça com muito gelo. Impossível errar.",
+    ing:[
+      {nome:"Cachaça",qtd:60,un:"ml"},
+      {nome:"Limão",qtd:1,un:"un"},
+      {nome:"Xarope de açúcar",qtd:20,un:"ml"}
+    ],
+    modo:[
+      "Corte o limão em pedaços e tire o miolo branco do centro (amarga menos).",
+      "Macere o limão com o xarope no fundo do copo.",
+      "Encha o copo de gelo, complete com a cachaça e mexa bem."
+    ],
+    dica:"Prefere mais seca? Use só metade do xarope. No lugar do xarope, 2 colheres de chá de açúcar também resolvem."
+  },
+  {
+    nome:"Saquerinha", base:"saque", baseLabel:"Saquê", metodo:"Macerado",
+    forca:1, cor:"#E6E2C0", copo:"copo", perfil:"Leve & suave",
+    desc:"A caipirinha de saquê: mais delicada, menos alcoólica e perigosamente fácil de beber.",
+    ing:[
+      {nome:"Saquê",qtd:60,un:"ml"},
+      {nome:"Limão",qtd:1,un:"un"},
+      {nome:"Xarope de açúcar",qtd:20,un:"ml"}
+    ],
+    modo:[
+      "Macere o limão picado com o xarope no copo.",
+      "Encha de gelo.",
+      "Complete com o saquê e misture."
+    ],
+    dica:"Fica linda com limão-taiti, mas qualquer limão verde funciona."
+  },
+  {
+    nome:"Margarita", base:"tequila", baseLabel:"Tequila", metodo:"Coqueteleira",
+    forca:3, cor:"#D9E68C", copo:"taca", perfil:"Cítrico & potente",
+    desc:"Tequila, triple sec e limão na medida certa. O equilíbrio perfeito entre forte e refrescante.",
+    ing:[
+      {nome:"Tequila",qtd:50,un:"ml"},
+      {nome:"Triple sec",qtd:25,un:"ml"},
+      {nome:"Limão (suco)",qtd:25,un:"ml"}
+    ],
+    modo:[
+      "Se quiser borda de sal, passe limão na boca da taça e mergulhe no sal.",
+      "Bata tudo na coqueteleira com bastante gelo.",
+      "Coe na taça e sirva."
+    ],
+    dica:"Sem sal? Sem problema. Ela é ótima pura também."
+  },
+  {
+    nome:"Daiquiri", base:"rum", baseLabel:"Rum branco", metodo:"Coqueteleira",
+    forca:2, cor:"#EFEAD2", perfil:"Equilibrado & cítrico", copo:"taca",
+    desc:"Três ingredientes, zero firula. Rum, limão e açúcar batidos até gelar. Um clássico discreto e impecável.",
+    ing:[
+      {nome:"Rum branco",qtd:60,un:"ml"},
+      {nome:"Limão (suco)",qtd:25,un:"ml"},
+      {nome:"Xarope de açúcar",qtd:15,un:"ml"}
+    ],
+    modo:[
+      "Junte tudo na coqueteleira com bastante gelo.",
+      "Bata bem por 15 segundos.",
+      "Coe numa taça gelada."
+    ],
+    dica:"O segredo é gelar muito: bata até a coqueteleira ficar suando."
+  },
+  {
+    nome:"Margarita de Maracujá", base:"tequila", baseLabel:"Tequila", metodo:"Coqueteleira",
+    forca:2, cor:"#F2B705", copo:"taca", perfil:"Tropical & ácido",
+    desc:"A margarita que foi pro trópico. O maracujá entra com doçura e acidez e transforma tudo.",
+    ing:[
+      {nome:"Tequila",qtd:45,un:"ml"},
+      {nome:"Triple sec",qtd:20,un:"ml"},
+      {nome:"Xarope de maracujá",qtd:20,un:"ml"},
+      {nome:"Limão (suco)",qtd:20,un:"ml"}
+    ],
+    modo:[
+      "Bata todos os ingredientes com gelo na coqueteleira.",
+      "Coe numa taça (com ou sem borda de sal).",
+      "Sirva bem gelada."
+    ],
+    dica:"Uma pitada de sal na borda contrasta lindamente com o maracujá."
+  },
+  {
+    nome:"Batida de Maracujá", base:"cachaca", baseLabel:"Cachaça", metodo:"Coqueteleira",
+    forca:2, cor:"#F6A623", copo:"copo", perfil:"Doce & tropical",
+    desc:"Cremosa só no nome — aqui é cachaça, maracujá e um fio de limão. Doce, tropical e sempre o hit da mesa.",
+    ing:[
+      {nome:"Cachaça",qtd:60,un:"ml"},
+      {nome:"Xarope de maracujá",qtd:40,un:"ml"},
+      {nome:"Limão (suco)",qtd:15,un:"ml"}
+    ],
+    modo:[
+      "Bata tudo com bastante gelo até ficar bem gelado.",
+      "Sirva no copo (pode coar ou ir com o gelo).",
+      "Ajuste o limão a gosto pra cortar o doce."
+    ],
+    dica:"Trocar a cachaça por vodka deixa a batida mais neutra e o maracujá ainda mais em evidência."
+  },
+  {
+    nome:"Mula do Gengibre", base:"vodka", baseLabel:"Vodka", metodo:"Coqueteleira",
+    forca:2, cor:"#E8C766", copo:"copo", perfil:"Picante & refrescante",
+    desc:"Inspirada no Moscow Mule: vodka, gengibre e limão. Tem aquele ardor gostoso que acorda o paladar.",
+    ing:[
+      {nome:"Vodka",qtd:50,un:"ml"},
+      {nome:"Xarope de gengibre",qtd:20,un:"ml"},
+      {nome:"Limão (suco)",qtd:20,un:"ml"}
+    ],
+    modo:[
+      "Bata vodka, gengibre e limão com gelo.",
+      "Sirva no copo com gelo novo.",
+      "Se tiver, complete com água com gás por cima."
+    ],
+    dica:"Com água com gás vira o Mule de verdade. Sem ela, capriche no gelo e sirva bem gelada."
+  },
+  {
+    nome:"Saquê Tropical", base:"saque", baseLabel:"Saquê", metodo:"Coqueteleira",
+    forca:1, cor:"#F2C84B", copo:"taca", perfil:"Suave & frutado",
+    desc:"Saquê com maracujá e limão. Leve, aromático e diferente — pra quem quer fugir do óbvio sem complicar.",
+    ing:[
+      {nome:"Saquê",qtd:60,un:"ml"},
+      {nome:"Xarope de maracujá",qtd:30,un:"ml"},
+      {nome:"Limão (suco)",qtd:20,un:"ml"}
+    ],
+    modo:[
+      "Bata tudo na coqueteleira com gelo.",
+      "Coe numa taça ou sirva no copo com gelo.",
+      "Sirva imediatamente, bem gelado."
+    ],
+    dica:"Um toque de gengibre (5 ml) no lugar de parte do maracujá dá uma versão mais picante."
+  },
+  {
+    nome:"Caipiroska de Cranberry", base:"vodka", baseLabel:"Vodka", metodo:"Macerado",
+    forca:2, cor:"#C73E5A", copo:"copo", perfil:"Frutado & cítrico",
+    desc:"Caipiroska com um splash de cranberry. Cor linda, acidez na medida e cara de drink de festa.",
+    ing:[
+      {nome:"Vodka",qtd:50,un:"ml"},
+      {nome:"Limão",qtd:0.5,un:"un"},
+      {nome:"Xarope de açúcar",qtd:15,un:"ml"},
+      {nome:"Suco de cranberry",qtd:30,un:"ml"}
+    ],
+    modo:[
+      "Macere o meio limão com o xarope no copo.",
+      "Encha de gelo e adicione a vodka.",
+      "Complete com o cranberry e mexa de leve."
+    ],
+    dica:"Despeje o cranberry por último e sem mexer muito pra fazer aquele degradê bonito."
+  },
+  {
+    nome:"Macunaíma", base:"cachaca", baseLabel:"Cachaça", metodo:"Coqueteleira",
+    forca:3, cor:"#D29A4B", copo:"copo", perfil:"Herbal & cítrico",
+    desc:"O clássico paulista de 2014: uma caipirinha batida com um toque de fernet. Cítrico, complexo e com um fundo amargo-herbal. Vai sem gelo, num copo pequeno.",
+    ing:[
+      {nome:"Cachaça",qtd:50,un:"ml"},
+      {nome:"Limão (suco)",qtd:20,un:"ml"},
+      {nome:"Xarope de açúcar",qtd:20,un:"ml"},
+      {nome:"Fernet",qtd:7,un:"ml"}
+    ],
+    modo:[
+      "Junte tudo na coqueteleira com bastante gelo.",
+      "Bata firme por uns 15 segundos pra encorpar e gelar.",
+      "Coe (de preferência duas vezes) num copo pequeno SEM gelo e sirva na hora."
+    ],
+    dica:"O fernet entra só como um sussurro — esses 7 ml dão a complexidade sem amargar tudo. É assim que sai no original do Boca de Ouro."
+  },
+  {
+    nome:"Fernet Sour", base:"fernet", baseLabel:"Fernet", metodo:"Coqueteleira",
+    forca:3, cor:"#6B3A2A", copo:"taca", perfil:"Amargo & herbal",
+    desc:"Pros corajosos: fernet batido com limão e açúcar. Intenso, herbal e amargo — um digestivo de respeito.",
+    ing:[
+      {nome:"Fernet",qtd:40,un:"ml"},
+      {nome:"Limão (suco)",qtd:25,un:"ml"},
+      {nome:"Xarope de açúcar",qtd:20,un:"ml"}
+    ],
+    modo:[
+      "Bata o fernet com o limão e o xarope, com bastante gelo.",
+      "Coe numa taça pequena.",
+      "Beba devagar — é pra fechar a noite."
+    ],
+    dica:"Muito intenso? Reduza o fernet pra 30 ml e suba o xarope. Ele brilha como digestivo depois de comer."
+  }
+];
+
+/* ---------- ESTADO ---------- */
+let multiplier = 1;
+let filtro = "todos";
+
+/* ---------- HELPERS ---------- */
+function round5(v){ return Math.round(v/5)*5; }
+function fmtHalf(v){
+  const whole = Math.floor(v + 1e-9);
+  const half = (v - whole) >= 0.5 - 1e-9;
+  if(whole === 0) return "½";
+  return half ? whole + "½" : String(whole);
+}
+function fmtAmount(ing){
+  const v = ing.qtd * multiplier;
+  if(ing.un === "ml") return Math.round(v) + " ml";
+  // unidade (limão)
+  return fmtHalf(v) + " un";
+}
+function strengthLabel(f){ return f===1?"Leve":f===2?"Médio":"Forte"; }
+
+/* SVG do copo/taça, líquido tingido com a cor do drink */
+function glassSVG(tipo, cor){
+  const stroke = "rgba(243,236,221,0.55)";
+  if(tipo === "taca"){
+    return `<svg class="glass" viewBox="0 0 64 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M17 19 L47 19 L32 41 Z" fill="${cor}" fill-opacity="0.9"/>
+      <path d="M11 15 L53 15 L32 44 Z" stroke="${stroke}" stroke-width="2" stroke-linejoin="round"/>
+      <line x1="32" y1="44" x2="32" y2="66" stroke="${stroke}" stroke-width="2"/>
+      <line x1="20" y1="68" x2="44" y2="68" stroke="${stroke}" stroke-width="2" stroke-linecap="round"/>
+    </svg>`;
+  }
+  // copo (tumbler)
+  return `<svg class="glass" viewBox="0 0 64 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M19 38 L45 38 L43 66 L21 66 Z" fill="${cor}" fill-opacity="0.9"/>
+    <path d="M16 14 L48 14 L43 67 L21 67 Z" stroke="${stroke}" stroke-width="2" stroke-linejoin="round"/>
+    <rect x="25" y="24" width="9" height="9" rx="2" fill="rgba(243,236,221,0.18)" transform="rotate(8 29 28)"/>
+  </svg>`;
+}
+
+/* ---------- RENDER ---------- */
+const grid = document.getElementById("grid");
+
+function ingredientsHTML(d){
+  return d.ing.map(i =>
+    `<div class="ing-row">
+       <span class="ing-name">${i.nome}</span>
+       <span class="ing-rule"></span>
+       <span class="ing-qty" data-qtd="${i.qtd}" data-un="${i.un}">${fmtAmount(i)}</span>
+     </div>`).join("");
+}
+
+function cardHTML(d, idx){
+  const dots = [1,2,3].map(n =>
+    `<span class="dot ${n<=d.forca?'on':''}"></span>`).join("");
+  return `
+  <article class="card" data-base="${d.base}" data-idx="${idx}" tabindex="0"
+           role="button" aria-expanded="false" aria-label="${d.nome}, ver receita">
+    <div class="card__top">
+      ${glassSVG(d.copo, d.cor)}
+      <div class="card__head">
+        <h2 class="card__name">${d.nome}</h2>
+        <div class="tags">
+          <span class="tag base">${d.baseLabel}</span>
+          <span class="tag">${d.metodo}</span>
+          <span class="tag">${d.perfil}</span>
+        </div>
+      </div>
+    </div>
+    <p class="card__desc">${d.desc}</p>
+    <div class="card__meta">
+      <div class="strength">
+        <span class="lbl">Teor</span>
+        <span class="dots">${dots}</span>
+        <span class="lbl">${strengthLabel(d.forca)}</span>
+      </div>
+      <span class="expand-hint">receita <span class="arw">▾</span></span>
+    </div>
+    <div class="details">
+      <div class="details-inner">
+        <div class="details-pad">
+          <p class="sub">Ingredientes</p>
+          ${ingredientsHTML(d)}
+          <p class="sub">Modo de preparo</p>
+          <ol class="steps">${d.modo.map(s=>`<li>${s}</li>`).join("")}</ol>
+          ${d.dica?`<div class="tip"><b>Dica · </b>${d.dica}</div>`:""}
+        </div>
+      </div>
+    </div>
+  </article>`;
+}
+
+function render(){
+  const visiveis = DRINKS
+    .map((d,i)=>({d,i}))
+    .filter(o => filtro==="todos" || o.d.base===filtro);
+
+  grid.innerHTML = visiveis.length
+    ? visiveis.map(o => cardHTML(o.d,o.i)).join("")
+    : `<p class="empty">Nada com esse destilado ainda.<br>Tente outro filtro ✦</p>`;
+
+  document.getElementById("count").textContent = visiveis.length;
+  bindCards();
+}
+
+function bindCards(){
+  document.querySelectorAll(".card").forEach(card=>{
+    const toggle = ()=>{
+      const open = card.getAttribute("aria-expanded")==="true";
+      card.setAttribute("aria-expanded", String(!open));
+    };
+    card.addEventListener("click", toggle);
+    card.addEventListener("keydown", e=>{
+      if(e.key==="Enter" || e.key===" "){ e.preventDefault(); toggle(); }
+    });
+  });
+}
+
+/* atualiza só os números quando muda a quantidade de porções */
+function updateAmounts(){
+  document.querySelectorAll(".ing-qty").forEach(span=>{
+    const ing = {qtd:parseFloat(span.dataset.qtd), un:span.dataset.un};
+    span.textContent = fmtAmount(ing);
+  });
+}
+
+/* ---------- CONTROLES ---------- */
+document.getElementById("chips").addEventListener("click", e=>{
+  const btn = e.target.closest(".chip");
+  if(!btn) return;
+  document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed","false"));
+  btn.setAttribute("aria-pressed","true");
+  filtro = btn.dataset.filter;
+  render();
+});
+
+const qtyEl = document.getElementById("qty");
+document.getElementById("plus").addEventListener("click", ()=>{
+  if(multiplier<20){ multiplier++; qtyEl.textContent=multiplier; updateAmounts(); }
+});
+document.getElementById("minus").addEventListener("click", ()=>{
+  if(multiplier>1){ multiplier--; qtyEl.textContent=multiplier; updateAmounts(); }
+});
+
+document.getElementById("random").addEventListener("click", ()=>{
+  const cards = [...document.querySelectorAll(".card")];
+  if(!cards.length) return;
+  cards.forEach(c=>c.setAttribute("aria-expanded","false"));
+  const pick = cards[Math.floor(Math.random()*cards.length)];
+  pick.setAttribute("aria-expanded","true");
+  pick.classList.remove("flash"); void pick.offsetWidth; pick.classList.add("flash");
+  pick.scrollIntoView({behavior:"smooth", block:"center"});
+});
+
+render();
+</script>
+</body>
+</html>
