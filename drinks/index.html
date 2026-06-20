@@ -264,7 +264,7 @@
 
   <header>
     <h1>Noite de<br><em>Drinks</em></h1>
-    <p class="lede">Doze coquetéis montados só com o que você tem em casa. Filtre pelo destilado, escolha quantas porções vai preparar e toque em qualquer drink pra ver a receita completa.</p>
+    <p class="lede">Dezoito coquetéis montados só com o que você tem em casa. Filtre pelo destilado, escolha quantas porções vai preparar e toque em qualquer drink pra ver a receita completa.</p>
 
     <div class="controls">
       <div class="control-block">
@@ -295,7 +295,7 @@
       </div>
     </div>
 
-    <p class="count-line"><span id="count">12</span> coquetéis no cardápio</p>
+    <p class="count-line"><span id="count">18</span> coquetéis no cardápio</p>
   </header>
 
   <main class="grid" id="grid"></main>
@@ -479,6 +479,109 @@ const DRINKS = [
     dica:"Despeje o cranberry por último e sem mexer muito pra fazer aquele degradê bonito."
   },
   {
+    nome:"Mojito", base:"rum", baseLabel:"Rum branco", metodo:"Macerado",
+    forca:2, cor:"#B9DDB0", copo:"copo", perfil:"Refrescante & cítrico",
+    desc:"O rei da hortelã: rum, limão e menta com muito gelo. Leve, refrescante e o drink que todo mundo pede de novo.",
+    ing:[
+      {nome:"Rum branco",qtd:50,un:"ml"},
+      {nome:"Hortelã",qtd:8,un:"folha"},
+      {nome:"Limão (suco)",qtd:25,un:"ml"},
+      {nome:"Xarope de açúcar",qtd:20,un:"ml"}
+    ],
+    modo:[
+      "Macere a hortelã de leve com o xarope no copo, só pra soltar o aroma.",
+      "Adicione o limão e o rum, e encha o copo de gelo.",
+      "Mexa bem. Se tiver, complete com água com gás por cima."
+    ],
+    dica:"Nunca soque a hortelã com força — folha rasgada demais amarga o drink. Aperte de leve e pronto."
+  },
+  {
+    nome:"Daiquiri de Morango", base:"rum", baseLabel:"Rum branco", metodo:"Coqueteleira",
+    forca:2, cor:"#E2557B", copo:"taca", perfil:"Frutado & cítrico",
+    desc:"O daiquiri clássico ganha uma colher de geleia de morango: cor linda, doçura natural e aquele equilíbrio cítrico de sempre.",
+    ing:[
+      {nome:"Rum branco",qtd:60,un:"ml"},
+      {nome:"Limão (suco)",qtd:25,un:"ml"},
+      {nome:"Geleia de morango",qtd:1,un:"col"},
+      {nome:"Xarope de açúcar",qtd:10,un:"ml"}
+    ],
+    modo:[
+      "Junte tudo na coqueteleira com bastante gelo.",
+      "Bata firme até a geleia dissolver por completo.",
+      "Coe numa taça gelada pra segurar as sementes."
+    ],
+    dica:"Prove antes de servir: se a geleia for bem doce, dispense o xarope."
+  },
+  {
+    nome:"Caipirinha de Morango com Hortelã", base:"cachaca", baseLabel:"Cachaça", metodo:"Macerado",
+    forca:3, cor:"#D24A63", copo:"copo", perfil:"Frutado & fresco",
+    desc:"A caipirinha de verão: limão, geleia de morango e hortelã macerados com cachaça. Frutada, fresca e cheia de cor.",
+    ing:[
+      {nome:"Cachaça",qtd:60,un:"ml"},
+      {nome:"Limão",qtd:1,un:"un"},
+      {nome:"Geleia de morango",qtd:1,un:"col"},
+      {nome:"Hortelã",qtd:6,un:"folha"},
+      {nome:"Xarope de açúcar",qtd:10,un:"ml"}
+    ],
+    modo:[
+      "Macere o limão picado com a geleia, a hortelã (de leve) e o xarope.",
+      "Encha o copo de gelo.",
+      "Complete com a cachaça e mexa bem."
+    ],
+    dica:"A geleia já adoça bastante — comece com pouco xarope e ajuste no fim."
+  },
+  {
+    nome:"Margarita Picante", base:"tequila", baseLabel:"Tequila", metodo:"Coqueteleira",
+    forca:3, cor:"#E0A24E", copo:"taca", perfil:"Doce & picante",
+    desc:"A margarita com uma colher de geleia de pimenta: doce, ácida e com aquele ardor gostoso no final. A queridinha das novidades.",
+    ing:[
+      {nome:"Tequila",qtd:50,un:"ml"},
+      {nome:"Triple sec",qtd:20,un:"ml"},
+      {nome:"Limão (suco)",qtd:25,un:"ml"},
+      {nome:"Geleia de pimenta",qtd:1,un:"col"}
+    ],
+    modo:[
+      "Bata tudo na coqueteleira com gelo até a geleia dissolver.",
+      "Coe numa taça (com borda de sal, se quiser).",
+      "Sirva bem gelada."
+    ],
+    dica:"Comece com pouca geleia e suba o ardor a gosto. Borda de sal com pimenta combina demais."
+  },
+  {
+    nome:"Smash de Morango", base:"vodka", baseLabel:"Vodka", metodo:"Coqueteleira",
+    forca:2, cor:"#E85C86", copo:"copo", perfil:"Frutado & fresco",
+    desc:"Vodka batida com geleia de morango, hortelã e limão. Frutado, fresquíssimo e fácil de gostar — agrada a mesa inteira.",
+    ing:[
+      {nome:"Vodka",qtd:50,un:"ml"},
+      {nome:"Geleia de morango",qtd:1,un:"col"},
+      {nome:"Hortelã",qtd:6,un:"folha"},
+      {nome:"Limão (suco)",qtd:20,un:"ml"}
+    ],
+    modo:[
+      "Bata a vodka, a geleia, a hortelã e o limão com bastante gelo.",
+      "Bata firme pra integrar tudo.",
+      "Coe pra um copo com gelo novo, de preferência picado."
+    ],
+    dica:"Coar deixa o smash sedoso e segura as folhas e as sementes."
+  },
+  {
+    nome:"Margarita de Morango", base:"tequila", baseLabel:"Tequila", metodo:"Coqueteleira",
+    forca:3, cor:"#DC4A66", copo:"taca", perfil:"Frutado & cítrico",
+    desc:"Tequila, triple sec e limão com geleia de morango. A margarita mais frutada e festeira do cardápio.",
+    ing:[
+      {nome:"Tequila",qtd:50,un:"ml"},
+      {nome:"Triple sec",qtd:20,un:"ml"},
+      {nome:"Limão (suco)",qtd:25,un:"ml"},
+      {nome:"Geleia de morango",qtd:1,un:"col"}
+    ],
+    modo:[
+      "Bata tudo com gelo até a geleia dissolver.",
+      "Coe numa taça gelada.",
+      "Borda de sal opcional, mas combina."
+    ],
+    dica:"Morango com sal na borda é uma dupla clássica — vale o teste."
+  },
+  {
     nome:"Macunaíma", base:"cachaca", baseLabel:"Cachaça", metodo:"Coqueteleira",
     forca:3, cor:"#D29A4B", copo:"copo", perfil:"Herbal & cítrico",
     desc:"O clássico paulista de 2014: uma caipirinha batida com um toque de fernet. Cítrico, complexo e com um fundo amargo-herbal. Vai sem gelo, num copo pequeno.",
@@ -527,9 +630,13 @@ function fmtHalf(v){
 }
 function fmtAmount(ing){
   const v = ing.qtd * multiplier;
-  if(ing.un === "ml") return Math.round(v) + " ml";
-  // unidade (limão)
-  return fmtHalf(v) + " un";
+  switch(ing.un){
+    case "ml":    return Math.round(v) + " ml";
+    case "un":    return fmtHalf(v) + " un";
+    case "folha": return v === 1 ? "1 folha" : fmtHalf(v) + " folhas";
+    case "col":   return fmtHalf(v) + " col. (chá)";
+    default:      return fmtHalf(v) + " " + ing.un;
+  }
 }
 function strengthLabel(f){ return f===1?"Leve":f===2?"Médio":"Forte"; }
 
