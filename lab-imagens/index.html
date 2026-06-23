@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Lab de Imagens · Selvia</title>
+  <link rel="icon" href="../favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://accounts.google.com/gsi/client" async></script>
+</head>
+<body>
+  <div class="page">
+    <main class="card">
+      <header class="head">
+        <div>
+          <h1>Lab de Imagens</h1>
+          <p class="sub">Geração e refino de imagem com IA · uso interno</p>
+        </div>
+      </header>
+
+      <!-- Login -->
+      <section id="view-login" class="login">
+        <p class="login-msg">Entre com sua conta <strong>@selvia.com.br</strong> para começar.</p>
+        <div id="gbtn"></div>
+      </section>
+
+      <!-- Ferramenta -->
+      <section id="view-app" hidden>
+        <div class="userbar">
+          <span class="who"><span class="dot"></span><span id="user-email"></span></span>
+          <button id="logout" class="link">sair</button>
+        </div>
+
+        <div class="tabs" role="tablist">
+          <button class="tab is-active" data-mode="prompt" type="button">✨ Do zero</button>
+          <button class="tab" data-mode="refino" type="button">🖼️ Refinar imagem</button>
+        </div>
+
+        <div id="uploadBlock" class="field" hidden>
+          <label class="drop" id="drop">
+            <input type="file" id="file" accept="image/*" hidden />
+            <div id="dropEmpty" class="drop-empty">
+              <span class="drop-icon">⬆️</span>
+              <span>Clique para escolher uma imagem<br /><small>PNG ou JPG · até 20&nbsp;MB</small></span>
+            </div>
+            <img id="thumb" class="thumb" hidden alt="prévia do upload" />
+          </label>
+        </div>
+
+        <div class="field">
+          <label for="prompt" id="promptLabel">Descreva a imagem que você quer gerar</label>
+          <textarea id="prompt" rows="3" placeholder="Ex.: banner clean para médicos, tons de verde, com um celular mostrando o WhatsApp da Selvia"></textarea>
+          <p id="refinoHint" class="hint" hidden>💡 Seja específico no que mudar — a ferramenta refina e preserva o resto. Para textos/CTAs novos, prefira ajustar depois no Canva (a IA ainda erra letras).</p>
+        </div>
+
+        <button id="gerar" class="cta" type="button">Gerar imagem</button>
+
+        <div id="status" class="status" hidden></div>
+
+        <div id="result" class="result" hidden>
+          <img id="preview" alt="imagem gerada" />
+          <div class="actions">
+            <a id="download" class="cta sm" download="selvia-lab.png">⬇ Baixar</a>
+            <a id="drive" class="link" target="_blank" rel="noopener">Abrir no Drive</a>
+          </div>
+        </div>
+      </section>
+
+      <footer class="foot">Imagens geradas carregam marca d'água <strong>SynthID</strong> (Google).</footer>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
