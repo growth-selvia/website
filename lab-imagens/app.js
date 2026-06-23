@@ -109,7 +109,8 @@ async function gerar() {
   setStatus(mode === "refino" ? "Refinando sua imagem…" : "Gerando… (alguns segundos)", "loading");
 
   try {
-    const payload = { mode, prompt, useBrandKit: $("brandkit").checked };
+    const transparent = $("transparent").checked;
+    const payload = { mode, prompt, useBrandKit: $("brandkit").checked, transparent };
     if (mode === "refino") {
       const { base64, mime } = await resizeToBase64(selectedFile);
       payload.imageBase64 = base64;
@@ -132,6 +133,7 @@ async function gerar() {
     $("preview").src = src;
     $("download").href = src;
     if (data.driveLink) $("drive").href = data.driveLink;
+    $("result").classList.toggle("checker", transparent);
     $("result").hidden = false;
     setStatus("");
   } catch (e) {
@@ -146,5 +148,51 @@ document.addEventListener("click", (e) => {
   if (e.target.classList?.contains("tab")) setMode(e.target.dataset.mode);
   if (e.target.id === "gerar") gerar();
   if (e.target.id === "logout") relogin();
+  if (e.target.id === "histBtn") toggleHistory();
+  if (e.target.dataset.histIdx !== undefined) {
+    const it = historyItems[+e.target.dataset.histIdx];
+    if (it) { $("prompt").value = it.prompt; $("histPanel").hidden = true; }
+  }
 });
 $("file").addEventListener("change", (e) => onFile(e.target.files[0]));
+
+// ── Histórico (Fase 5b) ───────────────────────────────────────────
+let historyItems = [];
+
+function escapeHtml(s) {
+  return (s || "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+}
+
+async function toggleHistory() {
+  const panel = $("histPanel");
+  if (!panel.hidden) { panel.hidden = true; return; }
+  panel.hidden = false;
+  panel.innerHTML = '<p class="hist-empty">Carregando…</p>';
+  try {
+    const r = await fetch(FUNCTION_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: "Bearer " + idToken },
+      body: JSON.stringify({ action: "historico" }),
+    });
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(data.error || ("erro " + r.status));
+    renderHistory(data.items || []);
+  } catch (e) {
+    panel.innerHTML = `<p class="hist-empty">Não deu pra carregar (${escapeHtml(e.message)}).</p>`;
+  }
+}
+
+function renderHistory(items) {
+  historyItems = items;
+  const panel = $("histPanel");
+  if (!items.length) { panel.innerHTML = '<p class="hist-empty">Nada gerado ainda.</p>'; return; }
+  panel.innerHTML = items.map((it, i) => {
+    const d = (it.data || "").slice(0, 10);
+    const link = it.resultadoLink ? `<a href="${escapeHtml(it.resultadoLink)}" target="_blank" rel="noopener" class="link">abrir</a> · ` : "";
+    return `<div class="hist-item">
+      <div class="hist-meta">${d} · ${escapeHtml(it.modo)}</div>
+      <div class="hist-prompt">${escapeHtml(it.prompt)}</div>
+      <div class="hist-actions">${link}<button class="link" type="button" data-hist-idx="${i}">usar prompt</button></div>
+    </div>`;
+  }).join("");
+}

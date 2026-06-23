@@ -32,8 +32,9 @@
       <section id="view-app" hidden>
         <div class="userbar">
           <span class="who"><span class="dot"></span><span id="user-email"></span></span>
-          <button id="logout" class="link">sair</button>
+          <span class="userbar-actions"><button id="histBtn" class="link" type="button">histórico</button> · <button id="logout" class="link" type="button">sair</button></span>
         </div>
+        <div id="histPanel" class="hist" hidden></div>
 
         <div class="tabs" role="tablist">
           <button class="tab is-active" data-mode="prompt" type="button">✨ Do zero</button>
@@ -60,6 +61,10 @@
         <label class="switch">
           <input type="checkbox" id="brandkit" checked />
           <span>Manter identidade Selvia</span>
+        </label>
+        <label class="switch">
+          <input type="checkbox" id="transparent" />
+          <span>Sem fundo (PNG transparente)</span>
         </label>
 
         <button id="gerar" class="cta" type="button">Gerar imagem</button>
