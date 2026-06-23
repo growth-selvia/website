@@ -109,7 +109,7 @@ async function gerar() {
   setStatus(mode === "refino" ? "Refinando sua imagem…" : "Gerando… (alguns segundos)", "loading");
 
   try {
-    const payload = { mode, prompt };
+    const payload = { mode, prompt, useBrandKit: $("brandkit").checked };
     if (mode === "refino") {
       const { base64, mime } = await resizeToBase64(selectedFile);
       payload.imageBase64 = base64;
